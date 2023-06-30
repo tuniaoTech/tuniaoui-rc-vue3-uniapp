@@ -16,16 +16,13 @@
     <img src="https://img.shields.io/github/stars/tuniaoTech/tuniaoui-rc-vue3-uniapp.svg" alt="GitHub Star" />
   </a>
   <a href="https://github.com/tuniaoTech/tuniaoui-rc-vue3-uniapp">
-    <img src="https://img.shields.io/badge/Platform-uniapp-%2301beff
-.svg" alt="Platform" />
+    <img src="https://img.shields.io/badge/Platform-uniapp-%2301beff.svg" alt="Platform" />
   </a>
   <a href="https://github.com/tuniaoTech/tuniaoui-rc-vue3-uniapp">
-    <img src="https://img.shields.io/badge/Language-vue3-%2301beff
-.svg" alt="Language" />
+    <img src="https://img.shields.io/badge/Language-vue3-%2301beff.svg" alt="Language" />
   </a>
   <a href="https://github.com/tuniaoTech/tuniaoui-rc-vue3-uniapp">
-    <img src="https://img.shields.io/badge/Language-Typescript-%2301beff
-.svg" alt="Language" />
+    <img src="https://img.shields.io/badge/Language-Typescript-%2301beff.svg" alt="Language" />
   </a>
 </p>
 
