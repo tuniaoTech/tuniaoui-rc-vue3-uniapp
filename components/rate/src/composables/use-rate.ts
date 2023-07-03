@@ -19,7 +19,6 @@ export const useRate = (
 
   // 生成唯一id
   const componentId = `tr-${generateId()}`
-  const itemComponentId = `${componentId}-item`
   const { getSelectorNodeInfo } = useSelectorQuery(instance)
 
   const { formItem } = useFormItem()
@@ -58,9 +57,6 @@ export const useRate = (
         val = Math.ceil(val)
       }
       activeItemWidth.value = val * componentItemWidth
-    },
-    {
-      immediate: true,
     }
   )
 
@@ -68,9 +64,10 @@ export const useRate = (
   // 获取组件和item的宽度信息
   const getComponentRectInfo = async () => {
     try {
-      const componentRectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      const itemRectInfo = await getSelectorNodeInfo(`#${itemComponentId}-0`)
-      if (!componentRectInfo || !itemRectInfo) {
+      const itemRectInfo = await getSelectorNodeInfo(
+        `#${componentId} .tn-rate__item`
+      )
+      if (!itemRectInfo) {
         if (initCount > 10) {
           initCount = 0
           throw new Error('获取组件容器信息失败')
@@ -85,10 +82,10 @@ export const useRate = (
       componentItemWidth = itemRectInfo.width || 0
 
       updateRateTouchOptions({
-        left: componentRectInfo.left,
-        right: componentRectInfo.right,
-        top: componentRectInfo.top,
-        bottom: componentRectInfo.bottom,
+        left: itemRectInfo.left,
+        right: componentItemWidth * props.max,
+        top: itemRectInfo.top,
+        bottom: itemRectInfo.bottom,
       })
       let initValue = props.modelValue || 0
       // 初始化完成后，选中值为min
@@ -108,6 +105,9 @@ export const useRate = (
   }
   const onTouchMove = (event: TouchEvent) => {
     rateTouchMoveHandler(event)
+    // #ifdef APP-PLUS
+    return
+    // #endif
     if (props.readonly) return
     activeItemWidth.value = rateCurrentX.value
   }
@@ -165,14 +165,20 @@ export const useRate = (
   }
 
   onMounted(() => {
+    // #ifndef APP-PLUS
     nextTick(() => {
       getComponentRectInfo()
     })
+    // #endif
+    // #ifdef APP-PLUS
+    setTimeout(() => {
+      getComponentRectInfo()
+    }, 500)
+    // #endif
   })
 
   return {
     componentId,
-    itemComponentId,
     rateItemData,
     activeItemWidth,
     onTouchStart,

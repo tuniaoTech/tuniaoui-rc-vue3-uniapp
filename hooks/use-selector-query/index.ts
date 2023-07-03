@@ -15,8 +15,11 @@ export const useSelectorQuery = (
     debugWarn('useSelectorQuery', 'useSelectorQuery必须在setup函数中使用')
   }
 
-  // #ifndef MP-ALIPAY
+  // #ifndef MP-ALIPAY || APP-PLUS
   query = uni.createSelectorQuery().in(instance)
+  // #endif
+  // #ifdef APP-PLUS
+  query = uni.createSelectorQuery().in((instance as any).ctx.$scope)
   // #endif
   // #ifdef MP-ALIPAY
   query = uni.createSelectorQuery().in(null)

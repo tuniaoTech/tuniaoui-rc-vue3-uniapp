@@ -80,9 +80,9 @@ export const rateProps = buildProps({
    */
   activeColor: String,
   /**
-   * @description 每个图标的间距，单位 `rpx`
+   * @description 每个图标的间距，默认单位 `rpx`
    */
-  gutter: Number,
+  gutter: String,
   /**
    * @description 自定义图标信息
    */

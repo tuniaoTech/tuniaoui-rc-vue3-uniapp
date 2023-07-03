@@ -8,7 +8,6 @@ const emits = defineEmits(rateEmits)
 
 const {
   componentId,
-  itemComponentId,
   rateItemData,
   activeItemWidth,
   onTouchStart,
@@ -22,15 +21,14 @@ const { ns, rateClass, itemClass, itemStyle } = useRateCustomStyle(props)
   <view
     :id="componentId"
     :class="[rateClass]"
-    @touchstart.prevent="onTouchStart"
-    @touchmove.prevent="onTouchMove"
-    @touchend.prevent="onTouchEnd"
+    @touchstart.stop.prevent="onTouchStart"
+    @touchmove.stop.prevent="onTouchMove"
+    @touchend.stop.prevent="onTouchEnd"
   >
     <!-- 默认显示的图标 -->
     <view :class="[ns.e('container'), ns.e('inactive-container')]">
       <view
         v-for="(item, index) in rateItemData"
-        :id="`${itemComponentId}-${index}`"
         :key="index"
         :class="[itemClass('inactive', item.inactive)]"
         :style="itemStyle('inactive', item.inactive)"

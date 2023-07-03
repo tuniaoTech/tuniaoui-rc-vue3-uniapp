@@ -8,19 +8,19 @@ $rate-sizes: map-merge(
   (
     'sm': (
       'font-size': 32rpx,
-      'gutter': 4rpx,
+      'gutter': 8rpx,
     ),
     '': (
       'font-size': 38rpx,
-      'gutter': 4rpx,
+      'gutter': 8rpx,
     ),
     'lg': (
       'font-size': 46rpx,
-      'gutter': 4rpx,
+      'gutter': 8rpx,
     ),
     'xl': (
       'font-size': 52rpx,
-      'gutter': 4rpx,
+      'gutter': 8rpx,
     ),
   ),
   $rate-sizes
@@ -50,7 +50,7 @@ $rate-sizes: map-merge(
 
   /* item样式 start */
   @include e(item) {
-    padding: 0rpx map-get(map-get($rate-sizes, ''), 'gutter');
+    padding: 0rpx calc(map-get(map-get($rate-sizes, ''), 'gutter') / 2);
   }
   /* item样式 end */
 
@@ -61,7 +61,7 @@ $rate-sizes: map-merge(
         font-size: map-get(map-get($rate-sizes, $size), 'font-size');
       }
       @include e(item) {
-        padding: 0rpx map-get(map-get($rate-sizes, $size), 'gutter');
+        padding: 0rpx calc(map-get(map-get($rate-sizes, $size), 'gutter') / 2);
       }
     }
   }

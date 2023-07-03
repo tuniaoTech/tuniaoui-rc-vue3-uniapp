@@ -45,9 +45,16 @@ export const useTabs = (props: TabsProps) => {
   const addItem = (item: TabsItemContext) => {
     if (props.modelValue !== undefined && activeUid.value === -1) {
       if (props.modelValue === items.value.length) {
+        // #ifndef APP-PLUS
         nextTick(() => {
           updateActiveUid(item.uid)
         })
+        // #endif
+        // #ifdef APP-PLUS
+        setTimeout(() => {
+          updateActiveUid(item.uid)
+        }, 50)
+        // #endif
       }
     }
     addChild(item)

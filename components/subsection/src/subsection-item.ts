@@ -22,10 +22,7 @@ export const subsectionItemProps = buildProps({
   /**
    * @description 标题
    */
-  title: {
-    type: String,
-    required: true,
-  },
+  title: String,
 })
 
 export const subsectionItemEmits = {

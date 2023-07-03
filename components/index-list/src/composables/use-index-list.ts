@@ -172,9 +172,17 @@ export const useIndexList = (
   // 设置当前滑动、点击索引的值
   const updateKeyListIndexValue = () => {
     // 判断当前滑动位置在哪里
-    const index = keyListItemRectInfo.findLastIndex(
+    let index = -1
+    // #ifndef APP-PLUS
+    index = keyListItemRectInfo.findLastIndex(
       (item) => item.top < keyListTouchCurrentY.value
     )
+    // #endif
+    // #ifdef APP-PLUS
+    index = keyListItemRectInfo.findIndex(
+      (item) => item.top > keyListTouchCurrentY.value
+    )
+    // #endif
     if (index !== -1) {
       const keyListRectItem = keyListItemRectInfo[index]
       keyListTipsTopValue.value =
@@ -204,10 +212,18 @@ export const useIndexList = (
   }
 
   onMounted(() => {
+    // #ifndef APP-PLUS
     nextTick(() => {
       getContentItemNodeInfo()
       if (props.showKeysList) getKeyListNodeInfo()
     })
+    // #endif
+    // #ifdef APP-PLUS
+    setTimeout(() => {
+      getContentItemNodeInfo()
+      if (props.showKeysList) getKeyListNodeInfo()
+    }, 500)
+    // #endif
   })
 
   return {

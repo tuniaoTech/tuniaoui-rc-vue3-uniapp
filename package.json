@@ -1,6 +1,6 @@
 {
   "name": "@tuniao/tnui-vue3-uniapp",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.1",
   "description": "TuniaoUI for vue3 uniapp",
   "keywords": [
     "tn",
@@ -12,10 +12,17 @@
     "vue3 uniapp组件",
     "ui 框架"
   ],
-  "license": "ISC",
+  "license": "Apache 2.0",
   "author": "Tuniao Technology Co., Ltd.",
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuniaoTech/tuniaoui-rc-vue3-uniapp"
+  },
+  "bugs": {
+    "url": "https://github.com/tuniaoTech/tuniaoui-rc-vue3-uniapp/issues"
   },
   "peerDependencies": {
     "@tuniao/tn-icon": "^1.0.0",

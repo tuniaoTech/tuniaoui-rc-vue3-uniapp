@@ -19,7 +19,7 @@ export const useObserver = (instance?: ComponentInternalInstance | null) => {
     instance = getCurrentInstance()
   }
 
-  // #ifdef H5
+  // #ifdef H5 | APP-PLUS
   instance = instance?.proxy?.$parent as ComponentInternalInstance | null
   // #endif
 

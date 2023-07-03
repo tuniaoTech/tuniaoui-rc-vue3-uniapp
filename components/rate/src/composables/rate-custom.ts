@@ -44,6 +44,9 @@ export const useRateCustomStyle = (props: RateProps) => {
       if (props.size && sizeType.value === 'custom')
         style.fontSize = formatDomSizeValue(props.size)
 
+      if (props.gutter)
+        style.padding = `0rpx calc(${formatDomSizeValue(props.gutter)} / 2)`
+
       if (type === 'active') {
         if (!item.color.class)
           style.color = item.color.style || 'var(--tn-color-primary)'

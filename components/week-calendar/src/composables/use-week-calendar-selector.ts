@@ -41,9 +41,16 @@ export const useWeekCalendarSelector = () => {
   }
 
   onMounted(() => {
+    // #ifndef APP-PLUS || H5
     nextTick(() => {
       getDateItemNodeInfo()
     })
+    // #endif
+    // #ifdef APP-PLUS || H5
+    setTimeout(() => {
+      getDateItemNodeInfo()
+    }, 150)
+    // #endif
   })
 
   return {

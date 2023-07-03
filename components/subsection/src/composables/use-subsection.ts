@@ -46,7 +46,16 @@ export const useSubsection = (
       if (props.modelValue === items.value.length) {
         currentActiveIndex.value = props.modelValue
         activeUid.value = item.uid
-        updateSliderRectInfo(item)
+        // #ifndef APP-PLUS
+        nextTick(() => {
+          updateSliderRectInfo(item)
+        })
+        // #endif
+        // #ifdef APP-PLUS
+        setTimeout(() => {
+          updateSliderRectInfo(item)
+        }, 50)
+        // #endif
       }
     }
     addChild(item)

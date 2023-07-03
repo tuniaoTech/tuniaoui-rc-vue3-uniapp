@@ -93,19 +93,6 @@ const { ns, itemClass, itemStyle } = useWeekCalendarCustomStyle(props)
                   </view>
                 </view>
               </view>
-              <!-- <view
-                :id="`${componentDateItemId}-${index}-${dateIndex}`"
-                :class="[ns.e('data__date'), itemClass(dateItem.status)]"
-                :style="itemStyle(dateItem.status)"
-                @tap.stop="dateItemClick(dateItem)"
-              >
-                <view v-if="dateItem.date !== 0" class="content">
-                  <view class="date">{{ dateItem.date }}</view>
-                </view>
-              </view>
-              <view v-if="dateItem.desc" class="desc">
-                {{ dateItem.desc }}
-              </view> -->
             </template>
           </view>
         </swiper-item>
