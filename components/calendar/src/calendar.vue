@@ -7,7 +7,7 @@ const props = defineProps(calendarProps)
 const emit = defineEmits(calendarEmits)
 
 const {
-  singleDateItemComponentId,
+  calendarId,
   dateContainerHeight,
   calendarData,
   weekText,
@@ -25,7 +25,8 @@ const { ns, itemClass, itemStyle } = useCalendarCustomStyle(props)
 </script>
 
 <template>
-  <view :class="[ns.b(), ns.m(mode)]">
+  <view :id="calendarId" :class="[ns.b(), ns.m(mode)]">
+    {{ currentMonthIndex }}
     <!-- 操作区域 -->
     <view :class="[ns.e('operation')]">
       <!-- 年切换按钮 -->
@@ -120,7 +121,6 @@ const { ns, itemClass, itemStyle } = useCalendarCustomStyle(props)
           <view :class="[ns.e('data__dates')]">
             <view
               v-for="(dateItem, dateIndex) in item.data"
-              :id="`${singleDateItemComponentId}-${index}-${dateIndex}`"
               :key="dateIndex"
               :class="[ns.e('data__date'), itemClass(dateItem.status)]"
               :style="itemStyle(dateItem.status)"

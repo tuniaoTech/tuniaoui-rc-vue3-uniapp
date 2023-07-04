@@ -24,7 +24,7 @@ $title-sizes: map-merge(
 
 @include b(title) {
   position: relative;
-  width: 100%;
+  // width: 100%;
   height: fit-content;
 
   /* 标题内容 start */

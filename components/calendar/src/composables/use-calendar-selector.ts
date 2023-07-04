@@ -14,7 +14,7 @@ export const useCalendarSelector = (
     debugWarn('TnCalendar', '请在 setup 函数中使用 useCalendarSelector')
   }
 
-  const singleDateItemComponentId = `tcdi-${generateId()}`
+  const calendarId = `tc-${generateId()}`
 
   const { getSelectorNodeInfo } = useSelectorQuery(instance)
 
@@ -31,7 +31,7 @@ export const useCalendarSelector = (
   const getDateItemComponentRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(
-        `#${singleDateItemComponentId}-0-0`
+        `#${calendarId} .tn-calendar__data__date`
       )
       if (!rectInfo) {
         if (initCount > 10) {
@@ -57,12 +57,14 @@ export const useCalendarSelector = (
 
   onMounted(() => {
     nextTick(() => {
-      getDateItemComponentRectInfo()
+      setTimeout(() => {
+        getDateItemComponentRectInfo()
+      }, 50)
     })
   })
 
   return {
-    singleDateItemComponentId,
+    calendarId,
     dateContainerHeight,
   }
 }

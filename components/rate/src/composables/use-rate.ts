@@ -80,10 +80,11 @@ export const useRate = (
       }
 
       componentItemWidth = itemRectInfo.width || 0
+      const left = itemRectInfo.left || 0
 
       updateRateTouchOptions({
-        left: itemRectInfo.left,
-        right: componentItemWidth * props.max,
+        left,
+        right: componentItemWidth * props.max + left,
         top: itemRectInfo.top,
         bottom: itemRectInfo.bottom,
       })
@@ -105,9 +106,9 @@ export const useRate = (
   }
   const onTouchMove = (event: TouchEvent) => {
     rateTouchMoveHandler(event)
-    // #ifdef APP-PLUS
-    return
-    // #endif
+    // // #ifdef APP-PLUS
+    // return
+    // // #endif
     if (props.readonly) return
     activeItemWidth.value = rateCurrentX.value
   }

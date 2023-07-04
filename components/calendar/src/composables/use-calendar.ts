@@ -178,8 +178,10 @@ export const useCalendar = (
   })
 
   // 处理容器信息
-  const { singleDateItemComponentId, dateContainerHeight } =
-    useCalendarSelector(currentMonthDateLength, props.mode)
+  const { calendarId, dateContainerHeight } = useCalendarSelector(
+    currentMonthDateLength,
+    props.mode
+  )
 
   // 保存当前设置的日期信息
   const activeDateValueMap = new Map<number, CalendarSelectDataMap>()
@@ -350,7 +352,6 @@ export const useCalendar = (
             rangeDate.end = dayjs(modelValue[1], DEFAULT_DATE_FORMAT)
           }
         }
-        generateCalendarData()
       }
     },
     {
@@ -583,8 +584,6 @@ export const useCalendar = (
         return
       currentSelectedDate.month++
     }
-
-    // emits('change-month', currentSelectedDate.month)
   }
 
   // 切换年份
@@ -609,7 +608,7 @@ export const useCalendar = (
   }
 
   return {
-    singleDateItemComponentId,
+    calendarId,
     weekText,
     calendarData,
     currentMonthIndex,
