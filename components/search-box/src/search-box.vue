@@ -60,6 +60,7 @@ const {
           @focus="inputFocusEvent"
           @blur="inputBlurEvent"
           @input="inputValueEvent"
+          @confirm="searchBtnClickEvent"
         />
         <!-- 清除按钮 -->
         <view

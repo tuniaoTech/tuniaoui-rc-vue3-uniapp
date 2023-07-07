@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     TnCollapse: typeof import('./components')['TnCollapse']
     TnCollapseItem: typeof import('./components')['TnCollapseItem']
     TnCountDown: typeof import('./components')['TnCountDown']
+    TnCountScroll: typeof import('./components')['TnCountScroll']
+    TnCountTo: typeof import('./components')['TnCountTo']
     TnDateTimePicker: typeof import('./components')['TnDateTimePicker']
     TnEmpty: typeof import('./components')['TnEmpty']
     TnFooter: typeof import('./components')['TnFooter']

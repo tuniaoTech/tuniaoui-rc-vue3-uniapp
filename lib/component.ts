@@ -8,6 +8,8 @@ import { TnCheckbox, TnCheckboxGroup } from '../components/checkbox'
 import { TnCircleProgress } from '../components/circle-progress'
 import { TnCollapse, TnCollapseItem } from '../components/collapse'
 import { TnCountDown } from '../components/count-down'
+import { TnCountScroll } from '../components/count-scroll'
+import { TnCountTo } from '../components/count-to'
 import { TnDateTimePicker } from '../components/date-time-picker'
 import { TnEmpty } from '../components/empty'
 import { TnFooter } from '../components/footer'
@@ -68,6 +70,8 @@ export default [
   TnCollapse,
   TnCollapseItem,
   TnCountDown,
+  TnCountScroll,
+  TnCountTo,
   TnDateTimePicker,
   TnEmpty,
   TnFooter,

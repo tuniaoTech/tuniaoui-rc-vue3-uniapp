@@ -20,6 +20,7 @@ const {
   inputBlurEvent,
   clearClickEvent,
   confirmEvent,
+  inputClickEvent,
 } = useInput(props, emits)
 const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
   props,
@@ -35,6 +36,7 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
       `${type === 'textarea' ? ns.m('textarea') : ns.m('input')}`,
     ]"
     :style="inputStyle"
+    @tap="inputClickEvent"
   >
     <view v-if="$slots.prefix" :class="[ns.em('slot', 'left')]">
       <slot name="prefix" />
@@ -70,7 +72,7 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
       :placeholder="placeholder"
       :password="type === 'password' && !passwordVisible"
       :placeholder-style="placeholderStyle"
-      :disabled="disabled"
+      :disabled="disabled || type === 'select'"
       :maxlength="maxlength"
       :focus="focus"
       :confirm-type="confirmType"

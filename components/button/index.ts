@@ -5,4 +5,4 @@ export const TnButton = withNoopInstall(Button)
 export default TnButton
 
 export * from './src/button'
-export type { ButtonInstance } from './src/instance'
+export type { TnButtonInstance } from './src/instance'

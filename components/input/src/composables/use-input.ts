@@ -19,10 +19,11 @@ export const useInput = (
   const { form, formItem } = useFormItem()
 
   // 输入框内容
-  const inputText = ref<string>('')
+  const inputText = ref<string>(String(props.modelValue || ''))
   watch(
     () => props.modelValue,
-    () => {
+    (val) => {
+      inputText.value = String(val || '')
       if (props.validateEvent) {
         formItem?.validate?.('change').catch((err) => {
           debugWarn(err)
@@ -100,12 +101,19 @@ export const useInput = (
   // 更新输入框内容
   const _updateInputText = (value: string) => {
     value = props.trim ? trim(value) : value
-    inputText.value = value
+    // inputText.value = value
     emits(UPDATE_MODEL_EVENT, value)
     nextTick(() => {
       emits(INPUT_EVENT, value)
       emits(CHANGE_EVENT, value)
     })
+  }
+
+  // 输入框点击事件
+  const inputClickEvent = () => {
+    if (props.type === 'select') {
+      emits('click')
+    }
   }
 
   return {
@@ -123,5 +131,6 @@ export const useInput = (
     inputBlurEvent,
     clearClickEvent,
     confirmEvent,
+    inputClickEvent,
   }
 }

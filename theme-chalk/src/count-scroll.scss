@@ -1,0 +1,24 @@
+@use '../mixins/mixins.scss' as *;
+
+@include b(count-scroll) {
+  display: inline-flex;
+  align-items: flex-end;
+  height: 1em;
+  overflow: hidden;
+
+  @include e(column) {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: translateY(0%);
+
+    transition-property: transform;
+    transition-timing-function: ease;
+
+    @include m(item) {
+      line-height: 1;
+    }
+  }
+}

@@ -40,7 +40,7 @@ const {
           :class="[ns.e('brief-info__avatar')]"
           @tap.stop="handleAvatarClick"
         >
-          <image :src="avatar" mode="aspectFill" />
+          <image class="image" :src="avatar" mode="aspectFill" />
         </view>
         <view :class="[ns.e('brief-info__data')]">
           <view class="title tn-text-ellipsis-1">{{ title }}</view>

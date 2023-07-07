@@ -1,6 +1,6 @@
 # 图鸟 UI vue3 uniapp 版本
 
-![TuniaoUI vue3 uniapp](https://resource.tnkjapp.com/images/vue3/market/vue3-banner-min.jpg 'TuniaoUI vue3 uniapp')
+![TuniaoUI vue3 uniapp](https://resource.tuniaokj.com/images/vue3/market/vue3-banner-min.jpg 'TuniaoUI vue3 uniapp')
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@tuniao/tnui-vue3-uniapp">
@@ -52,4 +52,4 @@
 
 <p style="color: #01beff;">群内气氛挺不错的，应该或许可能大概，算是为数不多的，专搞技术的前端群，偶尔聊天摸鱼</p>
 
-![扫码进群](https://resource.tnkjapp.com/images/about_tuniao/tn_author_qrcode.jpg '扫码进群')
+![扫码进群](https://resource.tuniaokj.com/images/about_tuniao/tn_author_qrcode.jpg '扫码进群')

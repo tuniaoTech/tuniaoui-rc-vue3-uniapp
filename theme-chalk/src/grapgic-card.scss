@@ -22,6 +22,11 @@
       height: 90rpx;
       border-radius: 50%;
       background-color: var(--tn-color-gray--disabled);
+      .image {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+      }
     }
     &__data {
       flex-grow: 1;

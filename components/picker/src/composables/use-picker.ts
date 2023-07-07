@@ -205,12 +205,22 @@ export const usePicker = (props: PickerProps) => {
   let isInnerUpdate = false
   watch(
     () => props.modelValue,
-    () => {
+    (val) => {
       if (isInnerUpdate) {
         isInnerUpdate = false
         return
       }
-      initDefaultPickerIndex()
+      // 如果是级联选择器，对应的级联数据也要更新
+      if (pickerMode === 'cascade') {
+        _generateOrUpdateCascadeData(
+          props.data as PickerDataItem[],
+          1,
+          val as Array<string | number>
+        )
+      }
+      nextTick(() => {
+        initDefaultPickerIndex()
+      })
     },
     {
       deep: true,

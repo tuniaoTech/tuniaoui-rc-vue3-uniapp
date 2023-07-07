@@ -958,3 +958,67 @@ _2023-07-04_
 
 - 修复`TnRate`无法全选的问题
 - 修复`TnCalendar`在App端下无法正常使用的问题
+
+
+### 1.0.4-alpha.1
+
+_2023-07-05_
+
+
+#### 新增
+
+- 新增`TnCountTo`组件
+- 新增`TnCountDown`组件
+
+#### 修改
+
+- 新增`ButtonInstance`为`TnButtonInstance`
+
+
+### 1.0.4-alpha.2
+
+_2023-07-06_
+
+
+#### Fixed
+
+- 修复`TnInput`无法初始化和无法根据modelValue动态更新的问题
+- 修复`TnPicker`在在无法动态修改级联数据的问题
+
+
+### 1.0.4-alpha.4
+
+_2023-07-06_
+
+
+#### 新增
+
+- `TnInput` `type` 新增 `picker` 并且新增 `click`事件
+
+
+### 1.0.4-alpha.7
+
+_2023-07-06_
+
+
+#### 优化
+
+- 兼容TypeScript 5.0 以上的版本
+
+
+### 1.0.4-alpha.9
+
+_2023-07-07_
+
+
+#### Change
+
+- 将`TnInput` `type` `picker` 改为 `select`
+
+#### Fixed
+
+- 修复`TnForm`校验无法通过的问题
+
+#### 新增
+
+- `TnSearchBox`新增点击键盘搜索触发事件`search`

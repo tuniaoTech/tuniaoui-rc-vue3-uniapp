@@ -42,7 +42,7 @@ export const useInputCustomStyle = (
     const cls: string[] = [ns.b()]
 
     // 禁止输入
-    if (disabled.value) cls.push(ns.m('disabled'))
+    if (disabled.value && props.type !== 'select') cls.push(ns.m('disabled'))
 
     // 设置边框尺寸
     if (inputSize.value) cls.push(ns.m(inputSize.value))

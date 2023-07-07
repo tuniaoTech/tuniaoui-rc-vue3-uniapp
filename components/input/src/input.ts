@@ -15,6 +15,7 @@ const inputTypes = [
   'digit',
   'textarea',
   'password',
+  'select',
 ] as const
 
 const inputConfirmTypes = ['send', 'search', 'next', 'go', 'done'] as const
@@ -185,6 +186,10 @@ export const inputEmits = {
    * @description 输入框内容变化时触发
    */
   [CHANGE_EVENT]: (value: string) => isString(value),
+  /**
+   * @description 输入框点击时触发
+   */
+  click: () => true,
   /**
    * @description 输入框聚焦时触发
    */

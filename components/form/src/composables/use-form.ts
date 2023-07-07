@@ -92,7 +92,7 @@ export const useForm = (props: FormProps) => {
       }
     }
 
-    if (Object.keys(validationErrors).length === 0) return false
+    if (Object.keys(validationErrors).length === 0) return true
     return Promise.reject(validationErrors)
   }
 
@@ -101,7 +101,7 @@ export const useForm = (props: FormProps) => {
     modelProps = [],
     callback
   ) => {
-    const shouldThroe = !isFunction(callback)
+    const shouldThrow = !isFunction(callback)
     try {
       const result = await doValidateField(modelProps)
       // 如果结果为false则说明当前校验不通过
@@ -115,7 +115,7 @@ export const useForm = (props: FormProps) => {
       const invalidFields = e as ValidateFieldsError
 
       callback?.(false, invalidFields)
-      return shouldThroe && Promise.reject(invalidFields)
+      return shouldThrow && Promise.reject(invalidFields)
     }
   }
 
