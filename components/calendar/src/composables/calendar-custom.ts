@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -13,19 +13,19 @@ export const useCalendarCustomStyle = (props: CalendarProps) => {
 
   // 解析颜色
   const [activeBgColorClass, activeBgColorStyle] = useComponentColor(
-    props.activeBgColor,
+    toRef(props, 'activeBgColor'),
     'bg'
   )
   const [activeTextColorClass, activeTextColorStyle] = useComponentColor(
-    props.activeTextColor,
+    toRef(props, 'activeTextColor'),
     'text'
   )
   const [rangeBgColorClass, rangeBgColorStyle] = useComponentColor(
-    props.rangeBgColor,
+    toRef(props, 'rangeBgColor'),
     'bg'
   )
   const [rangeTextColorClass, rangeTextColorStyle] = useComponentColor(
-    props.rangeTextColor,
+    toRef(props, 'rangeTextColor'),
     'text'
   )
 

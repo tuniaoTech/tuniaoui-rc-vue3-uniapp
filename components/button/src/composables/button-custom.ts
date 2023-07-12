@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue, isEmpty } from '../../../../utils'
 
@@ -8,21 +8,25 @@ import type { ButtonProps } from '../button'
 export const useButtonCustomStyle = (props: ButtonProps) => {
   const ns = useNamespace('button')
   // 解析背景颜色
-  const [bgColorClass, bgColorStyle, updateBgColor] = useComponentColor(
-    props.bgColor,
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
     'bg'
   )
   // 解析字体颜色
-  const [textColorClass, textColorStyle, updateTextColor] = useComponentColor(
-    props.textColor,
+  const [textColorClass, textColorStyle] = useComponentColor(
+    toRef(props, 'textColor'),
     'text'
   )
   // 解析边框颜色
-  const [borderColorClass, borderColorStyle, updateBorderColor] =
-    useComponentColor(props.borderColor, 'border')
+  const [borderColorClass, borderColorStyle] = useComponentColor(
+    toRef(props, 'borderColor'),
+    'border'
+  )
   // 解析阴影颜色
-  const [shadowColorClass, shadowColorStyle, updateShadowColor] =
-    useComponentColor(props.shadowColor, 'shadow')
+  const [shadowColorClass, shadowColorStyle] = useComponentColor(
+    toRef(props, 'shadowColor'),
+    'shadow'
+  )
   // 按钮动态类
   const buttonClass = computed<string>(() => {
     const cls: string[] = []
@@ -122,9 +126,5 @@ export const useButtonCustomStyle = (props: ButtonProps) => {
     ns,
     buttonClass,
     buttonStyle,
-    updateBgColor,
-    updateTextColor,
-    updateBorderColor,
-    updateShadowColor,
   }
 }

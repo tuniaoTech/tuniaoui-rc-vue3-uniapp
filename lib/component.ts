@@ -41,7 +41,7 @@ import { TnRegionPicker } from '../components/region-picker'
 import { TnScrollList } from '../components/scroll-list'
 import { TnSearchBox } from '../components/search-box'
 import { TnSlider } from '../components/slider'
-import { TnStep, TnSteps } from '../components/steps'
+import { TnSteps, TnStepsItem } from '../components/steps'
 import { TnSticky } from '../components/sticky'
 import { TnSubsection } from '../components/subsection'
 import { TnSwipeAction, TnSwipeActionItem } from '../components/swipe-action'
@@ -106,7 +106,7 @@ export default [
   TnSearchBox,
   TnSlider,
   TnSteps,
-  TnStep,
+  TnStepsItem,
   TnSticky,
   TnSubsection,
   TnSwipeAction,

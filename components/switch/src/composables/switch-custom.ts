@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { formatDomSizeValue, isEmpty } from '../../../../utils'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { useSwitchCommonProps } from './use-switch-common-props'
@@ -16,19 +16,19 @@ export const useSwitchCustomStyle = (
 
   // 解析颜色
   const [activeBgColorClass, activeBgColorStyle] = useComponentColor(
-    props.activeColor,
+    toRef(props, 'activeColor'),
     'bg'
   )
   const [inactiveBgColorClass, inactiveBgColorStyle] = useComponentColor(
-    props.inactiveColor,
+    toRef(props, 'inactiveColor'),
     'bg'
   )
   const [activeTextColorClass, activeTextColorStyle] = useComponentColor(
-    props.activeColor,
+    toRef(props, 'activeColor'),
     'text'
   )
   const [inactiveTextColorClass, inactiveTextColorStyle] = useComponentColor(
-    props.inactiveColor,
+    toRef(props, 'inactiveColor'),
     'text'
   )
 

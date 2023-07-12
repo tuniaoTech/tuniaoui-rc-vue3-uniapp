@@ -1,6 +1,7 @@
 # 图鸟 UI vue3 uniapp 版本
 
 ![TuniaoUI vue3 uniapp](https://resource.tuniaokj.com/images/vue3/market/vue3-banner-min.jpg 'TuniaoUI vue3 uniapp')
+![TuniaoUI vue3 uniapp](https://resource.tuniaokj.com/images/vue3/market/vue3-code-min.jpg 'TuniaoUI vue3 uniapp')
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@tuniao/tnui-vue3-uniapp">

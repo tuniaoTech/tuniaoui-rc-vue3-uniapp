@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue, isEmpty } from '../../../../utils'
 import type { CSSProperties } from 'vue'
@@ -8,16 +8,19 @@ export const useTagCustomStyle = (props: TagProps) => {
   // 命名空间
   const ns = useNamespace('tag')
   // 解析背景颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(props.bgColor, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
+    'bg'
+  )
 
   // 解析字体颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
   // 解析边框颜色
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    props.borderColor,
+    toRef(props, 'borderColor'),
     'border'
   )
   // 标签动态类

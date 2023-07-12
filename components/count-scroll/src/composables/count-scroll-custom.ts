@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
@@ -12,7 +12,7 @@ export const useCountScrollCustomStyle = (props: CountScrollProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
 

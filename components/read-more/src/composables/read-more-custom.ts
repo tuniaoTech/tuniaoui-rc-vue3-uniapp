@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -9,7 +9,7 @@ export const useReadMoreCustomStyle = (props: ReadMoreProps) => {
 
   // 解析颜色
   const [tipsColorClass, tipsColorStyle] = useComponentColor(
-    props.tipColor,
+    toRef(props, 'tipColor'),
     'text'
   )
 

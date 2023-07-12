@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -16,7 +16,7 @@ export const useEmptyCustomStyle = (props: EmptyProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.color,
+    toRef(props, 'color'),
     'text'
   )
 

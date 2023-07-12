@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { formatDomSizeValue, isEmpty } from '../../../../utils'
 import { useNamespace } from '../../../../hooks/use-namespace'
 import { useComponentColor } from '../../../../hooks/use-component-color'
@@ -11,12 +11,15 @@ export const useIcon = (props: IconProps) => {
   const ns = useNamespace('icon')
 
   // 解析图标颜色
-  const [colorClass, colorStyle, updateColor] = useComponentColor(
-    props.color,
+  const [colorClass, colorStyle] = useComponentColor(
+    toRef(props, 'color'),
     'text'
   )
   // 解析透明图标背景
-  const [transparentBgClass] = useComponentColor(props.transparentBg, 'bg')
+  const [transparentBgClass] = useComponentColor(
+    toRef(props, 'transparentBg'),
+    'bg'
+  )
   // 解析图标尺寸
   const { sizeType } = useComponentSize(props.size)
 
@@ -85,6 +88,5 @@ export const useIcon = (props: IconProps) => {
     isImg,
     iconClass,
     iconStyle,
-    updateColor,
   }
 }

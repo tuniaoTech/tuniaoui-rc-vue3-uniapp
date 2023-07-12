@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
@@ -10,11 +10,11 @@ export const useScrollListCustomStyle = (props: ScrollListProps) => {
 
   // 解析颜色
   const [indicatorColorClass, indicatorColorStyle] = useComponentColor(
-    props.indicatorColor,
+    toRef(props, 'indicatorColor'),
     'bg'
   )
   const [indicatorBlockColorClass, indicatorBlockColorStyle] =
-    useComponentColor(props.indicatorBlockColor, 'bg')
+    useComponentColor(toRef(props, 'indicatorBlockColor'), 'bg')
 
   // 指示器对应的类
   const indicatorClass = computed<string>(() => {

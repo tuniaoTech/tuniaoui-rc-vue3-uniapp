@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
@@ -16,9 +16,12 @@ export const useNumberBoxCustomStyle = (
   const ns = useNamespace('number-box')
 
   // 解析颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(props.bgColor, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
+    'bg'
+  )
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
 

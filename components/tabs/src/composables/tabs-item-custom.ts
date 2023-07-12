@@ -14,13 +14,20 @@ export const useTabsItemCustomStyle = (
 
   const tabsContext = inject(tabsContextKey)
 
+  const normalColor = computed<string | undefined>(
+    () => props.color || tabsContext?.color
+  )
+  const activeColor = computed<string | undefined>(
+    () => props.activeColor || tabsContext?.activeColor
+  )
+
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props?.color || tabsContext?.color,
+    normalColor,
     'text'
   )
   const [activeTextColorClass, activeTextColorStyle] = useComponentColor(
-    props?.activeColor || tabsContext?.activeColor,
+    activeColor,
     'text'
   )
 

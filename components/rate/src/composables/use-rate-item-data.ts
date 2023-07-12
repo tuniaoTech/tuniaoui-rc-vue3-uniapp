@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 import { useComponentColor } from '../../../../hooks'
 
 import type { RateProps } from '../rate'
@@ -29,11 +29,11 @@ const useRateItemData = (props: RateProps) => {
       const configData = { ...defaultConfig, ...(customData?.[i] ?? {}) }
       // 解析颜色值
       const [inactiveColorClass, inactiveColorStyle] = useComponentColor(
-        configData.inactiveColor,
+        toRef(configData, 'inactiveColor'),
         'text'
       )
       const [activeColorClass, activeColorStyle] = useComponentColor(
-        configData.activeColor,
+        toRef(configData, 'activeColor'),
         'text'
       )
 

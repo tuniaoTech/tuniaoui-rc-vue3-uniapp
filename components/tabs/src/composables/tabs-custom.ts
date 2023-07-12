@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
@@ -9,8 +9,14 @@ export const useTabsCustomStyle = (props: TabsProps) => {
   const ns = useNamespace('tabs')
 
   // 解析颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(props.bgColor, 'bg')
-  const [barColorClass, barColorStyle] = useComponentColor(props.barColor, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
+    'bg'
+  )
+  const [barColorClass, barColorStyle] = useComponentColor(
+    toRef(props, 'barColor'),
+    'bg'
+  )
 
   // tabs对应的类
   const tabsClass = computed<string>(() => {

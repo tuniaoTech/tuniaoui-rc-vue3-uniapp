@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -17,13 +17,13 @@ export const useBadgeCustomStyle = (props: BadgeProps) => {
   const { contentType } = useBadge(props)
 
   // 解析背景颜色
-  const [bgColorClass, bgColorStyle, updateBgColor] = useComponentColor(
-    props.bgColor,
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
     'bg'
   )
   // 解析文字颜色
-  const [textColorClass, textColorStyle, updateTextColor] = useComponentColor(
-    props.textColor,
+  const [textColorClass, textColorStyle] = useComponentColor(
+    toRef(props, 'textColor'),
     'text'
   )
   // 解析尺寸大小
@@ -101,7 +101,5 @@ export const useBadgeCustomStyle = (props: BadgeProps) => {
     contentNs,
     badgeContentClass,
     badgeContentStyle,
-    updateBgColor,
-    updateTextColor,
   }
 }

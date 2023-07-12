@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useComponentColor } from '../../../../hooks'
 
 import type { SetupContext } from 'vue'
@@ -12,8 +12,9 @@ export const useFooter = (
   // 导航数据
   const navigatorData = computed<FooterNavigatorData>(() => {
     return props.navigator.map((nav) => {
+      const textColor = ref(nav.textColor ?? props.navigatorTextColor)
       const [textColorClass, textColorStyle] = useComponentColor(
-        nav.textColor ?? props.navigatorTextColor,
+        textColor,
         'text'
       )
       return {

@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -9,21 +9,21 @@ export const useSearchBoxCustomStyle = (props: SearchBoxProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    props.borderColor,
+    toRef(props, 'borderColor'),
     'border'
   )
   const [placeholderColorClass, placeholderColorStyle] = useComponentColor(
-    props.placeholderColor,
+    toRef(props, 'placeholderColor'),
     'text'
   )
   const [searchButtonTextColorClass, searchButtonTextColorStyle] =
-    useComponentColor(props.searchButtonTextColor, 'text')
+    useComponentColor(toRef(props, 'searchButtonTextColor'), 'text')
   const [searchButtonBgColorClass, searchButtonBgColorStyle] =
-    useComponentColor(props.searchButtonBgColor, 'bg')
+    useComponentColor(toRef(props, 'searchButtonBgColor'), 'bg')
 
   // 搜索框的类
   const searchBoxClass = computed<string>(() => {

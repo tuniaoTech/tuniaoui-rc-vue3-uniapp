@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useNamespace,
@@ -20,9 +20,12 @@ export const useNavbarCustomStyle = (
   const { navBarInfo, navBarBoundingInfo } = useUniAppSystemRectInfo()
 
   // 解析颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(props.bgColor, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'bgColor'),
+    'bg'
+  )
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
 
@@ -57,7 +60,7 @@ export const useNavbarCustomStyle = (
     if (props.zIndex) style.zIndex = props.zIndex
 
     // 设置透明度
-    if (props.opacity) style.opacity = props.opacity
+    if (props?.opacity !== undefined) style.opacity = props.opacity
 
     // 设置文字颜色
     if (textColorStyle.value) {

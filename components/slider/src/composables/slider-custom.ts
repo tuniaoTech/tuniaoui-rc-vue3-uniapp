@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 import { useSliderCommonProps } from './use-slider-common-porps'
@@ -17,11 +17,11 @@ export const useSliderCustomStyle = (
 
   // 解析颜色
   const [activeBgColorClass, activeBgColorStyle] = useComponentColor(
-    props.activeColor,
+    toRef(props, 'activeColor'),
     'bg'
   )
   const [inactiveBgColorClass, inactiveBgColorStyle] = useComponentColor(
-    props.inactiveColor,
+    toRef(props, 'inactiveColor'),
     'bg'
   )
 

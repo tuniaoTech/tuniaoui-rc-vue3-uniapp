@@ -9,7 +9,7 @@ import {
 import { stepsContextKey } from '../../../../tokens'
 import { debugWarn } from '../../../../utils'
 
-import type { StepProps } from '../step'
+import type { StepProps } from '../steps-item'
 import type { StepsMode } from '../steps'
 
 export const useStep = (props: StepProps) => {

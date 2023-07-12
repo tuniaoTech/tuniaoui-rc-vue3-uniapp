@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { ref, toRef, watch } from 'vue'
 import { useComponentColor } from '../../../../hooks'
 
 import type { ProgressProps } from '../progress'
@@ -9,11 +9,11 @@ interface ProgressPropsType extends ProgressProps {
 
 export const useProgressProps = (props: ProgressPropsType) => {
   const [activeColorClass, activeColorStyle] = useComponentColor(
-    props.activeColor,
+    toRef(props, 'activeColor'),
     'bg'
   )
   const [inactiveColorClass, inactiveColorStyle] = useComponentColor(
-    props.inactiveColor,
+    toRef(props, 'inactiveColor'),
     'bg'
   )
 

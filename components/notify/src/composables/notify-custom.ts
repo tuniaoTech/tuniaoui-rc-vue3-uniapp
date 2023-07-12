@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
@@ -13,21 +13,13 @@ export const useNotifyCustomStyle = (
   const ns = useNamespace('notify')
 
   // 解析颜色
-  const [bgColorClass, bgColorStyle, updateBgColor] = useComponentColor(
-    options.value.bgColor,
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(options.value, 'bgColor'),
     'bg'
   )
-  const [textColorClass, textColorStyle, updateTextColor] = useComponentColor(
-    options.value.textColor,
+  const [textColorClass, textColorStyle] = useComponentColor(
+    toRef(options.value, 'textColor'),
     'text'
-  )
-
-  watch(
-    () => [options.value.bgColor, options.value.textColor],
-    ([bgColor, textColor]) => {
-      updateBgColor(bgColor)
-      updateTextColor(textColor)
-    }
   )
 
   // notify对应的类

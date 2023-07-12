@@ -1,11 +1,11 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import type { TuniaoColorName } from '../../constants'
 
 export type ComponentColorType = TuniaoColorName | ''
 
 export const useComponentColor = (
-  prop?: string,
+  prop: Ref<string | undefined>,
   type: ComponentColorType = ''
 ): [Ref<string>, Ref<string>, (val?: string) => void] => {
   const classColor = ref<string>('')
@@ -36,7 +36,14 @@ export const useComponentColor = (
       styleColor.value = value
     }
   }
-  handleColorValue(prop)
+  handleColorValue(prop.value)
+
+  watch(
+    () => prop.value,
+    (val) => {
+      handleColorValue(val)
+    }
+  )
 
   // 更新颜色值和颜色类型
   const updateColor = (value?: string) => {

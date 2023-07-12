@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -18,7 +18,7 @@ export const useFooterCustomStyle = (props: FooterProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
   // 解析尺寸

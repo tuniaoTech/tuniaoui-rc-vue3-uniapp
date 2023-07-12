@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -14,11 +14,11 @@ export const useIndexListCustomStyle = (props: IndexListProps) => {
 
   // 解析颜色
   const [titleBgColorClass, titleBgColorStyle] = useComponentColor(
-    props.titleBgColor,
+    toRef(props, 'titleBgColor'),
     'bg'
   )
   const [titleTextColorClass, titleTextColorStyle] = useComponentColor(
-    props.titleColor,
+    toRef(props, 'titleColor'),
     'text'
   )
   // 解析尺寸

@@ -16,16 +16,13 @@ export const useCheckboxCustomStyle = (props: CheckboxProps) => {
     useCheckboxCommonProps(props)
 
   // 解析颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(
-    activeColor.value,
-    'bg'
-  )
+  const [bgColorClass, bgColorStyle] = useComponentColor(activeColor, 'bg')
   const [textColorClass, textColorStyle] = useComponentColor(
-    activeColor.value,
+    activeColor,
     'text'
   )
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    activeColor.value,
+    activeColor,
     'border'
   )
 

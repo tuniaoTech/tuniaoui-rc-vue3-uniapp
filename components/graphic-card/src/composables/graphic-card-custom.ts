@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -9,35 +9,35 @@ export const useGraphicCardCustomStyle = (props: GraphicCardProps) => {
 
   // 解析颜色
   const [tagBgColorClass, tagBgColorStyle] = useComponentColor(
-    props.tagBgColor,
+    toRef(props, 'tagBgColor'),
     'bg'
   )
   const [tagTextColorClass, tagTextColorStyle] = useComponentColor(
-    props.tagTextColor,
+    toRef(props, 'tagTextColor'),
     'text'
   )
   const [viewColorClass, viewColorStyle] = useComponentColor(
-    props.viewColor,
+    toRef(props, 'viewColor'),
     'text'
   )
   const [activeViewColorClass, activeViewColorStyle] = useComponentColor(
-    props.activeViewColor,
+    toRef(props, 'activeViewColor'),
     'text'
   )
   const [commentColorClass, commentColorStyle] = useComponentColor(
-    props.commentColor,
+    toRef(props, 'commentColor'),
     'text'
   )
   const [activeCommentColorClass, activeCommentColorStyle] = useComponentColor(
-    props.activeCommentColor,
+    toRef(props, 'activeCommentColor'),
     'text'
   )
   const [likeColorClass, likeColorStyle] = useComponentColor(
-    props.likeColor,
+    toRef(props, 'likeColor'),
     'text'
   )
   const [activeLikeColorClass, activeLikeColorStyle] = useComponentColor(
-    props.activeLikeColor,
+    toRef(props, 'activeLikeColor'),
     'text'
   )
 

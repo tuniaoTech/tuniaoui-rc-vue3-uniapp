@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import TnIcon from '../../icon/src/icon.vue'
-import { stepEmits, stepProps } from './step'
+import { stepEmits, stepProps } from './steps-item'
 import { useStep, useStepCustomStyle } from './composables'
 
 const props = defineProps(stepProps)

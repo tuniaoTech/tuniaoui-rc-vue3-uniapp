@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue'
+import { computed, toRef, watch } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -19,9 +19,9 @@ export const useSubsectionCustomStyle = (
 
   // 解析颜色
   const [activeBgColorClass, activeBgColorStyle, updateActiveBgColor] =
-    useComponentColor(activeColor.value, 'bg')
+    useComponentColor(activeColor, 'bg')
   const [activeBorderColorClass, activeBorderColorStyle] = useComponentColor(
-    props.activeColor,
+    toRef(props, 'activeColor'),
     'border'
   )
   watch(

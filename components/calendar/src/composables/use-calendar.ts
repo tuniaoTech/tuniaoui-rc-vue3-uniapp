@@ -82,6 +82,8 @@ export const useCalendar = (
   const rangeDate = reactive<CalendarRangeSelectData>({})
 
   // 更新modelValue
+  // 标记是否需要重新渲染日历
+  let needRenderCalendar = false
   const updateModelValue = (changeEmit = true) => {
     const { modelValue, mode } = props
     const formatModelValue = formatDate(modelValue)
@@ -155,6 +157,7 @@ export const useCalendar = (
             }
           }
         }
+        needRenderCalendar = true
         break
     }
 
@@ -351,6 +354,13 @@ export const useCalendar = (
             // 结束时间
             rangeDate.end = dayjs(modelValue[1], DEFAULT_DATE_FORMAT)
           }
+        }
+
+        if (needRenderCalendar) {
+          needRenderCalendar = false
+          nextTick(() => {
+            generateCalendarData()
+          })
         }
       }
     },

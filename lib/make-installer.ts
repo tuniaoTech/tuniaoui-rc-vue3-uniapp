@@ -1,5 +1,4 @@
 import { INSTALLED_KEY } from '../constants'
-import { version } from './version'
 
 import type { App, Plugin } from '@vue/runtime-core'
 
@@ -12,6 +11,5 @@ export const makeInstaller = (components: Plugin[] = []) => {
   }
   return {
     install,
-    version,
   }
 }

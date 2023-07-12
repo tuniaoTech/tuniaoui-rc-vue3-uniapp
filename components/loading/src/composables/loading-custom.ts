@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -14,7 +14,7 @@ export const useLoadingCustomStyle = (props: LoadingProps) => {
 
   // 解析颜色
   const [colorClass, colorStyle, updateColor] = useComponentColor(
-    props.color,
+    toRef(props, 'color'),
     'bg'
   )
 

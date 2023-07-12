@@ -1,15 +1,15 @@
 import { withInstall, withNoopInstall } from '../../utils'
 import Steps from './src/steps.vue'
-import Step from './src/step.vue'
+import StepsItem from './src/steps-item.vue'
 
 export const TnSteps = withInstall(Steps, {
-  Step,
+  StepsItem,
 })
-export const TnStep = withNoopInstall(Step)
+export const TnStepsItem = withNoopInstall(StepsItem)
 export default TnSteps
 
 export * from './src/steps'
-export * from './src/step'
+export * from './src/steps-item'
 export * from './src/types'
 
-export type { TnStepsInstance, TnStepInstance } from './src/instance'
+export type { TnStepsInstance, TnStepsItemInstance } from './src/instance'

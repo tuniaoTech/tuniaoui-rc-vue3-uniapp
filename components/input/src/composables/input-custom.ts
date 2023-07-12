@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useFormSize } from '../../../form'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue, isEmpty } from '../../../../utils'
@@ -19,7 +19,7 @@ export const useInputCustomStyle = (
 
   // 解析边框颜色
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    props.borderColor,
+    toRef(props, 'borderColor'),
     'border'
   )
 

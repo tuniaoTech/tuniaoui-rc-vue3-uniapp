@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -14,15 +14,15 @@ export const useCountDownCustomStyle = (props: CountDownProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.textColor,
+    toRef(props, 'textColor'),
     'text'
   )
   const [separatorColorClass, separatorColorStyle] = useComponentColor(
-    props.separatorColor,
+    toRef(props, 'separatorColor'),
     'text'
   )
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    props.borderColor,
+    toRef(props, 'borderColor'),
     'border'
   )
 

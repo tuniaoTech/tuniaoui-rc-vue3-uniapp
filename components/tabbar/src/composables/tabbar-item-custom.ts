@@ -1,4 +1,4 @@
-import { computed, inject } from 'vue'
+import { computed, inject, toRef } from 'vue'
 import { tabbarContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
@@ -20,29 +20,33 @@ export const useTabbarItemCustomStyle = (
   const ns = useNamespace('tabbar-item')
   const tabbarContext = inject(tabbarContextKey)
 
+  const activeColor = computed<string | undefined>(
+    () => props.activeColor || tabbarContext?.activeColor
+  )
+  const inactiveColor = computed<string | undefined>(
+    () => props.inactiveColor || tabbarContext?.inactiveColor
+  )
+
   // 解析颜色
   const [inactiveColorClass, inactiveColorStyle] = useComponentColor(
-    props.inactiveColor || tabbarContext?.inactiveColor,
+    inactiveColor,
     'text'
   )
   const [activeColorClass, activeColorStyle] = useComponentColor(
-    props.activeColor || tabbarContext?.activeColor,
+    activeColor,
     'text'
   )
   const [inactiveBgClass, inactiveBgStyle] = useComponentColor(
-    props.inactiveColor || tabbarContext?.inactiveColor,
+    inactiveColor,
     'bg'
   )
-  const [activebgClass, activebgStyle] = useComponentColor(
-    props.activeColor || tabbarContext?.activeColor,
-    'bg'
-  )
+  const [activebgClass, activebgStyle] = useComponentColor(activeColor, 'bg')
   const [bulgeBgClass, bulgeBgStyle] = useComponentColor(
-    props.bulgeBgColor,
+    toRef(props, 'bulgeBgColor'),
     'bg'
   )
   const [bulgeTextColorClass, bulgeTextColorStyle] = useComponentColor(
-    props.bulgeTextColor,
+    toRef(props, 'bulgeTextColor'),
     'text'
   )
 

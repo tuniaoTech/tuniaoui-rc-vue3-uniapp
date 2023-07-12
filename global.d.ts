@@ -53,7 +53,7 @@ declare module '@vue/runtime-core' {
     TnSearchBox: typeof import('./components')['TnSearchBox']
     TnSlider: typeof import('./components')['TnSlider']
     TnSteps: typeof import('./components')['TnSteps']
-    TnStep: typeof import('./components')['TnStep']
+    TnStepsItem: typeof import('./components')['TnStepsItem']
     TnSticky: typeof import('./components')['TnSticky']
     TnSubsection: typeof import('./components')['TnSubsection']
     TnSwipeAction: typeof import('./components')['TnSwipeAction']

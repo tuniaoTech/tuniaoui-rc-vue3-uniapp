@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useComponentColor } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -25,11 +25,13 @@ export const useSwipeActionOptions = (props: SwipeActionItemProps) => {
   // 菜单配置项
   const options = computed<OptionsData[]>(() => {
     return props.options.map((item) => {
+      const textColor = ref(item.textColor)
+      const bgColor = ref(item.bgColor)
       const [textColorClass, textColoeStyle] = useComponentColor(
-        item.textColor,
+        textColor,
         'text'
       )
-      const [bgColorClass, bgColorStyle] = useComponentColor(item.bgColor, 'bg')
+      const [bgColorClass, bgColorStyle] = useComponentColor(bgColor, 'bg')
       return {
         icon: item.icon ?? '',
         text: item.text ?? '',

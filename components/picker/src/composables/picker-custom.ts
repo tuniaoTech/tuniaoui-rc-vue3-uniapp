@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -15,11 +15,11 @@ export const usePickerCustomStyle = (props: PickerProps) => {
 
   // 解析颜色
   const [cancelColorClass, cancelColorStyle] = useComponentColor(
-    props.cancelColor,
+    toRef(props, 'cancelColor'),
     'text'
   )
   const [confirmColorClass, confirmColorStyle] = useComponentColor(
-    props.confirmColor,
+    toRef(props, 'confirmColor'),
     'text'
   )
 

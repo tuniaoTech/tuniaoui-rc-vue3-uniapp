@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -14,19 +14,19 @@ export const useTitleCustomStyle = (props: TitleProps) => {
 
   // 解析颜色
   const [titleTextColorClass, titleTextColorStyle] = useComponentColor(
-    props.color,
+    toRef(props, 'color'),
     'text'
   )
   const [titleBgColorClass, titleBgColorStyle] = useComponentColor(
-    props.color,
+    toRef(props, 'color'),
     'bg'
   )
   const [assistTextColorClass, assistTextColorStyle] = useComponentColor(
-    props.assistColor,
+    toRef(props, 'assistColor'),
     'text'
   )
   const [assistBgColorClass, assistBgColorStyle] = useComponentColor(
-    props.assistColor,
+    toRef(props, 'assistColor'),
     'bg'
   )
 

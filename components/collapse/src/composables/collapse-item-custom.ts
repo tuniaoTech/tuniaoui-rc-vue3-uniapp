@@ -1,4 +1,4 @@
-import { computed, inject } from 'vue'
+import { computed, inject, toRef } from 'vue'
 import { collapseContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
@@ -11,7 +11,7 @@ export const useCollapseItemCustomStyle = () => {
 
   // 解析颜色
   const [arrowColorClass, arrowColorStyle] = useComponentColor(
-    collapse?.arrowColor,
+    toRef(collapse!, 'arrowColor'),
     'text'
   )
 

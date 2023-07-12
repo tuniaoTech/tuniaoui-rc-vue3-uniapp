@@ -3,7 +3,7 @@ import { stepsContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties, Ref } from 'vue'
-import type { StepProps } from '../step'
+import type { StepProps } from '../steps-item'
 import type { StepsMode } from '../steps'
 
 type ModeSelector = 'dot' | 'icon'
@@ -20,21 +20,25 @@ export const useStepCustomStyle = (
 
   const stepsContext = inject(stepsContextKey)
 
+  const normalColor = computed<string | undefined>(
+    () => props.color || stepsContext?.color
+  )
+  const activeColor = computed<string | undefined>(
+    () => props.activeColor || stepsContext?.activeColor
+  )
+
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.color || stepsContext?.color,
+    normalColor,
     'text'
   )
   const [textActiveColorClass, textActiveColorStyle] = useComponentColor(
-    props.activeColor || stepsContext?.activeColor,
+    activeColor,
     'text'
   )
-  const [bgColorClass, bgColorStyle] = useComponentColor(
-    props.color || stepsContext?.color,
-    'bg'
-  )
+  const [bgColorClass, bgColorStyle] = useComponentColor(normalColor, 'bg')
   const [bgActiveColorClass, bgActiveColorStyle] = useComponentColor(
-    props.activeColor || stepsContext?.activeColor,
+    activeColor,
     'bg'
   )
 

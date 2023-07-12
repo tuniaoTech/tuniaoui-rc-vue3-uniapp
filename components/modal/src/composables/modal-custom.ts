@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue'
+import { computed, toRef, watch } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties, Ref } from 'vue'
@@ -15,13 +15,13 @@ export const useModalCustomStyle = (
 
   // 解析按钮的颜色
   const [cancelBtnBgClass, cancelBtnBgStyle, updateCancelBtnBg] =
-    useComponentColor(cancelBtnStyle.value.bgColor, 'bg')
+    useComponentColor(toRef(cancelBtnStyle.value, 'bgColor'), 'bg')
   const [cancelBtnColorClass, cancelBtnColorStyle, updateCancelBtnColor] =
-    useComponentColor(cancelBtnStyle.value.color, 'text')
+    useComponentColor(toRef(cancelBtnStyle.value, 'color'), 'text')
   const [confirmBtnBgClass, confirmBtnBgStyle, updateConfirmBtnBg] =
-    useComponentColor(confirmBtnStyle.value.bgColor, 'bg')
+    useComponentColor(toRef(confirmBtnStyle.value, 'bgColor'), 'bg')
   const [confirmBtnColorClass, confirmBtnColorStyle, updateConfirmBtnColor] =
-    useComponentColor(confirmBtnStyle.value.color, 'text')
+    useComponentColor(toRef(confirmBtnStyle.value, 'color'), 'text')
 
   watch(
     () => confirmBtnStyle,

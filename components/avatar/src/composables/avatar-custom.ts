@@ -30,16 +30,16 @@ export const useAvatarCustomStyle = (
   } = useAvatarProps(props)
 
   // 解析背景颜色
-  const [bgColorClass, bgColorStyle] = useComponentColor(bgColor.value, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(bgColor, 'bg')
 
   // 解析边框颜色
   const [borderColorClass, borderColorStyle] = useComponentColor(
-    borderColor.value,
+    borderColor,
     'border'
   )
 
   // 解析阴影颜色
-  const [shadowColorClass] = useComponentColor(shadowColor.value, 'shadow')
+  const [shadowColorClass] = useComponentColor(shadowColor, 'shadow')
 
   // 解析头像尺寸
   const { sizeType } = useComponentSize(size.value)

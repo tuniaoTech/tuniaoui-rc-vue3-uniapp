@@ -26,7 +26,6 @@ const { ns, itemClass, itemStyle } = useCalendarCustomStyle(props)
 
 <template>
   <view :id="calendarId" :class="[ns.b(), ns.m(mode)]">
-    {{ currentMonthIndex }}
     <!-- 操作区域 -->
     <view :class="[ns.e('operation')]">
       <!-- 年切换按钮 -->

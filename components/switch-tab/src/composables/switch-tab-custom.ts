@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
 import type { CSSProperties } from 'vue'
@@ -12,19 +12,19 @@ export const useSwitchTabCustomStyle = (props: SwitchTabProps) => {
 
   // 解析颜色
   const [inactiveBgColorClass, inactiveBgColorStyle] = useComponentColor(
-    props.inactiveBgColor,
+    toRef(props, 'inactiveBgColor'),
     'bg'
   )
   const [activeBgColorClass, activeBgColorStyle] = useComponentColor(
-    props.activeBgColor,
+    toRef(props, 'activeBgColor'),
     'bg'
   )
   const [inactiveTextColorClass, inactiveTextColorStyle] = useComponentColor(
-    props.inactiveTextColor,
+    toRef(props, 'inactiveTextColor'),
     'text'
   )
   const [activeTextColorClass, activeTextColorStyle] = useComponentColor(
-    props.activeTextColor,
+    toRef(props, 'activeTextColor'),
     'text'
   )
 

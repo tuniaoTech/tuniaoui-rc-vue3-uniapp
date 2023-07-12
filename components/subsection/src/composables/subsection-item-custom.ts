@@ -1,4 +1,4 @@
-import { computed, inject } from 'vue'
+import { computed, inject, toRef } from 'vue'
 import { subsectionContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 
@@ -26,11 +26,11 @@ export const useSubsectionItemCustomStyle = (
 
   // 解析颜色
   const [activeTextColorClass, activeTextColorStyle] = useComponentColor(
-    activeColor.value,
+    activeColor,
     'text'
   )
   const [activeBorderColorClass, activeBorderColorStyle] = useComponentColor(
-    subsectionContext?.activeColor,
+    toRef(subsectionContext!, 'activeColor'),
     'border'
   )
 

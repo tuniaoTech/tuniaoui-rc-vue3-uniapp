@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 import { usePopup } from './use-popup'
@@ -13,7 +13,7 @@ export const usePopupCustomStyle = (props: PopupProps) => {
 
   // 内容背景颜色
   const [contentBgColorClass, contentBgColorStyle] = useComponentColor(
-    props.bgColor,
+    toRef(props, 'bgColor'),
     'bg'
   )
 

@@ -1,6 +1,6 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, isNumber } from '../../../utils'
-import { baseStepProps } from './step'
+import { baseStepProps } from './steps-item'
 
 import type { ExtractPropTypes } from 'vue'
 

@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   useComponentColor,
   useComponentSize,
@@ -14,10 +14,13 @@ export const useLoadmoreCustomStyle = (props: LoadmoreProps) => {
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
-    props.color,
+    toRef(props, 'color'),
     'text'
   )
-  const [bgColorClass, bgColorStyle] = useComponentColor(props.color, 'bg')
+  const [bgColorClass, bgColorStyle] = useComponentColor(
+    toRef(props, 'color'),
+    'bg'
+  )
 
   // 解析尺寸
   const { sizeType } = useComponentSize(props.size)
