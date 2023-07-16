@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, nextTick, ref, watch } from 'vue'
+import { computed, getCurrentInstance, nextTick, ref, toRef, watch } from 'vue'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,
@@ -34,6 +34,7 @@ export const useNumberBox = (props: NumberBoxProps) => {
   const step = computed<number>(() => props.step || 1)
 
   const operationEvent = (type: 'minus' | 'plus') => {
+    if (props.disabled) return
     let value = inputValue.value
     if (type === 'minus') value -= step.value
     else if (type === 'plus') value += step.value
@@ -52,7 +53,7 @@ export const useNumberBox = (props: NumberBoxProps) => {
   const { clearLongPressTimer, handleLongPressEvent: handleOperationEvent } =
     useLongPress<['minus' | 'plus']>(
       operationEvent,
-      !props.disabled,
+      toRef(props, 'longPress'),
       props.longPressInterval
     )
 
@@ -75,12 +76,12 @@ export const useNumberBox = (props: NumberBoxProps) => {
     }
 
     // isInnerUpdate = true
-    inputValue.value = inputEventValue
-    nextTick(() => {
-      setTimeout(() => {
-        inputValue.value = value
-      }, 0)
-    })
+    // inputValue.value = inputEventValue
+    // nextTick(() => {
+    //   setTimeout(() => {
+    //     inputValue.value = value
+    //   }, 0)
+    // })
     updateNumberBoxValue(value)
   }
 
@@ -91,7 +92,11 @@ export const useNumberBox = (props: NumberBoxProps) => {
     const decimalCount: number =
       stepValueArray.length > 1 ? stepValueArray[1].length : 0
     value = Number(value.toFixed(decimalCount))
-    inputValue.value = value
+    nextTick(() => {
+      setTimeout(() => {
+        inputValue.value = value
+      }, 0)
+    })
     emit(UPDATE_MODEL_EVENT, value)
     nextTick(() => {
       emit(CHANGE_EVENT, value)

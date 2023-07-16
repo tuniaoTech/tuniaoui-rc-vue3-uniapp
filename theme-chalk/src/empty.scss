@@ -41,11 +41,21 @@ $empty-sizes: map-merge(
     font-size: map-get(map-get($empty-sizes, ''), 'icon');
     width: map-get(map-get($empty-sizes, ''), 'icon');
     height: map-get(map-get($empty-sizes, ''), 'icon');
+
+    @include when(custom) {
+      font-size: inherit;
+      width: auto;
+      height: auto;
+    }
   }
 
   @include e(tips) {
     margin-top: 8rpx;
     font-size: map-get(map-get($empty-sizes, ''), 'tips');
+
+    @include when(custom) {
+      font-size: inherit;
+    }
   }
 
   /* 尺寸 start */

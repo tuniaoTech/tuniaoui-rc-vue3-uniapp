@@ -1,6 +1,6 @@
 {
   "name": "@tuniao/tnui-vue3-uniapp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "TuniaoUI for vue3 uniapp",
   "keywords": [
     "tn",
@@ -26,7 +26,7 @@
   },
   "peerDependencies": {
     "@tuniao/tn-icon": "^1.4.0",
-    "@tuniao/tn-style": "^1.0.14",
+    "@tuniao/tn-style": "^1.0.17",
     "sass": "^1.61.0",
     "typescript": "^5.1.6",
     "vue": "^3.2.47"

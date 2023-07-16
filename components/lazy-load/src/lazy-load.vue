@@ -28,7 +28,11 @@ export default {
 // #endif
 
 <template>
-  <view :id="componentId" :class="[ns.b()]" :style="lazyLoadStyle">
+  <view
+    :id="componentId"
+    :class="[ns.b(), ns.is('show-image', showImage && imageStatus !== 'error')]"
+    :style="lazyLoadStyle"
+  >
     <!-- 加载中 -->
     <view v-if="imageStatus === 'loading'" :class="[ns.e('container')]">
       <slot name="loading">

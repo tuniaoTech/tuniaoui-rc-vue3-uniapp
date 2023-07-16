@@ -129,7 +129,10 @@ export const useImageUpload = (props: ImageUploadProps) => {
     const { autoUpload, beforeUpload } = props
     const autoNextUpload = autoUpload && !uploadSingle
     // 判断是否全部文件上传完毕
-    if (startIndex >= fileList.value.length) return
+    if (startIndex >= fileList.value.length) {
+      if (props.autoRemoveFaildFile) handleUploadCompleteFailFile()
+      return
+    }
 
     const fileItem = fileList.value[startIndex]
 
@@ -221,6 +224,16 @@ export const useImageUpload = (props: ImageUploadProps) => {
     item.file = undefined
     showErrorTips(errorMsg)
     emit('fail', new Error(errorMsg), item)
+  }
+
+  // 处理上传完成后失败的文件
+  const handleUploadCompleteFailFile = () => {
+    const tempFileList = [...fileList.value]
+    tempFileList.forEach((item, index) => {
+      if (item.status === 'failed') {
+        removeFile(index)
+      }
+    })
   }
 
   // 重新上传文件

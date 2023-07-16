@@ -35,6 +35,10 @@ export const useRate = (
 
   // 更新选中的值
   const updateValue = (value: number) => {
+    if (Number.isNaN(value)) {
+      debugWarn('TnRate', 'Rate回填数据发生错误')
+      value = 0
+    }
     emits(UPDATE_MODEL_EVENT, value)
     nextTick(() => {
       emits(CHANGE_EVENT, value)
@@ -67,7 +71,7 @@ export const useRate = (
       const itemRectInfo = await getSelectorNodeInfo(
         `#${componentId} .tn-rate__item`
       )
-      if (!itemRectInfo) {
+      if (!itemRectInfo?.width) {
         if (initCount > 10) {
           initCount = 0
           throw new Error('获取组件容器信息失败')
@@ -75,7 +79,7 @@ export const useRate = (
         initCount++
         setTimeout(() => {
           getComponentRectInfo()
-        }, 150)
+        }, 300)
         return
       }
 

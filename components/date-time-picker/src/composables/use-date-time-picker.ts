@@ -85,30 +85,57 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       )
     }
     // 设置defaultTime最小和最大时间
-    defaultTime = defaultTime.year(
-      Math.min(
-        Math.max(minTimeDayjs.value.year(), defaultTime.year()),
-        maxTimeDayjs.value.year()
+    if (props.mode !== 'time') {
+      defaultTime = defaultTime.year(
+        Math.min(
+          Math.max(minTimeDayjs.value.year(), defaultTime.year()),
+          maxTimeDayjs.value.year()
+        )
       )
-    )
-    if (defaultTime.year() === minTimeDayjs.value.year()) {
-      defaultTime = defaultTime
-        .month(minTimeDayjs.value.month())
-        .date(minTimeDayjs.value.date())
-        .hour(minTimeDayjs.value.hour())
-        .minute(minTimeDayjs.value.minute())
-        .second(minTimeDayjs.value.second())
-    }
-    if (
-      defaultTime.year() === maxTimeDayjs.value.year() &&
-      defaultTime.month() >= maxTimeDayjs.value.month()
-    ) {
-      defaultTime = defaultTime
-        .month(maxTimeDayjs.value.month())
-        .date(1)
-        .hour(0)
-        .minute(0)
-        .second(0)
+      if (defaultTime.year() === minTimeDayjs.value.year()) {
+        defaultTime = defaultTime
+          .month(minTimeDayjs.value.month())
+          .date(minTimeDayjs.value.date())
+          .hour(minTimeDayjs.value.hour())
+          .minute(minTimeDayjs.value.minute())
+          .second(minTimeDayjs.value.second())
+      }
+      if (
+        defaultTime.year() === maxTimeDayjs.value.year() &&
+        defaultTime.month() >= maxTimeDayjs.value.month()
+      ) {
+        defaultTime = defaultTime
+          .month(maxTimeDayjs.value.month())
+          .date(1)
+          .hour(0)
+          .minute(0)
+          .second(0)
+      }
+    } else {
+      defaultTime = defaultTime.hour(
+        Math.min(
+          Math.max(defaultTime.hour(), minTimeDayjs.value.hour()),
+          maxTimeDayjs.value.hour()
+        )
+      )
+      if (defaultTime.hour() === minTimeDayjs.value.hour()) {
+        defaultTime = defaultTime.minute(
+          Math.max(minTimeDayjs.value.minute(), defaultTime.minute())
+        )
+        if (defaultTime.minute() === minTimeDayjs.value.minute()) {
+          defaultTime = defaultTime.second(
+            Math.max(minTimeDayjs.value.second(), defaultTime.second())
+          )
+        }
+      }
+      if (defaultTime.hour() === maxTimeDayjs.value.hour()) {
+        defaultTime = defaultTime.minute(
+          Math.min(maxTimeDayjs.value.minute(), defaultTime.minute())
+        )
+        if (defaultTime.minute() === maxTimeDayjs.value.minute()) {
+          defaultTime = defaultTime.second(0)
+        }
+      }
     }
     generatePickerData(defaultTime)
 

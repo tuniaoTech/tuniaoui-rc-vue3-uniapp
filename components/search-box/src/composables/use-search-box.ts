@@ -1,4 +1,4 @@
-import { nextTick, ref } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { debounce, throttle } from '../../../../libs/lodash'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../../constants'
 
@@ -14,6 +14,14 @@ export const useSearchBox = (
 
   // 输入框的值
   const inputValue = ref<string>(props.modelValue)
+  watch(
+    () => props.modelValue,
+    (val) => {
+      if (props.modelValue === inputValue.value) return
+      inputValue.value = val
+      showPlaceholder.value = !val
+    }
+  )
   // 输入框聚焦
   const inputFocus = ref<boolean>(false)
   if (props.focus) {
@@ -70,7 +78,7 @@ export const useSearchBox = (
 
   // 点击search按钮事件
   const searchBtnClickEvent = debounce(() => {
-    if (!inputValue.value || props.disabled) return
+    if (props.disabled) return
     emits('search', inputValue.value)
   }, 250)
 

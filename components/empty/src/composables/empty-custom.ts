@@ -6,12 +6,16 @@ import {
 } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
 
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, Ref } from 'vue'
 import type { EmptyProps } from '../empty'
 
 type TextIconStyleType = (type: 'icon' | 'tips') => CSSProperties
 
-export const useEmptyCustomStyle = (props: EmptyProps) => {
+export const useEmptyCustomStyle = (
+  props: EmptyProps,
+  customIconContent: Ref<boolean>,
+  customTipsContent: Ref<boolean>
+) => {
   const ns = useNamespace('empty')
 
   // 解析颜色
@@ -53,11 +57,11 @@ export const useEmptyCustomStyle = (props: EmptyProps) => {
 
       // 设置用户自定义尺寸
       if (props.size && sizeType.value === 'custom') {
-        if (type === 'icon') {
+        if (type === 'icon' && !customIconContent.value) {
           style.fontSize = formatDomSizeValue(props.size)
           style.width = style.height = formatDomSizeValue(props.size)
         }
-        if (type === 'tips') {
+        if (type === 'tips' && !customTipsContent.value) {
           style.fontSize = `calc(${formatDomSizeValue(props.size)} * 0.35)`
         }
       }

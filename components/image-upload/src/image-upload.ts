@@ -141,6 +141,13 @@ export const imageUploadProps = buildProps({
     default: () => imageExtensions,
   },
   /**
+   * @description 自动移除上传失败的图片
+   */
+  autoRemoveFaildFile: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * @description 自定义上传函数
    */
   customUploadHandler: {

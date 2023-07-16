@@ -1,4 +1,4 @@
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, toRef, watch } from 'vue'
 import { useLongPress } from '../../../../hooks'
 
 import type { SetupContext } from 'vue'
@@ -111,7 +111,7 @@ export const useKeyboard = (
   const {
     handleLongPressEvent: handleBackspaceEvent,
     clearLongPressTimer: clearBackspaceLongPressEvent,
-  } = useLongPress(backspaceEvent, props.longPressDelete ?? true)
+  } = useLongPress(backspaceEvent, toRef(props, 'longPressDelete'))
 
   // 车牌键盘中英文切换
   const carKeyboardLang = ref<CarKeyboardLang>(props.carLang ?? 'cn')

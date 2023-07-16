@@ -45,6 +45,7 @@ import { TnSteps, TnStepsItem } from '../components/steps'
 import { TnSticky } from '../components/sticky'
 import { TnSubsection } from '../components/subsection'
 import { TnSwipeAction, TnSwipeActionItem } from '../components/swipe-action'
+import { TnSwiper } from '../components/swiper'
 import { TnSwitch } from '../components/switch'
 import { TnSwitchTab } from '../components/switch-tab'
 import { TnTabbar, TnTabbarItem } from '../components/tabbar'
@@ -111,6 +112,7 @@ export default [
   TnSubsection,
   TnSwipeAction,
   TnSwipeActionItem,
+  TnSwiper,
   TnSwitch,
   TnSwitchTab,
   TnTabbar,

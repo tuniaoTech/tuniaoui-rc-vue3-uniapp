@@ -1,6 +1,8 @@
+import type { Ref } from 'vue'
+
 export const useLongPress = <T extends any[]>(
   event: (...args: T) => void,
-  enabled = false,
+  enabled: Ref<boolean>,
   longPressIntervel = 250
 ) => {
   // 长按判断定时器
@@ -16,7 +18,7 @@ export const useLongPress = <T extends any[]>(
 
   // 处理长按事件
   const handleLongPressEvent = (...args: T) => {
-    if (enabled) {
+    if (enabled.value) {
       event(...args)
       clearLongPressTimer()
       longPressTimer = setInterval(() => {

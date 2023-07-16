@@ -16,6 +16,13 @@
   background-color: var(--tn-color-gray-light);
   color: var(--tn-color-gray);
 
+  /* 正常显示图片 start */
+  @include when(show-image) {
+    background-color: transparent;
+    color: transparent;
+  }
+  /* 正常显示图片 end */
+
   /* 内容容器 start */
   @include e(container) {
     @include full-style;
