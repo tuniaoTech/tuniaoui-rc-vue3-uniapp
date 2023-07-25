@@ -1,6 +1,7 @@
 import { computed, nextTick, ref } from 'vue'
 import dayjs from '../../../../libs/dayjs'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../../constants'
+import { isEmptyVariableInDefault } from '../../../../utils'
 import { useWeekCalendarSelector } from './use-week-calendar-selector'
 
 import type { SetupContext } from 'vue'
@@ -59,7 +60,9 @@ export const useWeekCalendar = (
   const weekCalendarData = ref<WeekCalendarData>([])
 
   // 当前激活的日期
-  const activeDate = computed<number>(() => props.modelValue ?? 0)
+  const activeDate = computed<number>(() =>
+    isEmptyVariableInDefault(props.modelValue, 0)
+  )
   // 当前选中的轮播位置
   const currentSwiperIndex = ref<number>(0)
 

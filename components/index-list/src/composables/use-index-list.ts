@@ -94,22 +94,19 @@ export const useIndexList = (
       const contentNodeInfos = await getSelectorNodeInfos(
         `.${componentContentClass}`
       )
-      if (!contentNodeInfos?.length) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取全部列表项的节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getContentItemNodeInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       contentTopValues = contentNodeInfos.map((item) => item.top || 0)
     } catch (err) {
-      debugWarn('TnIndexList', `获取全部列表项的节点信息失败：${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnIndexList', `获取全部列表项的节点信息失败：${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getContentItemNodeInfo()
+      }, 150)
     }
   }
 
@@ -131,17 +128,6 @@ export const useIndexList = (
       const keyListItemNodeInfo = await getSelectorNodeInfos(
         `#${componentKeyListId} .key-value`
       )
-      if (!keyListItemNodeInfo?.length) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取索引列表的容器信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getKeyListNodeInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       keyListTop = keyListNodeInfo.top || 0
@@ -158,7 +144,15 @@ export const useIndexList = (
         bottom: keyListNodeInfo.bottom,
       })
     } catch (err) {
-      debugWarn('TnIndexList', `获取索引列表的容器信息失败：${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnIndexList', `获取索引列表的容器信息失败：${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getKeyListNodeInfo()
+      }, 150)
     }
   }
 
@@ -173,15 +167,16 @@ export const useIndexList = (
   const updateKeyListIndexValue = () => {
     // 判断当前滑动位置在哪里
     let index = -1
-    // #ifndef APP-PLUS
+    // #ifndef APP-PLUS || MP-ALIPAY
     index = keyListItemRectInfo.findLastIndex(
       (item) => item.top < keyListTouchCurrentY.value
     )
     // #endif
-    // #ifdef APP-PLUS
+    // #ifdef APP-PLUS || MP-ALIPAY
     index = keyListItemRectInfo.findIndex(
       (item) => item.top > keyListTouchCurrentY.value
     )
+    index = index - 1
     // #endif
     if (index !== -1) {
       const keyListRectItem = keyListItemRectInfo[index]
@@ -190,6 +185,9 @@ export const useIndexList = (
 
       const top = contentTopValues[index]
       scrollViewTopValue.value = top - contentTopValues[0]
+      // #ifdef MP-ALIPAY
+      scrollViewTopValue.value = scrollViewTopValue.value + 1
+      // #endif
 
       currentTouchKeyIndex.value = index
     }
@@ -212,13 +210,13 @@ export const useIndexList = (
   }
 
   onMounted(() => {
-    // #ifndef APP-PLUS
+    // #ifndef APP-PLUS || MP-ALIPAY
     nextTick(() => {
       getContentItemNodeInfo()
       if (props.showKeysList) getKeyListNodeInfo()
     })
     // #endif
-    // #ifdef APP-PLUS
+    // #ifdef APP-PLUS || MP-ALIPAY
     setTimeout(() => {
       getContentItemNodeInfo()
       if (props.showKeysList) getKeyListNodeInfo()

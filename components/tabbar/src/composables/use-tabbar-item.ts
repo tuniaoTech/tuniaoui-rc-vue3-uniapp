@@ -9,7 +9,7 @@ import {
 } from 'vue'
 import { tabbarContextKey } from '../../../../tokens'
 import { useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId, throwError } from '../../../../utils'
+import { debugWarn, generateId } from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { TabbarItemEmits, TabbarItemProps } from '../tabbar-item'
@@ -56,16 +56,8 @@ export const useTabbarItem = (
   const getItemRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${itemId}`)
-      if (!rectInfo || (rectInfo.width && rectInfo.width < 30)) {
-        if (initRectCount > 10) {
-          initRectCount = 0
-          throwError('TnTabbarItem', '获取TabbarItem节点信息失败')
-        }
-        initRectCount++
-        setTimeout(() => {
-          getItemRectInfo()
-        }, 150)
-        return
+      if (rectInfo.width && rectInfo.width < 30) {
+        throw new Error('获取TabbarItem节点宽度失败')
       }
 
       initRectCount = 0
@@ -75,7 +67,15 @@ export const useTabbarItem = (
 
       tabbarContext?.setBulgeCircle(itemRectInfo.value)
     } catch (err) {
-      debugWarn('TnTabbarItem', `获取TabbarItem节点信息失败: ${err}`)
+      if (initRectCount > 10) {
+        initRectCount = 0
+        debugWarn('TnTabbarItem', `获取TabbarItem节点信息失败: ${err}`)
+        return
+      }
+      initRectCount++
+      setTimeout(() => {
+        getItemRectInfo()
+      }, 150)
     }
   }
 

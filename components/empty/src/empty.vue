@@ -9,8 +9,8 @@ const props = defineProps(emptyProps)
 
 const slots = useSlots()
 // 判断是否自定义icon或者tips的插槽
-const customIconContent = computed<boolean>(() => !!slots?.icon ?? false)
-const customTipsContent = computed<boolean>(() => !!slots?.tips ?? false)
+const customIconContent = computed<boolean>(() => !!slots?.icon)
+const customTipsContent = computed<boolean>(() => !!slots?.tips)
 
 const { ns, emptyClass, emptyStyle, iconTextStyle } = useEmptyCustomStyle(
   props,

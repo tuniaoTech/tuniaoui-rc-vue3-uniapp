@@ -1,6 +1,6 @@
 import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
-import { formatDomSizeValue } from '../../../../utils'
+import { formatDomSizeValue, isEmptyVariableInDefault } from '../../../../utils'
 
 import type { CSSProperties, Ref } from 'vue'
 import type { NotifyOptions, NotifyProps } from '../notify'
@@ -32,7 +32,7 @@ export const useNotifyCustomStyle = (
     if (textColorClass.value) cls.push(textColorClass.value)
 
     // 设置弹出位置
-    cls.push(ns.m(options?.value.position ?? 'top'))
+    cls.push(ns.m(isEmptyVariableInDefault(options?.value.position, 'top')))
 
     if (isActive.value) cls.push(ns.is('active'))
 

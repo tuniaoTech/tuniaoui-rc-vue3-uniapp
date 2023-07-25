@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { useComponentColor } from '../../../../hooks'
+import { isEmptyVariableInDefault } from '../../../../utils'
 
 import type { CSSProperties } from 'vue'
 import type { SwipeActionItemProps } from '../swipe-action-item'
@@ -33,8 +34,8 @@ export const useSwipeActionOptions = (props: SwipeActionItemProps) => {
       )
       const [bgColorClass, bgColorStyle] = useComponentColor(bgColor, 'bg')
       return {
-        icon: item.icon ?? '',
-        text: item.text ?? '',
+        icon: isEmptyVariableInDefault(item.icon, ''),
+        text: isEmptyVariableInDefault(item.text, ''),
         textColor: {
           class: textColorClass.value,
           style: textColoeStyle.value,
@@ -43,8 +44,8 @@ export const useSwipeActionOptions = (props: SwipeActionItemProps) => {
           class: bgColorClass.value,
           style: bgColorStyle.value,
         },
-        round: item.round ?? false,
-        disabled: item.disabled ?? false,
+        round: isEmptyVariableInDefault(item.round, false),
+        disabled: isEmptyVariableInDefault(item.disabled, false),
       }
     })
   })

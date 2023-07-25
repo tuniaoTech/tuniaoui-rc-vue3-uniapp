@@ -26,22 +26,27 @@ export const useGraphicCard = (
 
   // 用户头像点击事件
   const handleAvatarClick = () => {
-    emits('avatarClick')
+    emits('avatar-click')
+  }
+
+  // 更多按钮点击事件
+  const handleMoreClick = () => {
+    emits('more-click')
   }
 
   // 点击查看数量
   const handleViewClick = () => {
-    emits('viewClick')
+    emits('view-click')
   }
 
   // 点击评论数量
   const handleCommentClick = () => {
-    emits('commentClick')
+    emits('comment-click')
   }
 
   // 点击点赞数量
   const handleLikeClick = () => {
-    emits('likeClick')
+    emits('like-click')
   }
 
   return {
@@ -49,6 +54,7 @@ export const useGraphicCard = (
     viewUserCount,
     cardClickEvent,
     handleAvatarClick,
+    handleMoreClick,
     handleViewClick,
     handleCommentClick,
     handleLikeClick,

@@ -8,7 +8,11 @@ import {
 } from 'vue'
 import { collapseContextKey } from '../../../../tokens'
 import { useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 
 import type { CollapseItemProps } from '../collapse-item'
 
@@ -36,7 +40,9 @@ export const useCollapseItem = (props: CollapseItemProps) => {
   })
 
   // 是否显示折叠面板箭头
-  const showArrow = computed<boolean>(() => collapse?.showArrow ?? false)
+  const showArrow = computed<boolean>(() =>
+    isEmptyVariableInDefault(collapse?.showArrow, false)
+  )
 
   // 组件内容的高度
   const compoenntContentDefaultHeight = ref<number>(0)
@@ -54,22 +60,19 @@ export const useCollapseItem = (props: CollapseItemProps) => {
   const getComponentContentHeight = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentContentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取内容高度失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getComponentContentHeight()
-        }, 150)
-        return
-      }
 
       initCount = 0
       compoenntContentDefaultHeight.value = rectInfo.height || 0
     } catch (err) {
-      debugWarn('TnCollapseItem', `获取内容高度失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnCollapseItem', `获取内容高度失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getComponentContentHeight()
+      }, 150)
     }
   }
 

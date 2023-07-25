@@ -5,7 +5,7 @@ import {
   UPDATE_MODEL_EVENT,
 } from '../../../../constants'
 import { useLongPress } from '../../../../hooks'
-import { debugWarn } from '../../../../utils'
+import { debugWarn, isEmptyVariableInDefault } from '../../../../utils'
 import { useFormItem } from '../../../form'
 
 import type { NumberBoxProps } from '../number-box'
@@ -22,7 +22,7 @@ export const useNumberBox = (props: NumberBoxProps) => {
   watch(
     () => props.modelValue,
     (val) => {
-      const value = val ?? 0
+      const value = isEmptyVariableInDefault(val, 0)
       inputValue.value = Math.max(props.min, Math.min(value, props.max))
     },
     {

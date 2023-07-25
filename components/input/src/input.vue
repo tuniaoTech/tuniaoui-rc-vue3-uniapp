@@ -44,7 +44,11 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
     <!-- 文本域 -->
     <textarea
       v-if="type === 'textarea'"
-      :class="[ns.e('base'), ns.e('textarea')]"
+      :class="[
+        ns.e('base'),
+        ns.e('textarea'),
+        ns.is('custom-height', !!height),
+      ]"
       :value="inputText"
       :placeholder="placeholder"
       :placeholder-style="placeholderStyle"
@@ -52,7 +56,7 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
       :maxlength="maxlength"
       :focus="focus"
       :confirm-type="confirmType"
-      :auto-height="!!height && autoHeight"
+      :auto-height="!height && autoHeight"
       :selection-start="selectionStart"
       :selection-end="selectionEnd"
       :cursor-spacing="cursorSpacing"

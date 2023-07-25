@@ -1,4 +1,5 @@
 import { computed, ref, watch } from 'vue'
+import { isEmptyVariableInDefault } from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { CountToEmits, CountToProps } from '../count-to'
@@ -8,14 +9,20 @@ export const useCountTo = (
   emits: SetupContext<CountToEmits>['emit']
 ) => {
   // 开始值
-  const startValue = computed<number>(() => Number(props.start ?? 0))
+  const startValue = computed<number>(() =>
+    Number(isEmptyVariableInDefault(props.start, 0))
+  )
   // 结束值
-  const endValue = computed<number>(() => Number(props.end ?? 0))
+  const endValue = computed<number>(() =>
+    Number(isEmptyVariableInDefault(props.end, 0))
+  )
   // 判断是往下计数还是往上计数
   const countDown = computed<boolean>(() => startValue.value > endValue.value)
 
   // 动画执行时间
-  const duration = computed<number>(() => props.duration ?? 1500)
+  const duration = computed<number>(() =>
+    isEmptyVariableInDefault(props.duration, 1500)
+  )
 
   // 待显示的内容
   const content = ref<string>('')
@@ -28,7 +35,9 @@ export const useCountTo = (
     let firestValue = valueArr[0]
     let secondValue = ''
     if (valueArr.length > 1) {
-      secondValue = `${props.decimalSeparator ?? '.'}${valueArr[1]}`
+      secondValue = `${isEmptyVariableInDefault(props.decimalSeparator, '.')}${
+        valueArr[1]
+      }`
     }
     if (props?.thousandsSeparator) {
       while (throusandNumberReg.test(firestValue)) {

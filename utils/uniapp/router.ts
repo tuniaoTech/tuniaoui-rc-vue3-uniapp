@@ -1,4 +1,5 @@
 import { debugWarn } from '../error'
+import { isEmptyVariableInDefault } from '../is-empty'
 
 type navType = 'navigateTo' | 'redirectTo' | 'reLaunch' | 'switchTab'
 
@@ -8,7 +9,7 @@ type navType = 'navigateTo' | 'redirectTo' | 'reLaunch' | 'switchTab'
  * @param delta 返回的页面数，如果 delta 大于现有页面数，则返回到首页
  */
 export function tnNavBack(indexUrl?: string, delta = 1) {
-  const indexPageUrl = indexUrl ?? '/pages/index/index'
+  const indexPageUrl = isEmptyVariableInDefault(indexUrl, '/pages/index/index')
   // 通过判断当前页面的页面栈信息，是否有上一页进行返回，如果没有则跳转到首页
   const pages = getCurrentPages()
   if (pages?.length) {

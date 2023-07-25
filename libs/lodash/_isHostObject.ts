@@ -3,7 +3,7 @@ export function isHostObject(value: any) {
   if (value != null && typeof value.toString != 'function') {
     try {
       result = !!`${value}`
-    } catch {}
+    } catch (e) {}
   }
   return result
 }

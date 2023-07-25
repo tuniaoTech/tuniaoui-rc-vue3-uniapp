@@ -66,6 +66,12 @@ $input-sizes: map-merge(
     font-size: inherit;
   }
 
+  @include e(textarea) {
+    @include when(custom-height) {
+      height: 100%;
+    }
+  }
+
   /* 右边图标 start */
   @include e(icon) {
     display: flex;

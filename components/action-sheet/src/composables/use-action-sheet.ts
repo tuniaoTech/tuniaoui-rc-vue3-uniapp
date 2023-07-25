@@ -1,5 +1,10 @@
 import { computed, getCurrentInstance, reactive, ref } from 'vue'
-import { debugWarn, isBoolean, isPromise } from '../../../../utils'
+import {
+  debugWarn,
+  isBoolean,
+  isEmptyVariableInDefault,
+  isPromise,
+} from '../../../../utils'
 
 import type { ActionSheetOptions } from '../action-sheet'
 
@@ -39,7 +44,7 @@ export const useActionSheet = () => {
   const showCancel = computed(() => !!slots?.cancel || !!options.cancelText)
   const cancelText = computed(() => options.cancelText)
   // 是否显示遮罩
-  const overlay = computed(() => options.mask ?? true)
+  const overlay = computed(() => isEmptyVariableInDefault(options.mask, true))
 
   // 弹出popup弹框
   const openPopup = ref<boolean>(false)

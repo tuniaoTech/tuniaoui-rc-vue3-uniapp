@@ -21,32 +21,29 @@ export const useWeekCalendarSelector = () => {
   const getDateItemNodeInfo = async () => {
     try {
       const nodeInfo = await getSelectorNodeInfo(`#${componentDateItemId}-0-0`)
-      if (!nodeInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取日期节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getDateItemNodeInfo()
-        }, 150)
-        return
-      }
 
       dateItemContainerHeight.value = nodeInfo.height || 0
       dateItemContainerHeight.value += uni.upx2px(16)
     } catch (err) {
-      debugWarn('TnWeekCalendar', `获取日期节点信息失败：${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnWeekCalendar', `获取日期节点信息失败：${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getDateItemNodeInfo()
+      }, 150)
     }
   }
 
   onMounted(() => {
-    // #ifndef APP-PLUS || H5
+    // #ifndef APP-PLUS || H5 || MP-ALIPAY
     nextTick(() => {
       getDateItemNodeInfo()
     })
     // #endif
-    // #ifdef APP-PLUS || H5
+    // #ifdef APP-PLUS || H5 || MP-ALIPAY
     setTimeout(() => {
       getDateItemNodeInfo()
     }, 150)

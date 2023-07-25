@@ -1,4 +1,6 @@
 import { computed, nextTick, ref, watch } from 'vue'
+import { isEmptyVariableInDefault } from '../../../../utils'
+
 import type { CountScrollProps } from '../count-scroll'
 
 // 使用Array生成0-9的数组
@@ -13,7 +15,10 @@ export const useCountScroll = (props: CountScrollProps) => {
   // 分割符保留字符
   const separator = computed<string[]>(() => {
     const { decimalSeparator, thousandsSeparator } = props
-    const separatorList = [decimalSeparator, thousandsSeparator ?? '']
+    const separatorList = [
+      decimalSeparator,
+      isEmptyVariableInDefault(thousandsSeparator, ''),
+    ]
     return separatorList.filter((item) => item)
   })
 

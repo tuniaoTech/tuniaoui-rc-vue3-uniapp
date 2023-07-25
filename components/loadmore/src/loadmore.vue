@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import TnLoading from '../../loading/src/loading.vue'
+import { isEmptyVariableInDefault } from '../../../utils'
 import { loadmoreEmits, loadmoreProps } from './loadmore'
 import { useLoadmoreCustomStyle } from './composables'
 
@@ -29,7 +30,7 @@ const loadMoreClickEvent = () => {
         animation
         :mode="loadingIconMode"
         :size="size"
-        :color="color ?? 'tn-gray'"
+        :color="isEmptyVariableInDefault(color, 'tn-gray')"
       />
       <view v-if="loadingText" :class="[ns.e('text')]">
         <!-- 加载更多文案 -->

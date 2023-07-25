@@ -69,22 +69,19 @@ export const useReadMore = (
   const getContentRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentContentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取内容容器信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getContentRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       contentHeight.value = rectInfo.height || 0
     } catch (err) {
-      debugWarn('TnReadMore', `获取内容容器信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnReadMore', `获取内容容器信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getContentRectInfo()
+      }, 150)
     }
   }
   // 重置内容容器的高度

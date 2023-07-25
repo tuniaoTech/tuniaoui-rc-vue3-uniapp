@@ -72,15 +72,7 @@ export const useRate = (
         `#${componentId} .tn-rate__item`
       )
       if (!itemRectInfo?.width) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取组件容器信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getComponentRectInfo()
-        }, 300)
-        return
+        throw new Error('获取组件容器宽度失败')
       }
 
       componentItemWidth = itemRectInfo.width || 0
@@ -100,7 +92,15 @@ export const useRate = (
       activeItemWidth.value = initValue * componentItemWidth
       updateValue(initValue)
     } catch (err) {
-      debugWarn('TnRate', `获取组件容器信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnRate', `获取组件容器信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getComponentRectInfo()
+      }, 300)
     }
   }
 
@@ -170,12 +170,12 @@ export const useRate = (
   }
 
   onMounted(() => {
-    // #ifndef APP-PLUS
+    // #ifndef APP-PLUS || MP-ALIPAY
     nextTick(() => {
       getComponentRectInfo()
     })
     // #endif
-    // #ifdef APP-PLUS
+    // #ifdef APP-PLUS || MP-ALIPAY
     setTimeout(() => {
       getComponentRectInfo()
     }, 500)

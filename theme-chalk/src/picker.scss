@@ -39,6 +39,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* #ifdef MP-ALIPAY */
+    height: auto;
+    /* #endif */
   }
   /* 内容区域 end */
 

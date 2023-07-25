@@ -1,5 +1,6 @@
 import { ref, toRef } from 'vue'
 import { useComponentColor } from '../../../../hooks'
+import { isEmptyVariableInDefault } from '../../../../utils'
 
 import type { RateProps } from '../rate'
 import type { RateItemData } from '../types'
@@ -26,7 +27,10 @@ const useRateItemData = (props: RateProps) => {
     }
     const data: RateItemData[] = []
     for (let i = 0; i < max; i++) {
-      const configData = { ...defaultConfig, ...(customData?.[i] ?? {}) }
+      const configData = {
+        ...defaultConfig,
+        ...isEmptyVariableInDefault(customData?.[i], {}),
+      }
       // 解析颜色值
       const [inactiveColorClass, inactiveColorStyle] = useComponentColor(
         toRef(configData, 'inactiveColor'),

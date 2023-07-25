@@ -1,5 +1,9 @@
 import { ref } from 'vue'
-import { isBoolean, isPromise } from '../../../../utils'
+import {
+  isBoolean,
+  isEmptyVariableInDefault,
+  isPromise,
+} from '../../../../utils'
 
 import type { ModalOptions } from '../modal'
 
@@ -43,16 +47,16 @@ export const useModal = () => {
   const showModal = (options: ModalOptions) => {
     openModal.value = true
 
-    title.value = options.title ?? ''
+    title.value = isEmptyVariableInDefault(options.title, '')
     content.value = options.content
 
-    showCancel.value = options?.showCancel ?? false
-    cancelText.value = options?.cancelText ?? '取 消'
-    cancelStyle.value = options?.cancelStyle ?? {}
-    confirmText.value = options?.confirmText ?? '确 认'
-    confirmStyle.value = options?.confirmStyle ?? {}
-    mask.value = options?.mask ?? true
-    maskClosable.value = options?.maskClosable ?? false
+    showCancel.value = isEmptyVariableInDefault(options?.showCancel, false)
+    cancelText.value = isEmptyVariableInDefault(options?.cancelText, '取 消')
+    cancelStyle.value = isEmptyVariableInDefault(options?.cancelStyle, {})
+    confirmText.value = isEmptyVariableInDefault(options?.confirmText, '确 认')
+    confirmStyle.value = isEmptyVariableInDefault(options?.confirmStyle, {})
+    mask.value = isEmptyVariableInDefault(options?.mask, true)
+    maskClosable.value = isEmptyVariableInDefault(options?.maskClosable, false)
     cancelFunc.value = options?.cancel
     confirmFunc.value = options?.confirm
   }

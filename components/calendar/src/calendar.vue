@@ -109,6 +109,7 @@ const { ns, itemClass, itemStyle } = useCalendarCustomStyle(props)
         :indicator-dots="false"
         :autoplay="false"
         :circular="false"
+        adjust-height="none"
         @change="swiperSwitchMonthEvent"
         @animationfinish="swiperSwitchMonthAnimationFinishEvent"
       >

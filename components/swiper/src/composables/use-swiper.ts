@@ -1,5 +1,6 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../../constants'
+import { isEmptyVariableInDefault } from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { SwiperEmits, SwiperProps } from '../swiper'
@@ -9,11 +10,13 @@ export const useSwiper = (
   emits: SetupContext<SwiperEmits>['emit']
 ) => {
   // 当前选中的SwiperItem索引
-  const currentSwiperIndex = ref<number>(props?.modelValue ?? 0)
+  const currentSwiperIndex = ref<number>(
+    isEmptyVariableInDefault(props?.modelValue, 0)
+  )
 
   watch(
     () => props.modelValue,
-    (value) => (currentSwiperIndex.value = value ?? 0)
+    (value) => (currentSwiperIndex.value = isEmptyVariableInDefault(value, 0))
   )
 
   // swiper数量

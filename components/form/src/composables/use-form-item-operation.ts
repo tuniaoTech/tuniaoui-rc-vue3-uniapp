@@ -2,7 +2,13 @@ import { computed, inject, nextTick, ref, watch } from 'vue'
 import AsyncValidator from '../../../../libs/async-validator'
 import { castArray, debounce } from '../../../../libs/lodash'
 import { formContextKey } from '../../../../tokens'
-import { cloneDeep, getProp, isFunction, isString } from '../../../../utils'
+import {
+  cloneDeep,
+  getProp,
+  isEmptyVariableInDefault,
+  isFunction,
+  isString,
+} from '../../../../utils'
 
 import type { Slots } from 'vue'
 import type { RuleItem } from '../../../../libs/async-validator'
@@ -101,7 +107,7 @@ export const useFormItemOperation = (props: FormItemProps, slots: Slots) => {
     () =>
       validateStateDebounced.value === 'error' &&
       props.showMessage &&
-      (formContext?.showMessage ?? true)
+      isEmptyVariableInDefault(formContext?.showMessage, true)
   )
 
   // 设置校验状态
@@ -136,7 +142,7 @@ export const useFormItemOperation = (props: FormItemProps, slots: Slots) => {
 
     setValidateState('error')
     validateMessage.value = errors
-      ? errors?.[0]?.message ?? `${props.prop} 为必填项`
+      ? isEmptyVariableInDefault(errors?.[0]?.message, `${props.prop} 为必填项`)
       : ''
 
     formContext?.emits('validate', props.prop!, false, validateMessage.value)

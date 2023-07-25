@@ -14,6 +14,7 @@ const {
   viewUserCount,
   cardClickEvent,
   handleAvatarClick,
+  handleMoreClick,
   handleCommentClick,
   handleViewClick,
   handleLikeClick,
@@ -49,7 +50,10 @@ const {
           </view>
         </view>
       </view>
-      <view :class="[ns.e('brief-info__operation')]">
+      <view
+        :class="[ns.e('brief-info__operation')]"
+        @tap.stop="handleMoreClick"
+      >
         <TnIcon name="more-vertical" />
       </view>
     </view>

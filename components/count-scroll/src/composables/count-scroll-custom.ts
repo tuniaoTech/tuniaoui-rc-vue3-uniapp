@@ -1,6 +1,6 @@
 import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
-import { formatDomSizeValue } from '../../../../utils'
+import { formatDomSizeValue, isEmptyVariableInDefault } from '../../../../utils'
 
 import type { CSSProperties } from 'vue'
 import type { CountScrollProps } from '../count-scroll'
@@ -17,7 +17,9 @@ export const useCountScrollCustomStyle = (props: CountScrollProps) => {
   )
 
   // 动画执行时间
-  const duration = computed<number>(() => props?.duration ?? 1500)
+  const duration = computed<number>(() =>
+    isEmptyVariableInDefault(props?.duration, 1500)
+  )
 
   // countScroll对应的类
   const countScrollClass = computed<string>(() => {
@@ -47,7 +49,7 @@ export const useCountScrollCustomStyle = (props: CountScrollProps) => {
       const style: CSSProperties = {}
 
       if (duration.value) style.transitionDuration = `${duration.value / 1000}s`
-      style.transform = `translateY(-${activeIndex * 100}%)`
+      style.transform = `translateY(-${activeIndex * 10}%)`
 
       return style
     }

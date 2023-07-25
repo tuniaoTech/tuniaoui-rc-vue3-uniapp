@@ -1,6 +1,12 @@
 import { getCurrentInstance, nextTick, ref, watch } from 'vue'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../../constants'
-import { cloneDeep, isArray, isObject, throwError } from '../../../../utils'
+import {
+  cloneDeep,
+  isArray,
+  isEmptyVariableInDefault,
+  isObject,
+  throwError,
+} from '../../../../utils'
 
 import type {
   PickerDataType,
@@ -21,14 +27,30 @@ export const usePicker = (props: PickerProps) => {
 
   // 显示popup弹框
   const openPopup = ref(false)
+  const showPicker = ref(true)
+  // #ifdef MP-ALIPAY
+  showPicker.value = false
+  // #endif
   watch(
     () => props.open,
     (value) => {
       openPopup.value = value
+      // #ifdef MP-ALIPAY
+      if (value) {
+        setTimeout(() => {
+          nextTick(() => {
+            showPicker.value = value
+          })
+        }, 350)
+      }
+      // #endif
     }
   )
   // 关闭popup弹框
   const closePopupEvent = () => {
+    // #ifdef MP-ALIPAY
+    showPicker.value = false
+    // #endif
     emit('close')
     emit('update:open', false)
   }
@@ -195,8 +217,8 @@ export const usePicker = (props: PickerProps) => {
       // currentPickerIndex.value.splice(pickerData.value.length)
       const pickerIndex = cloneDeep(currentPickerIndex.value)
       pickerIndex.splice(pickerData.value.length)
-      return pickerIndex.map(
-        (item, index) => pickerData.value[index][item]?.value ?? 0
+      return pickerIndex.map((item, index) =>
+        isEmptyVariableInDefault(pickerData.value[index][item]?.value, 0)
       )
     }
   }
@@ -310,6 +332,7 @@ export const usePicker = (props: PickerProps) => {
 
   return {
     openPopup,
+    showPicker,
     pickerData,
     currentPickerIndex,
     closePopupEvent,

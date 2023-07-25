@@ -50,7 +50,9 @@ export const useTabbarCustomStyle = (props: TabbarProps) => {
     if (bgColorClass.value && !props.frosted) cls.push(bgColorClass.value)
 
     // 设置毛玻璃效果
+    // #ifndef MP-ALIPAY
     if (props.frosted) cls.push(ns.em('bg', 'frosted'))
+    // #endif
 
     return cls.join(' ')
   })
@@ -64,8 +66,11 @@ export const useTabbarCustomStyle = (props: TabbarProps) => {
     // 设置背景颜色
     if (!bgColorClass.value)
       style.backgroundColor = bgColorStyle.value || 'var(--tn-color-white)'
+    // #ifndef MP-ALIPAY
     if (props.frosted)
       style.backgroundColor = bgColorStyle.value || 'rgba(255, 255, 255, 0.5)'
+    // #endif
+
     return style
   })
 

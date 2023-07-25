@@ -183,7 +183,8 @@ export const isJsonString = (value: string): boolean => {
       } else {
         return false
       }
-    } catch {
+      // eslint-disable-next-line unicorn/prefer-optional-catch-binding
+    } catch (e) {
       return false
     }
   }

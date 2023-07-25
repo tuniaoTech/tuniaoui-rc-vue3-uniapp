@@ -1,5 +1,6 @@
 import { computed, inject } from 'vue'
 import { radioGroupKey } from '../../../../tokens'
+import { isEmptyDoubleVariableInDefault } from '../../../../utils'
 import { useFormDisabled, useFormSize } from '../../../form'
 
 import type { RadioProps } from '../radio'
@@ -9,7 +10,9 @@ export const useRadioCommonProps = (props: RadioProps) => {
 
   // radio当选框尺寸
   const size = useFormSize(
-    computed(() => props?.size ?? radioGroupContext?.size)
+    computed(() =>
+      isEmptyDoubleVariableInDefault(props?.size, radioGroupContext?.size)
+    )
   )
 
   // radio单选框是否禁用

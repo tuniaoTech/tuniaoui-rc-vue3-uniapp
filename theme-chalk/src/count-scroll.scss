@@ -1,13 +1,18 @@
 @use '../mixins/mixins.scss' as *;
 
 @include b(count-scroll) {
-  display: inline-flex;
-  align-items: flex-end;
+  display: inline-block;
   height: 1em;
   overflow: hidden;
 
+  @include e(wrapper) {
+    height: 1em;
+    display: flex;
+    align-items: flex-start;
+  }
+
   @include e(column) {
-    height: inherit;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

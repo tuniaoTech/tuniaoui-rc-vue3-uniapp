@@ -80,7 +80,9 @@ export const useNavbarCustomStyle = (
     if (bgColorClass.value && !props.frosted) cls.push(bgColorClass.value)
 
     // 设置毛玻璃
+    // #ifndef MP-ALIPAY
     if (props.frosted) cls.push(ns.em('bg', 'frosted'))
+    // #endif
 
     return cls.join(' ')
   })
@@ -94,9 +96,11 @@ export const useNavbarCustomStyle = (
     if (!bgColorClass.value)
       style.backgroundColor = bgColorStyle.value || 'var(--tn-color-white)'
     // 判断是否为毛玻璃
+    // #ifndef MP-ALIPAY
     if (props.frosted) {
       style.backgroundColor = bgColorStyle.value || 'rgba(255, 255, 255, 0.5)'
     }
+    // #endif
 
     return style
   })

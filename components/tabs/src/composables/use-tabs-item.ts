@@ -45,29 +45,36 @@ export const useTabsItem = (props: TabsItemProps) => {
   const initTabsItemRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取tabsItem节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          initTabsItemRectInfo()
-        }, 150)
-        return
-      }
 
       tabsItemRect.width = rectInfo.width || 0
       tabsItemRect.height = rectInfo.height || 0
       tabsItemRect.left = rectInfo.left || 0
 
       // 添加item
+      // #ifndef APP-PLUS || MP-ALIPAY
       tabsContext?.addItem({
         uid,
         elementRect: tabsItemRect,
       })
+      // #endif
+      // #ifdef APP-PLUS || MP-ALIPAY
+      setTimeout(() => {
+        tabsContext?.addItem({
+          uid,
+          elementRect: tabsItemRect,
+        })
+      }, 250)
+      // #endif
     } catch (err) {
-      debugWarn('TnTabsItem', `获取tabsItem节点信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnTabsItem', `获取tabsItem节点信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        initTabsItemRectInfo()
+      }, 150)
     }
   }
 

@@ -13,6 +13,10 @@
   padding: 10rpx 14rpx;
   border-radius: 15rpx;
 
+  /* #ifdef MP-ALIPAY */
+  height: auto;
+  /* #endif */
+
   /* icon图标按钮 start */
   @include e(icon) {
     font-size: inherit;

@@ -37,48 +37,56 @@ $auxiliary-element-size: 12px;
       height: 0rpx;
       position: absolute;
       z-index: inherit;
-      border-width: 14rpx;
+      border-width: 18rpx;
       border-style: solid;
     }
     /* 辅助元素 end */
 
     /* 气泡弹框的位置 start */
     @include m(top) {
+      box-shadow: 0rpx 10rpx 20rpx -2rpx rgba(0, 0, 0, 0.06),
+        0rpx 0rpx 10rpx -4rpx rgba(0, 0, 0, 0.1);
       top: 0px;
       left: 50%;
       transform: translate(-50%, calc(-100% - $auxiliary-element-size));
       .auxiliary-element {
         left: 50%;
-        bottom: 0;
+        bottom: 2rpx;
         transform: translate(-50%, 100%);
       }
     }
     @include m(right) {
+      box-shadow: -10rpx 0rpx 20rpx -2rpx rgba(0, 0, 0, 0.06),
+        0rpx 0rpx 10rpx -4rpx rgba(0, 0, 0, 0.1);
       left: calc(100% + $auxiliary-element-size);
       top: 50%;
       transform: translateY(-50%);
       .auxiliary-element {
-        left: 0;
+        left: 2rpx;
         top: 50%;
         transform: translate(-100%, -50%);
       }
     }
     @include m(bottom) {
+      box-shadow: 0rpx -10rpx 20rpx -2rpx rgba(0, 0, 0, 0.06),
+        0rpx 0rpx 10rpx -4rpx rgba(0, 0, 0, 0.1);
       top: calc(100% + $auxiliary-element-size);
       left: 50%;
       transform: translateX(-50%);
       .auxiliary-element {
         left: 50%;
-        top: 0;
+        top: 2rpx;
         transform: translate(-50%, -100%);
       }
     }
     @include m(left) {
+      box-shadow: 10rpx 0rpx 20rpx -2rpx rgba(0, 0, 0, 0.06),
+        0rpx 0rpx 10rpx -4rpx rgba(0, 0, 0, 0.1);
       top: 50%;
       left: calc(-100% + $auxiliary-element-size);
       transform: translate(-50%, -50%);
       .auxiliary-element {
-        right: 0;
+        right: 2rpx;
         top: 50%;
         transform: translate(100%, -50%);
       }

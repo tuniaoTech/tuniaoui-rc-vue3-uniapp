@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, nextTick, ref, watch } from 'vue'
-import { debugWarn, isArray } from '../../../../utils'
+import { debugWarn, isArray, isEmptyVariableInDefault } from '../../../../utils'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,
@@ -17,7 +17,9 @@ export const useSlider = (props: SliderProps) => {
   // 是否搭配FormItem一起使用
   const isFormItem = computed(() => !!formItem)
 
-  const sliderValue = ref<SliderValueType>(props.modelValue ?? 0)
+  const sliderValue = ref<SliderValueType>(
+    isEmptyVariableInDefault(props.modelValue, 0)
+  )
 
   // 初始化数据
   const initSliderValue = () => {
@@ -35,7 +37,10 @@ export const useSlider = (props: SliderProps) => {
         ]
       }
     } else {
-      val = Math.min(Math.max(val ?? 0, props.min), props.max)
+      val = Math.min(
+        Math.max(isEmptyVariableInDefault(val, 0), props.min),
+        props.max
+      )
     }
 
     nextTick(() => {

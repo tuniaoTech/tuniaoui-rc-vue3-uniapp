@@ -94,7 +94,10 @@ export const useUniAppSystemRectInfo = () => {
       navBarBoundingInfo.top = menuButtonTop
       navBarBoundingInfo.left = menuButtonLeft
       navBarBoundingInfo.right = menuButtonRight
-      navBarBoundingInfo.marginRight = windowWidth - menuButtonRight
+      // #ifdef MP-ALIPAY
+      navBarBoundingInfo.right = menuButtonLeft + menuButtonWidth
+      // #endif
+      navBarBoundingInfo.marginRight = windowWidth - navBarBoundingInfo.right
 
       // 防止导航栏内容区域太靠近底部
       // 菜单胶囊按钮距离顶部的高度

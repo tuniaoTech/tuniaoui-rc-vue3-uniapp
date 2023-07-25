@@ -55,9 +55,15 @@
     /* 星期切换按钮 end */
 
     /* 轮播 start */
-    &__swiper,
-    &__swiper-item {
+    &__swiper {
       position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    &__swiper-item {
+      /* #ifndef MP-ALIPAY */
+      position: relative;
+      /* #endif */
       width: 100%;
       height: 100%;
     }

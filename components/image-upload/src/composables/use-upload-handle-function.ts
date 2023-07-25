@@ -1,5 +1,10 @@
 import { ref, watch } from 'vue'
-import { isArray, isPromise, isString } from '../../../../utils'
+import {
+  isArray,
+  isEmptyVariableInDefault,
+  isPromise,
+  isString,
+} from '../../../../utils'
 import { isJsonString } from '../../../../utils/validator'
 
 import type { ImageUploadFile, ImageUploadListItem } from '../types'
@@ -149,7 +154,12 @@ export default function useUploadHandleFunction(props: ImageUploadProps) {
                   resolve(true)
                 } else {
                   console.error('[TnImageUpload]上传文件发生错误', res)
-                  reject(data?.message ?? (data?.msg || '上传文件发生错误'))
+                  reject(
+                    isEmptyVariableInDefault(
+                      data?.message,
+                      data?.msg || '上传文件发生错误'
+                    )
+                  )
                 }
               }
             }
@@ -178,6 +188,9 @@ export default function useUploadHandleFunction(props: ImageUploadProps) {
   // 检查文件是否超过最大文件尺寸或者不符合上传文件类型
   const checkFileSizeAndExtension = (files: Array<ImageUploadFile>) => {
     const { extensions, maxSize } = props
+    // #ifdef MP-ALIPAY
+    extensions.push('image')
+    // #endif
     const extReg = /.+\./
     return files.filter((item) => {
       // 获取文件后缀名

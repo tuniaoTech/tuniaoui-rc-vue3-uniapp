@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { useNamespace } from '../../../../hooks'
+import { isEmptyVariableInDefault } from '../../../../utils'
 
 import type { CSSProperties, SetupContext } from 'vue'
 import type { OverlayEmits, OverlayProps } from '../overlay'
@@ -25,10 +26,16 @@ export const useOverlay = (
     const style: CSSProperties = {}
 
     // 动画执行时间
-    style.transitionDuration = `${props.duration ?? 300}ms`
+    style.transitionDuration = `${isEmptyVariableInDefault(
+      props.duration,
+      300
+    )}ms`
 
     // 遮罩层透明度
-    style.backgroundColor = `rgba(0, 0, 0, ${props.opacity ?? 0.5})`
+    style.backgroundColor = `rgba(0, 0, 0, ${isEmptyVariableInDefault(
+      props.opacity,
+      0.5
+    )})`
 
     // 设置zIndex
     if (props.zIndex) style.zIndex = props.zIndex

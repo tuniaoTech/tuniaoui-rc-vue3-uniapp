@@ -8,7 +8,11 @@ import {
 } from 'vue'
 import { avatarGroupContextKey } from '../../../../tokens'
 import { useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { AvatarEmits, AvatarProps } from '../avatar'
@@ -32,13 +36,15 @@ export const useAvatar = (
 
   // 头像组头像数量
   const groupAvatarCount = computed<number>(() => {
-    return avatarGroup?.avatarItems.length ?? 0
+    return isEmptyVariableInDefault(avatarGroup?.avatarItems.length, 0)
   })
   const avatarGroupIndex = ref<number>(-1)
   nextTick(() => {
     // 获取当前头像的索引
-    avatarGroupIndex.value =
-      avatarGroup?.avatarItems.findIndex((item) => item.uid === uid) ?? -1
+    const avatarIndex = avatarGroup?.avatarItems.findIndex(
+      (item) => item.uid === uid
+    )
+    avatarGroupIndex.value = isEmptyVariableInDefault(avatarIndex, -1)
 
     if (!avatarWidth.value && avatarGroupIndex.value !== -1) {
       getAvatarWidthNodeInfo()
@@ -53,20 +59,18 @@ export const useAvatar = (
   const getAvatarWidthNodeInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          throw new Error('获取头像宽度信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getAvatarWidthNodeInfo()
-        }, 150)
-        return
-      }
 
       avatarWidth.value = rectInfo.width || 0
     } catch (err) {
-      debugWarn('TnAvatar', `获取头像宽度信息失败：${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnAvatar', `获取头像宽度信息失败：${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getAvatarWidthNodeInfo()
+      }, 150)
     }
   }
 

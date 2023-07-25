@@ -7,5 +7,6 @@
 
   @include e(content) {
     width: 100%;
+    z-index: inherit;
   }
 }

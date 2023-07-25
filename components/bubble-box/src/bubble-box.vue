@@ -42,7 +42,7 @@ const { bubbleOptions } = useBubbleOptions(props)
     <view :class="[ns.e('content')]" @tap.stop="openBubbleOptions">
       <slot />
       <!-- 气泡弹框选项 -->
-      <view class="tn-shadow-md" :class="[optionsClass]" :style="optionsStyle">
+      <view :class="[optionsClass]" :style="optionsStyle">
         <!-- 小三角 -->
         <view
           :class="[optionsAuxiliaryElementClass]"

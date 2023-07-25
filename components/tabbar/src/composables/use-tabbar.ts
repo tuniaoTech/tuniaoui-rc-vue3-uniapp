@@ -117,9 +117,7 @@ export const useTabbar = (props: TabbarProps) => {
     const { width, left } = itemRectInfo
     try {
       const rectInfo = await getSelectorNodeInfo(`#${rectId}`)
-      if (!rectInfo) {
-        throw new Error('获取Tabbar节点信息失败')
-      }
+
       const { left: tabbarRectLeft } = rectInfo
       bulgeRectInfo.value.width = width * 0.75
       bulgeRectInfo.value.height = bulgeRectInfo.value.width

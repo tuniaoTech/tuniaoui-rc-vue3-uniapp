@@ -8,7 +8,11 @@ import {
   watch,
 } from 'vue'
 import { useObserver, useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 import { useStickySupport } from './use-sticky-support'
 
 import type { StickyProps } from '../sticky'
@@ -30,7 +34,9 @@ export const useSticky = (props: StickyProps) => {
   const { getSelectorNodeInfo } = useSelectorQuery(instance)
 
   // 吸顶的距离
-  const stickyDistance = computed<number>(() => props?.offsetTop ?? 0)
+  const stickyDistance = computed<number>(() =>
+    isEmptyVariableInDefault(props?.offsetTop, 0)
+  )
 
   // 是否吸顶
   const stickyStatus = ref<boolean>(false)
@@ -78,17 +84,6 @@ export const useSticky = (props: StickyProps) => {
     disconnectObserver()
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取节点失败')
-        }
-        initCount++
-        setTimeout(() => {
-          initObserver()
-        }, 150)
-        return
-      }
 
       initCount = 0
       // 设置容器信息
@@ -100,7 +95,15 @@ export const useSticky = (props: StickyProps) => {
         monitorNodeInfo()
       })
     } catch (err) {
-      debugWarn('TnSticky', `获取sticky节点信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnSticky', `获取sticky节点信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        initObserver()
+      }, 150)
     }
   }
 

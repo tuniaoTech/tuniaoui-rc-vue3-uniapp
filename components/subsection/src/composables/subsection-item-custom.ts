@@ -1,6 +1,10 @@
 import { computed, inject, toRef } from 'vue'
 import { subsectionContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
+import {
+  isEmptyDoubleVariableInDefault,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 
 import type { CSSProperties, Ref } from 'vue'
 import type { SubsectionMode } from '../subsection'
@@ -14,11 +18,15 @@ export const useSubsectionItemCustomStyle = (
 
   const ns = useNamespace('subsection-item')
 
-  const activeColor = computed<string>(
-    () => props.activeColor ?? subsectionContext?.activeColor ?? ''
+  const activeColor = computed<string>(() =>
+    isEmptyDoubleVariableInDefault(
+      props.activeColor,
+      subsectionContext?.activeColor,
+      ''
+    )
   )
-  const subsectionMode = computed<SubsectionMode>(
-    () => subsectionContext?.mode ?? 'default'
+  const subsectionMode = computed<SubsectionMode>(() =>
+    isEmptyVariableInDefault(subsectionContext?.mode, 'default')
   )
   const disabled = computed<boolean>(
     () => subsectionContext?.disabled || props.disabled || false

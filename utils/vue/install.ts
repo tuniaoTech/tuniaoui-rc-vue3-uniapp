@@ -1,3 +1,4 @@
+import { isEmptyVariableInDefault } from '../is-empty'
 import type { App, Directive } from 'vue'
 import type { SFCInstallWithContext, SFCWithInstall } from './typescript'
 
@@ -8,7 +9,10 @@ export const withInstall = <T, E extends Record<string, any>>(
 ) => {
   // 将组件注册到应用程序中
   ;(main as SFCWithInstall<T>).install = (app: App) => {
-    for (const comp of [main, ...Object.values(extra ?? {})]) {
+    for (const comp of [
+      main,
+      ...Object.values(isEmptyVariableInDefault<E>(extra, {})),
+    ]) {
       app.component(comp.name, comp)
     }
   }

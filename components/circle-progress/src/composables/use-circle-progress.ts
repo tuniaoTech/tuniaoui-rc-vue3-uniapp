@@ -1,6 +1,6 @@
 import { computed, getCurrentInstance, nextTick, watch } from 'vue'
 import { useNamespace } from '../../../../hooks'
-import { generateId } from '../../../../utils'
+import { generateId, isEmptyVariableInDefault } from '../../../../utils'
 
 import type { ComponentInternalInstance } from 'vue'
 import type { CircleProgressProps } from '../circle-progress'
@@ -12,26 +12,26 @@ export const useCircleProgress = (props: CircleProgressProps) => {
 
   // 圆环的直径
   const radius = computed<number>(() => {
-    return props?.radius ?? 50
+    return isEmptyVariableInDefault(props?.radius, 50)
   })
   // 圆环的宽度
   const ringWidth = computed<number>(() => {
-    return props?.ringWidth ?? 14
+    return isEmptyVariableInDefault(props?.ringWidth, 14)
   })
 
   // 圆环的颜色
   const circleColor = computed<string>(() => {
-    return props?.inactiveColor ?? '#e6e6e6'
+    return isEmptyVariableInDefault(props?.inactiveColor, '#e6e6e6')
   })
 
   // 圆环激活时的颜色
   const activeCircleColor = computed<string>(() => {
-    return props?.activeColor ?? '#01beff'
+    return isEmptyVariableInDefault(props?.activeColor, '#01beff')
   })
 
   // 动画执行时间
   const duration = computed<number>(() => {
-    return props?.duration ?? 1500
+    return isEmptyVariableInDefault(props?.duration, 1500)
   })
 
   // 进度信息，为了产生动画效果，需要在进度条变化时，将进度信息保存下来

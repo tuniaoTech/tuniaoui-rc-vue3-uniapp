@@ -112,11 +112,15 @@ export const useSliderNodeInfo = (props: SliderProps) => {
   // 滑动条点击事件
   const sliderClickEvent = (event: any) => {
     if (disabled.value) return
-    const {
-      detail: { x },
-    } = event
+    let touchX = 0
+    // #ifndef MP-ALIPAY
+    touchX = event.detail.x
+    // #endif
+    // #ifdef MP-ALIPAY
+    touchX = event.detail.clientX
+    // #endif
     const sliderBarPosition =
-      ((x - sliderNodeInfo.left) / sliderNodeInfo.width) * 100
+      ((touchX - sliderNodeInfo.left) / sliderNodeInfo.width) * 100
     const value = setPosiiton(sliderBarPosition)
     if (mode.value === 'single') {
       updateSliderValue(value)

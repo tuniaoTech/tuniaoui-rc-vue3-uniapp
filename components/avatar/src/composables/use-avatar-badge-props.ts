@@ -1,5 +1,6 @@
 import { computed, inject } from 'vue'
 import { avatarGroupContextKey } from '../../../../tokens'
+import { isEmptyDoubleVariableInDefault } from '../../../../utils'
 
 import type { AvatarProps } from '../avatar'
 import type { BadgeProps } from '../../../badge'
@@ -9,58 +10,85 @@ export const useAvatarBadgeProps = (props: AvatarProps) => {
 
   // 徽标最大值
   const max = computed<BadgeProps['max']>(() => {
-    return props?.badgeConfig.max ?? avatarGroup?.badgeConfig.max
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.max,
+      avatarGroup?.badgeConfig?.max
+    )
   })
 
   // 徽标类型
   const type = computed<BadgeProps['type']>(() => {
-    return props?.badgeConfig.type ?? avatarGroup?.badgeConfig.type ?? 'primary'
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.type,
+      avatarGroup?.badgeConfig?.type,
+      'primary'
+    )
   })
 
   // 徽标背景颜色
   const bgColor = computed<BadgeProps['bgColor']>(() => {
-    return props?.badgeConfig.bgColor ?? avatarGroup?.badgeConfig.bgColor
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.bgColor,
+      avatarGroup?.badgeConfig?.bgColor
+    )
   })
 
   // 徽标文本颜色
   const textColor = computed<BadgeProps['textColor']>(() => {
-    return props?.badgeConfig.textColor ?? avatarGroup?.badgeConfig.textColor
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.textColor,
+      avatarGroup?.badgeConfig?.textColor
+    )
   })
 
   // 徽标字体大小
   const fontSize = computed<BadgeProps['fontSize']>(() => {
-    return props?.badgeConfig.fontSize ?? avatarGroup?.badgeConfig.fontSize
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.fontSize,
+      avatarGroup?.badgeConfig?.fontSize
+    )
   })
 
   // 徽标大小
   const size = computed<BadgeProps['size']>(() => {
-    return props?.badgeConfig.size ?? avatarGroup?.badgeConfig.size
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.size,
+      avatarGroup?.badgeConfig?.size
+    )
   })
 
   // 徽标加粗
   const bold = computed<BadgeProps['bold']>(() => {
-    return props?.badgeConfig.bold ?? avatarGroup?.badgeConfig.bold ?? false
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.bold,
+      avatarGroup?.badgeConfig?.bold,
+      false
+    )
   })
 
   // 设置点徽标
   const dot = computed<BadgeProps['dot']>(() => {
-    return props?.badgeConfig.dot ?? avatarGroup?.badgeConfig.dot ?? false
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.dot,
+      avatarGroup?.badgeConfig?.dot,
+      false
+    )
   })
 
   // 设置徽标的位置
   const absolutePosition = computed<BadgeProps['absolutePosition']>(() => {
-    return (
-      props?.badgeConfig.absolutePosition ??
-      avatarGroup?.badgeConfig.absolutePosition ??
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.absolutePosition,
+      avatarGroup?.badgeConfig?.absolutePosition,
       {}
     )
   })
 
   // 设置徽标是否居中
   const absoluteCenter = computed<BadgeProps['absoluteCenter']>(() => {
-    return (
-      props?.badgeConfig.absoluteCenter ??
-      avatarGroup?.badgeConfig.absoluteCenter ??
+    return isEmptyDoubleVariableInDefault(
+      props?.badgeConfig?.absoluteCenter,
+      avatarGroup?.badgeConfig?.absoluteCenter,
       true
     )
   })

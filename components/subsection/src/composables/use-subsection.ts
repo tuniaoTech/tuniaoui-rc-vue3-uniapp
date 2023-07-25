@@ -10,7 +10,11 @@ import {
 } from 'vue'
 import { subsectionContextKey } from '../../../../tokens'
 import { useOrderedChildren, useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyDoubleVariableInDefault,
+} from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { SubsectionItemContext } from '../../../../tokens'
@@ -46,12 +50,12 @@ export const useSubsection = (
       if (props.modelValue === items.value.length) {
         currentActiveIndex.value = props.modelValue
         activeUid.value = item.uid
-        // #ifndef APP-PLUS
+        // #ifndef APP-PLUS || MP-ALIPAY
         nextTick(() => {
           updateSliderRectInfo(item)
         })
         // #endif
-        // #ifdef APP-PLUS
+        // #ifdef APP-PLUS || MP-ALIPAY
         setTimeout(() => {
           updateSliderRectInfo(item)
         }, 50)
@@ -95,22 +99,19 @@ export const useSubsection = (
   const getComponentRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取组件节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getComponentRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       componentLeft = rectInfo.left || 0
     } catch (err) {
-      debugWarn('TnSubsection', `获取组件节点信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnSubsection', `获取组件节点信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getComponentRectInfo()
+      }, 150)
     }
   }
 
@@ -146,7 +147,11 @@ export const useSubsection = (
         sliderRectInfo.value.width += 2
       }
     }
-    activeColor.value = item.activeColor ?? props.activeColor ?? ''
+    activeColor.value = isEmptyDoubleVariableInDefault(
+      item.activeColor,
+      props.activeColor,
+      ''
+    )
   }
 
   onMounted(() => {

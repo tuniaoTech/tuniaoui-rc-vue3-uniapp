@@ -34,23 +34,20 @@ export const useScrollList = (
       const contentRectInfo = await getSelectorNodeInfo(
         `#${componentContentId}`
       )
-      if (!componentRectInfo || !contentRectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取内容容器的宽度失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getContentRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       componentWidth = componentRectInfo.width || 0
       comoponentContentWidth = contentRectInfo.width || 0
     } catch (err) {
-      debugWarn('TnScrollList', `获取内容容器的宽度失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnScrollList', `获取内容容器的宽度失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getContentRectInfo()
+      }, 150)
     }
   }
 

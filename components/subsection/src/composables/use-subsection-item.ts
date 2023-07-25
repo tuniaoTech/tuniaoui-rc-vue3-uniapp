@@ -48,17 +48,6 @@ export const useSubsectionItem = (
   const getSubsectionItemRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getSubsectionItemRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       componentRectInfo.left = rectInfo.left || 0
@@ -71,7 +60,15 @@ export const useSubsectionItem = (
         element: componentRectInfo,
       })
     } catch (err) {
-      debugWarn('TnSubsectionItem', `获取节点信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnSubsectionItem', `获取节点信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getSubsectionItemRectInfo()
+      }, 150)
     }
   }
 

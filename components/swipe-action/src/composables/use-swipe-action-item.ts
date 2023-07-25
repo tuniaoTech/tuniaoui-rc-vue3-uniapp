@@ -10,7 +10,11 @@ import {
 } from 'vue'
 import { swipeActionContextKey } from '../../../../tokens'
 import { useSelectorQuery, useTouch } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyDoubleVariableInDefault,
+} from '../../../../utils'
 
 import type { SwipeActionItemProps } from '../swipe-action-item'
 
@@ -52,8 +56,12 @@ export const useSwipeActionItem = (props: SwipeActionItemProps) => {
   )
 
   // 点击options后是否自动关闭
-  const autoClose = computed<boolean>(
-    () => props?.autoClose ?? swipeActionContext?.autoClose ?? true
+  const autoClose = computed<boolean>(() =>
+    isEmptyDoubleVariableInDefault(
+      props?.autoClose,
+      swipeActionContext?.autoClose,
+      true
+    )
   )
 
   // 禁止滑动
@@ -85,18 +93,6 @@ export const useSwipeActionItem = (props: SwipeActionItemProps) => {
         optionsRectInfo = await getSelectorNodeInfos(`.${optionComponentClass}`)
       }
 
-      if (!componentRectInfo || !optionsRectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getComponentNodeInfo()
-        }, 150)
-        return
-      }
-
       initCount = 0
       updateSwipeActionItemTouchOptions({
         left: componentRectInfo.left,
@@ -109,7 +105,15 @@ export const useSwipeActionItem = (props: SwipeActionItemProps) => {
         return prev + (curr.width || 0)
       }, 0)
     } catch (err) {
-      debugWarn('TnSwipeActionItem', `获取节点信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnSwipeActionItem', `获取节点信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getComponentNodeInfo()
+      }, 150)
     }
   }
 

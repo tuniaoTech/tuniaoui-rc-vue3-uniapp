@@ -1085,3 +1085,64 @@ _2023-07-15_
 - 修复`TnSearchBox` v-model 无法更新内部值的问题
 - 修复`TnSearchBox` 在内容为空时点击search无法触发事件的问题
 - 修复`TnEmpty`在自定义内容时无法正常显示的问题
+
+
+### 1.0.7-alpha.1
+### 1.0.7-alpha.2
+### 1.0.7-alpha.3
+### 1.0.7-alpha.4
+### 1.0.7-alpha.5
+### 1.0.7-alpha.6
+### 1.0.7-alpha.7
+### 1.0.7-alpha.8
+
+_2023-07-18_
+
+#### 修复支付宝上无法正常使用的问题
+
+
+### 1.0.7-beta.1
+
+_2023-07-21_
+
+#### 新增
+
+- `TnWaterFall`新增`reset`方法重置列表
+
+#### 优化
+
+- 优化`TnCollapse`点击内容时阻止收起事件
+- 优化`TnBubbleBox`样式
+
+#### Fixed
+
+- 修复`TnWaterFall`在`data`为空时没有重置列表的问题
+
+### 1.0.7-beta.2
+
+_2023-07-24_
+
+#### 优化
+
+- 优化部分hooks的处理逻辑
+
+### 1.0.7-beta.3
+### 1.0.7-beta.4
+
+_2023-07-25_
+
+#### Fixed
+
+- 修复`TnInput`在textarea模式下无法设置自动高度和指定高度的问题
+
+### 1.0.7-beta.5
+
+_2023-07-25_
+
+#### 新增
+
+- `TnGraphicCard`组件新增`more-click`事件
+
+#### 修改
+
+- `TnGraphicCard`组件事件名称统一修改为`-`连接，`avatarClick`->`avatar-click` \ `viewClick` -> `view-click` \ `commentClick` -> `comment-click` \ `likeClick` -> `like-click`

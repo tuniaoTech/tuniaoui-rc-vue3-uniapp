@@ -7,7 +7,14 @@ const props = defineProps(waterFallProps)
 
 const ns = useNamespace('water-fall')
 
-const { componentId, leftData, rightData } = useWaterFall(props)
+const { componentId, leftData, rightData, resetWaterFall } = useWaterFall(props)
+
+defineExpose({
+  /**
+   * @description 重置瀑布流
+   */
+  reset: resetWaterFall,
+})
 </script>
 
 // #ifdef MP-WEIXIN

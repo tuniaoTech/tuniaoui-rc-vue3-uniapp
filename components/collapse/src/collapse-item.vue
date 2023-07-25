@@ -30,10 +30,9 @@ export default {
   <view
     :class="[ns.b(), ns.is('active', isActive), ns.is('disabled', disabled)]"
     :style="{ height: componentHeight }"
-    @tap.stop="collapseItemClick"
   >
     <!-- 标题 -->
-    <view :class="[ns.e('title')]">
+    <view :class="[ns.e('title')]" @tap.stop="collapseItemClick">
       <view class="content tn-text-ellipsis-1">
         <slot name="title">
           {{ title }}

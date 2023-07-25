@@ -201,19 +201,23 @@ export const graphicCardEmits = {
   /**
    * @description 点击用户头像
    */
-  avatarClick: () => true,
+  'avatar-click': () => true,
+  /**
+   * @description 更多按钮点击
+   */
+  'more-click': () => true,
   /**
    * @description 点击查看数量
    */
-  viewClick: () => true,
+  'view-click': () => true,
   /**
    * @description 点击评论数量
    */
-  commentClick: () => true,
+  'comment-click': () => true,
   /**
    * @description 点击点赞数量
    */
-  likeClick: () => true,
+  'like-click': () => true,
 }
 
 export type GraphicCardProps = ExtractPropTypes<typeof graphicCardProps>

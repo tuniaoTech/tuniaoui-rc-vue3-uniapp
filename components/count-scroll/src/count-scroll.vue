@@ -11,18 +11,20 @@ const { columns, activeIndex } = useCountScroll(props)
 
 <template>
   <view :class="[countScrollClass]" :style="countScrollStyle">
-    <view
-      v-for="(item, index) in columns"
-      :key="index"
-      :class="[ns.e('column')]"
-      :style="countScrollColumnStyle(activeIndex[index])"
-    >
+    <view :class="[ns.e('wrapper')]">
       <view
-        v-for="(listItem, listIndex) in item"
-        :key="listIndex"
-        :class="[ns.em('column', 'item')]"
+        v-for="(item, index) in columns"
+        :key="index"
+        :class="[ns.e('column')]"
+        :style="countScrollColumnStyle(activeIndex[index])"
       >
-        {{ listItem }}
+        <view
+          v-for="(listItem, listIndex) in item"
+          :key="listIndex"
+          :class="[ns.em('column', 'item')]"
+        >
+          {{ listItem }}
+        </view>
       </view>
     </view>
   </view>

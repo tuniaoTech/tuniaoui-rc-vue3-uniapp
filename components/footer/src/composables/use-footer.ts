@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { useComponentColor } from '../../../../hooks'
+import { isEmptyDoubleVariableInDefault } from '../../../../utils'
 
 import type { SetupContext } from 'vue'
 import type { FooterEmits, FooterProps } from '../footer'
@@ -12,7 +13,9 @@ export const useFooter = (
   // 导航数据
   const navigatorData = computed<FooterNavigatorData>(() => {
     return props.navigator.map((nav) => {
-      const textColor = ref(nav.textColor ?? props.navigatorTextColor)
+      const textColor = ref(
+        isEmptyDoubleVariableInDefault(nav.textColor, props.navigatorTextColor)
+      )
       const [textColorClass, textColorStyle] = useComponentColor(
         textColor,
         'text'

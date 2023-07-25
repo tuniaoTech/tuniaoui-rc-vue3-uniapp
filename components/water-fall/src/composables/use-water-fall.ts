@@ -40,7 +40,11 @@ export const useWaterFall = (props: WaterFallProps) => {
   let oldUserData: any[] = []
   // 分割数据
   const splitData = async (data: any[]) => {
-    if (!data || !data.length) return
+    if (!data || !data.length) {
+      leftData.value = []
+      rightData.value = []
+      return
+    }
     if (props.mode === 'calc') {
       // 根据左右两边的数据高度，判断当前数据应该放在左边还是右边
       await getContainerHeight()
@@ -83,10 +87,21 @@ export const useWaterFall = (props: WaterFallProps) => {
     }
   }
 
+  // 重新渲染列表
+  const resetWaterFall = () => {
+    if (!props.data) return
+    leftData.value = []
+    rightData.value = []
+    nextTick(() => {
+      oldUserData = props.data
+      splitData(props.data)
+    })
+  }
+
   watch(
     () => props.data,
     (val) => {
-      if (!val || !val.length) return
+      if (!val) return
       if (oldUserData.length === val.length) return
       const newData = cloneDeep(val.slice(oldUserData.length))
       nextTick(() => {
@@ -103,5 +118,6 @@ export const useWaterFall = (props: WaterFallProps) => {
     componentId,
     leftData,
     rightData,
+    resetWaterFall,
   }
 }

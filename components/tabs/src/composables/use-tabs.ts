@@ -45,16 +45,9 @@ export const useTabs = (props: TabsProps) => {
   const addItem = (item: TabsItemContext) => {
     if (props.modelValue !== undefined && activeUid.value === -1) {
       if (props.modelValue === items.value.length) {
-        // #ifndef APP-PLUS
         nextTick(() => {
           updateActiveUid(item.uid)
         })
-        // #endif
-        // #ifdef APP-PLUS
-        setTimeout(() => {
-          updateActiveUid(item.uid)
-        }, 50)
-        // #endif
       }
     }
     addChild(item)
@@ -94,6 +87,8 @@ export const useTabs = (props: TabsProps) => {
       // 更新scrollView的偏移位置
       const scrollLeftValue =
         item.left - tabsRect.left - (tabsRect.width - item.width) / 2
+      console.log('scrollLeftValue', scrollLeftValue)
+      console.log(item.left, tabsRect.left, tabsRect.width, item.width)
       scrollLeft.value = scrollLeftValue < 0 ? 0 : scrollLeftValue
     }
   }
@@ -168,24 +163,21 @@ export const useTabs = (props: TabsProps) => {
   const getTabsRectInfo = async () => {
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取Tabs容器节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getTabsRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       tabsRect.width = rectInfo.width || 0
       tabsRect.height = rectInfo.height || 0
       tabsRect.left = rectInfo.left || 0
     } catch (err) {
-      debugWarn('TnTabs', `获取Tabs容器节点信息出错: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnTabs', `获取Tabs容器节点信息出错: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getTabsRectInfo()
+      }, 150)
     }
   }
   // 获取Bar滑块的容器节点信息
@@ -194,30 +186,34 @@ export const useTabs = (props: TabsProps) => {
 
     try {
       const rectInfo = await getSelectorNodeInfo(`#${barComponentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取Bar滑块节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getBarRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       barRect.width = rectInfo.width || 0
       barRect.height = rectInfo.height || 0
       barRect.left = rectInfo.left || 0
     } catch (err) {
-      debugWarn('TnTabs', `获取Bar滑块节点信息出错: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnTabs', `获取Bar滑块节点信息出错: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getBarRectInfo()
+      }, 150)
     }
   }
 
   onMounted(() => {
     nextTick(() => {
+      // #ifndef MP-ALIPAY
       getTabsRectInfo()
+      // #endif
+      // #ifdef MP-ALIPAY
+      setTimeout(() => {
+        getTabsRectInfo()
+      }, 50)
+      // #endif
       getBarRectInfo()
     })
   })

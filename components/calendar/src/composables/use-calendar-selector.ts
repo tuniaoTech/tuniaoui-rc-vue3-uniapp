@@ -33,17 +33,6 @@ export const useCalendarSelector = (
       const rectInfo = await getSelectorNodeInfo(
         `#${calendarId} .tn-calendar__data__date`
       )
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取单个日期容器信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getDateItemComponentRectInfo()
-        }, 150)
-        return
-      }
 
       initCount = 0
       singleDateItemHeight.value = rectInfo.width || 0
@@ -51,7 +40,15 @@ export const useCalendarSelector = (
         singleDateItemHeight.value += uni.upx2px(12)
       }
     } catch (err) {
-      debugWarn('TnCalendar', `获取单个日期容器信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnCalendar', `获取单个日期容器信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getDateItemComponentRectInfo()
+      }, 150)
     }
   }
 

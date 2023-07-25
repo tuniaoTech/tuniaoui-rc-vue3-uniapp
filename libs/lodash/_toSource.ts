@@ -5,10 +5,10 @@ export function toSource(func: any) {
   if (func != null) {
     try {
       return funcToString.call(func)
-    } catch {}
+    } catch (e) {}
     try {
       return `${func}`
-    } catch {}
+    } catch (e) {}
   }
   return ''
 }

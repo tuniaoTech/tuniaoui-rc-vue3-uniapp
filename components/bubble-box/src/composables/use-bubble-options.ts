@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { useComponentColor } from '../../../../hooks'
+import { isEmptyDoubleVariableInDefault } from '../../../../utils'
 
 import type { BubbleBoxProps } from '../bubble-box'
 import type { BubbleBoxOptionData } from '../types'
@@ -7,7 +8,9 @@ import type { BubbleBoxOptionData } from '../types'
 export const useBubbleOptions = (props: BubbleBoxProps) => {
   const bubbleOptions = computed<BubbleBoxOptionData>(() => {
     return props.options.map((item) => {
-      const textColor = ref(item.textColor ?? props.textColor)
+      const textColor = ref(
+        isEmptyDoubleVariableInDefault(item.textColor, props.textColor)
+      )
       const [textColorClass, textColorStyle] = useComponentColor(
         textColor,
         'text'

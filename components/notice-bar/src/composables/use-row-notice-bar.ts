@@ -9,7 +9,11 @@ import {
 } from 'vue'
 import { noticeBarKey } from '../../../../tokens'
 import { useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 
 export const useRowNoticeBar = () => {
   const instance = getCurrentInstance()
@@ -27,7 +31,9 @@ export const useRowNoticeBar = () => {
   })
 
   // 每秒显示的像素数
-  const speed = computed<number>(() => noticeBar?.speed ?? 80)
+  const speed = computed<number>(() =>
+    isEmptyVariableInDefault(noticeBar?.speed, 80)
+  )
 
   // 动画参数
   let animationDuration = 0
@@ -94,18 +100,6 @@ export const useRowNoticeBar = () => {
         `#${componentTextId}`
       )
 
-      if (!contentRectInfo || !contentTextRectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取通知栏信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          getContentRectInfo()
-        }, 150)
-        return
-      }
-
       initCount = 0
 
       // 根据 t=s/v(时间=路程/速度)
@@ -120,7 +114,15 @@ export const useRowNoticeBar = () => {
         }, 50)
       }
     } catch (err) {
-      debugWarn('TnNoticeBar', `获取通知栏容器信息失败: ${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnNoticeBar', `获取通知栏容器信息失败: ${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        getContentRectInfo()
+      }, 150)
     }
   }
 

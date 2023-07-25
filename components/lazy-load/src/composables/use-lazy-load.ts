@@ -7,7 +7,11 @@ import {
   ref,
 } from 'vue'
 import { useObserver, useSelectorQuery } from '../../../../hooks'
-import { debugWarn, generateId } from '../../../../utils'
+import {
+  debugWarn,
+  generateId,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 
 import type { LazyLoadProps } from '../lazy-load'
 import type { LazyLoadStatus } from '../types'
@@ -26,7 +30,9 @@ export const useLazyLoad = (props: LazyLoadProps) => {
   const componentId = `tll-${generateId()}`
 
   // 图片触发加载位置
-  const threshold = computed<number>(() => props.threshold ?? 100)
+  const threshold = computed<number>(() =>
+    isEmptyVariableInDefault(props.threshold, 100)
+  )
 
   // 图片加载状态
   const imageStatus = ref<LazyLoadStatus>('waiting')
@@ -38,18 +44,7 @@ export const useLazyLoad = (props: LazyLoadProps) => {
   const initObserver = async () => {
     disconnectObserver()
     try {
-      const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
-      if (!rectInfo) {
-        if (initCount > 10) {
-          initCount = 0
-          throw new Error('获取图片节点信息失败')
-        }
-        initCount++
-        setTimeout(() => {
-          initObserver()
-        }, 150)
-        return
-      }
+      await getSelectorNodeInfo(`#${componentId}`)
 
       initCount = 0
 
@@ -76,7 +71,15 @@ export const useLazyLoad = (props: LazyLoadProps) => {
         }
       )
     } catch (err) {
-      debugWarn('TnLazyLoad', `获取图片节点信息失败：${err}`)
+      if (initCount > 10) {
+        initCount = 0
+        debugWarn('TnLazyLoad', `获取图片节点信息失败：${err}`)
+        return
+      }
+      initCount++
+      setTimeout(() => {
+        initObserver()
+      }, 150)
     }
   }
 

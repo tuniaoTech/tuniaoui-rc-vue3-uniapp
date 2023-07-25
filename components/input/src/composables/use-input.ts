@@ -5,11 +5,16 @@ import {
   INPUT_EVENT,
   UPDATE_MODEL_EVENT,
 } from '../../../../constants'
-import { FormValidateIconsMap, debugWarn } from '../../../../utils'
+import {
+  FormValidateIconsMap,
+  debugWarn,
+  isEmptyVariableInDefault,
+} from '../../../../utils'
 import { useToggle } from '../../../../hooks'
 import { useFormDisabled, useFormItem } from '../../../form'
 
 import type { SetupContext } from 'vue'
+import type { FormItemValidateStates } from '../../../form'
 import type { InputEmit, InputProps } from '../input'
 
 export const useInput = (
@@ -36,9 +41,16 @@ export const useInput = (
   const [passwordVisible, togglePasswordVisible] = useToggle(false)
 
   // 是否显示状态图标
-  const needStatusIcon = computed(() => form?.statusIcon ?? false)
+  const needStatusIcon = computed(() =>
+    isEmptyVariableInDefault(form?.statusIcon, false)
+  )
   // 校验状态
-  const validateState = computed(() => formItem?.validateState ?? '')
+  const validateState = computed(() =>
+    isEmptyVariableInDefault<FormItemValidateStates>(
+      formItem?.validateState,
+      ''
+    )
+  )
   // 校验状态图标
   const validateIcon = computed(
     () => validateState.value && FormValidateIconsMap[validateState.value]

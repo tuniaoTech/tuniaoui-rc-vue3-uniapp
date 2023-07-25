@@ -8,6 +8,7 @@ defineEmits(pickerEmits)
 
 const {
   openPopup,
+  showPicker,
   pickerData,
   currentPickerIndex,
   closePopupEvent,
@@ -74,6 +75,7 @@ defineExpose({
       <!-- 内容区域 -->
       <view :class="[ns.e('content')]">
         <picker-view
+          v-if="showPicker"
           :class="[ns.e('picker-view')]"
           :value="currentPickerIndex"
           @change="pickerViewChangeEvent"
