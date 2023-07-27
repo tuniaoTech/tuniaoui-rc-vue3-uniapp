@@ -114,14 +114,19 @@ export const useTabbar = (props: TabbarProps) => {
   const hasBulgeButton = ref<boolean>(false)
   // 设置凸起按钮的位置
   const setBulgeCircle = async (itemRectInfo: TabbarItemRect) => {
-    const { width, left } = itemRectInfo
+    const { left } = itemRectInfo
     try {
       const rectInfo = await getSelectorNodeInfo(`#${rectId}`)
 
       const { left: tabbarRectLeft } = rectInfo
+      let width = itemRectInfo.width
+      if (itemRectInfo?.maxWidth) {
+        width = itemRectInfo.maxWidth
+      }
       bulgeRectInfo.value.width = width * 0.75
       bulgeRectInfo.value.height = bulgeRectInfo.value.width
-      bulgeRectInfo.value.left = left - (tabbarRectLeft || 0) + width / 2
+      bulgeRectInfo.value.left =
+        left - (tabbarRectLeft || 0) + itemRectInfo.width / 2
 
       hasBulgeButton.value = true
     } catch (err) {

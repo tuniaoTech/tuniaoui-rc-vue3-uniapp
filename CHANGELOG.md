@@ -1146,3 +1146,13 @@ _2023-07-25_
 #### 修改
 
 - `TnGraphicCard`组件事件名称统一修改为`-`连接，`avatarClick`->`avatar-click` \ `viewClick` -> `view-click` \ `commentClick` -> `comment-click` \ `likeClick` -> `like-click`
+
+### 1.0.8-beta.1
+
+_2023-07-26_
+
+#### Fixed
+
+- 修复`TnTabbar`在元素少于5个时凸起按钮无法正常显示的问题
+- 修复`TnDateTimePicker`和`TnRegionPicker`部分参数无效的问题
+- 修复`TnWaterFall`在`calc`模式下数据会被清空的问题

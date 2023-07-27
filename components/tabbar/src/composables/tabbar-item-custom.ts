@@ -140,9 +140,13 @@ export const useTabbarItemCustomStyle = (
       const style: CSSProperties = {}
 
       // 设置容器信息
-      style.width = `${rectInfo.width * 0.5}px`
+      let width = rectInfo.width
+      if (rectInfo?.maxWidth) {
+        width = rectInfo.maxWidth
+      }
+      style.width = `${width * 0.5}px`
       style.height = style.width
-      style.top = `-${rectInfo.width * 0.16}px`
+      style.top = `-${width * 0.16}px`
 
       // 设置背景
       if (isActive.value) {
