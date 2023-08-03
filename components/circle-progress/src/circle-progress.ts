@@ -1,10 +1,10 @@
 import { buildProps } from '../../../utils'
-import { progressProps } from '../../progress'
+import { propgressBaseProps } from '../../base/common-props/progress'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const circleProgressProps = buildProps({
-  ...progressProps,
+  ...propgressBaseProps,
   /**
    * @description 圆环的半径，单位 px，只支持传递固定的值
    */

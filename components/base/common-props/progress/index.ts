@@ -1,8 +1,8 @@
-import { buildProps } from '../../../utils'
+import { buildProps } from '../../../../utils'
 
 import type { ExtractPropTypes } from 'vue'
 
-export const progressProps = buildProps({
+export const propgressBaseProps = buildProps({
   /**
    * @description 当前进度百分比
    */
@@ -31,4 +31,4 @@ export const progressProps = buildProps({
   },
 } as const)
 
-export type ProgressProps = ExtractPropTypes<typeof progressProps>
+export type ProgressBaseProps = ExtractPropTypes<typeof propgressBaseProps>

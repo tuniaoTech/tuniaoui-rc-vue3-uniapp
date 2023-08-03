@@ -77,8 +77,11 @@
 
   /* plain start */
   @include m(plain) {
-    border-width: 1rpx;
+    border-width: 2rpx;
     border-style: solid;
+  }
+  @include m(plain-bold) {
+    border-width: 4rpx;
   }
   /* plain end */
 

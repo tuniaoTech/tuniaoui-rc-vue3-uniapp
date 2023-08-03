@@ -1,9 +1,9 @@
 import { buildProps, definePropType, isArray } from '../../../utils'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
-import { checkboxBaseProps } from './checkbox'
+import { checkboxBaseProps } from '../../base/common-props/checkbox'
 
 import type { ExtractPropTypes } from 'vue'
-import type { CheckboxValueType } from './checkbox'
+import type { CheckboxValueType } from '../../base/types/checkbox'
 
 export type CheckboxGroupValueType = Exclude<CheckboxValueType, boolean>[]
 

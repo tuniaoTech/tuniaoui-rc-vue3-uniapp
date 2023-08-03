@@ -4,7 +4,7 @@ import {
   INPUT_EVENT,
   UPDATE_MODEL_EVENT,
 } from '../../../constants'
-import { useFormSizeProps } from '../../base'
+import { useFormSizeProps } from '../../base/composables/use-component-common-props'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Arrayable } from '../../../utils'

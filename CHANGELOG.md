@@ -1156,3 +1156,110 @@ _2023-07-26_
 - 修复`TnTabbar`在元素少于5个时凸起按钮无法正常显示的问题
 - 修复`TnDateTimePicker`和`TnRegionPicker`部分参数无效的问题
 - 修复`TnWaterFall`在`calc`模式下数据会被清空的问题
+
+### 1.0.9-beta.1
+
+_2023-07-27_
+
+#### 新增
+
+- `TnPicker` `change`和`confirm`事件新增返回传递的数据
+- `TnRegionPicker` `change`和`confirm`事件新增返回具体地区的数据
+
+#### Fixed
+
+- 修复`TnPicker`点击取消后值依旧发生改变的问题
+
+### 1.0.9-beta.2
+
+_2023-07-28_
+
+#### Fixed
+
+- 修复`TnTabbar`无法设置图标大小的问题
+
+### 1.0.9-beta.3
+
+_2023-07-28_
+
+#### 优化
+
+- 优化hooks处理逻辑
+
+
+### 1.0.9-beta.4
+
+_2023-07-28_
+
+#### Fixed
+
+- 修复`TnAvatarGroup`下的`TnAvatar`初始化失败的问题
+
+### 1.0.9-beta.5
+
+_2023-07-29_
+
+#### 优化
+
+- 优化`TnAvatar`样式
+
+### 1.0.9-beta.6
+
+_2023-07-29_
+
+#### 新增
+
+- `TnSwiper`新增`previous-margin`和`next-margin`属性
+
+### 1.0.9-beta.7
+
+_2023-07-30_
+
+#### Fixed
+
+- 修复`TnButton` `border-color`无法设置为内置颜色外的其他颜色的问题
+- 修复`TnButton` `border-bold`无效的问题
+
+#### 优化
+
+- 优化`TnButton`样式
+
+### 1.0.9-beta.8
+
+_2023-07-30_
+
+#### 优化
+
+- 优化`TnPopup`弹出/隐藏动画
+
+### 1.0.9-beta.9
+
+_2023-07-30_
+
+#### 优化
+
+- 优化`TnSwiper`样式
+
+### 1.0.9-beta.10
+
+_2023-07-31_
+
+#### 删除
+
+- 删除`TnGraphicCard`组件，以第三方组件的形式提供
+
+### 1.0.9-beta.11
+
+_2023-07-31_
+
+#### 新增
+
+- `TnTabs`新增`active-bold`参数设置激活时是否加粗字体
+
+### 1.0.9-alpha.1
+
+_2023-08-03_
+
+#### Fixed
+
+- 修复在部份情况下组件会编译到全局目录下的问题

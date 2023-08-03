@@ -1,6 +1,9 @@
 import { buildProps } from '../../../utils'
 import { componentShapes, componentTypes } from '../../../constants'
-import { useComponentCustomStyleProp, useComponentSizeProp } from '../../base'
+import {
+  useComponentCustomStyleProp,
+  useComponentSizeProp,
+} from '../../base/composables/use-component-common-props'
 import type { ExtractPropTypes } from 'vue'
 
 /**

@@ -1,6 +1,9 @@
 import { buildProps, iconPropType } from '../../../utils'
 import { componentShapes, componentTypes } from '../../../constants'
-import { useComponentCustomStyleProp, useComponentSizeProp } from '../../base'
+import {
+  useComponentCustomStyleProp,
+  useComponentSizeProp,
+} from '../../base/composables/use-component-common-props'
 import type { ExtractPropTypes } from 'vue'
 
 /**
@@ -99,6 +102,10 @@ export const buttonProps = buildProps({
    * @description 边框颜色，以tn开头则使用图鸟内置的颜色
    */
   borderColor: String,
+  /**
+   * @description 是否加粗边框
+   */
+  borderBold: Boolean,
   /**
    * @description 是否显示阴影
    */

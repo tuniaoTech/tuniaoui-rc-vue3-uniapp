@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, nextTick } from 'vue'
+import { computed, getCurrentInstance, nextTick, ref, watch } from 'vue'
 import { UPDATE_MODEL_EVENT } from '../../../../constants'
 
 import type { PopupProps } from '../popup'
@@ -7,7 +7,26 @@ export const usePopup = (props: PopupProps) => {
   const { emit } = getCurrentInstance()!
 
   // 是否显示遮罩层
-  const showOverlay = computed(() => props.overlay && props.modelValue)
+  const showOverlay = ref(false)
+  // 是否显示弹框
+  const showPopup = ref(false)
+  const visiblePopup = ref(false)
+  watch(
+    () => props.modelValue,
+    (value) => {
+      if (value) {
+        visiblePopup.value = true
+        showPopup.value = true
+        if (props.overlay) showOverlay.value = true
+      } else {
+        showPopup.value = false
+        showOverlay.value = false
+        setTimeout(() => {
+          visiblePopup.value = false
+        }, 250)
+      }
+    }
+  )
 
   // 当前模态框的zIndex
   const zIndex = computed(() => Number(props.zIndex))
@@ -36,6 +55,8 @@ export const usePopup = (props: PopupProps) => {
 
   return {
     showOverlay,
+    showPopup,
+    visiblePopup,
     zIndex,
     overlayZIndex,
     updateModelValue,

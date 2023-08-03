@@ -1,4 +1,4 @@
-import { useComponentSizeProp } from '../../base'
+import { useComponentSizeProp } from '../../base/composables/use-component-common-props'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,

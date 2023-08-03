@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
-import { useProgressProps } from '../../../progress'
+import { useProgressProps } from '../../../base/composables/use-progress-props'
 
 import type { CSSProperties } from 'vue'
 import type { LineProgressProps } from '../line-progress'

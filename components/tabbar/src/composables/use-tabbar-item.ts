@@ -37,6 +37,11 @@ export const useTabbarItem = (
   // 当前Item是否已激活
   const isActive = computed<boolean>(() => tabbarContext?.activeUid === uid)
 
+  // 图标尺寸
+  const iconSize = computed<string>(
+    () => props.iconSize || tabbarContext?.iconSize || ''
+  )
+
   // item点击事件
   const itemClick = () => {
     if (isActive.value || props.disabled) return
@@ -100,6 +105,7 @@ export const useTabbarItem = (
     itemId,
     isActive,
     itemRectInfo,
+    iconSize,
     itemClick,
   }
 }

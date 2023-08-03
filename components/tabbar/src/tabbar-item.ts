@@ -1,28 +1,10 @@
-import { buildProps, isNumber, isString } from '../../../utils'
+import { buildProps } from '../../../utils'
+import { tabbarBaseProps } from '../../base/common-props/tabbar'
 
 import type { ExtractPropTypes } from 'vue'
 
-export const baseTabbarItemProps = buildProps({
-  /**
-   * @description 未选中时的颜色
-   */
-  inactiveColor: String,
-  /**
-   * @description 选中时的颜色
-   */
-  activeColor: String,
-  /**
-   * @description 图标大小
-   */
-  iconSize: String,
-  /**
-   * @description 文字大小
-   */
-  fontSize: String,
-} as const)
-
 export const tabbarItemProps = buildProps({
-  ...baseTabbarItemProps,
+  ...tabbarBaseProps,
   /**
    * @description item的唯一标识，与modelValue对应
    */

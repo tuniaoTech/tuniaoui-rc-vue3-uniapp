@@ -8,17 +8,17 @@ export const useAvatarIconConfig = (config: AvatarProps['iconConfig']) => {
 
   // 图标颜色
   const iconColor = computed<string>(() => {
-    return config.color || avatarGroup?.iconConfig?.color || ''
+    return config?.color || avatarGroup?.iconConfig?.color || ''
   })
 
   // 图标大小
   const iconSize = computed<string | number>(() => {
-    return config.size || avatarGroup?.iconConfig?.size || ''
+    return config?.size || avatarGroup?.iconConfig?.size || ''
   })
 
   // 图标加粗
   const iconBold = computed<boolean>(() => {
-    return config.bold || avatarGroup?.iconConfig?.bold || false
+    return config?.bold || avatarGroup?.iconConfig?.bold || false
   })
 
   return {

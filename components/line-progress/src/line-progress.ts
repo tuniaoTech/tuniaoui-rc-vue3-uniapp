@@ -1,10 +1,10 @@
 import { buildProps } from '../../../utils'
-import { progressProps } from '../../progress'
+import { propgressBaseProps } from '../../base/common-props/progress'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const lineProgressProps = buildProps({
-  ...progressProps,
+  ...propgressBaseProps,
   /**
    * @description 进度条高度
    */

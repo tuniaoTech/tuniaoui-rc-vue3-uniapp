@@ -2,12 +2,13 @@
 
 @include b(tabs-item) {
   flex: 1;
-
   position: relative;
-
+  font-weight: normal;
   height: 100%;
 
-  transition: color 0.3s ease;
+  transition-property: color;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
 
   /* 允许滚动下的元素 start */
   @include m(scroll) {
@@ -17,6 +18,12 @@
     padding: 0rpx 30rpx;
   }
   /* 允许滚动下的元素 end */
+
+  /* 是否加粗 start */
+  @include m(bold) {
+    font-weight: 800;
+  }
+  /* 是否加粗 end */
 
   /* 内容 start */
   @include e(content) {

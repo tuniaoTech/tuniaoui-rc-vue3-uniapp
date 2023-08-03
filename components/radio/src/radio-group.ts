@@ -1,11 +1,11 @@
 import { buildProps, isBoolean, isNumber, isString } from '../../../utils'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
-import { radioPropsBase } from './radio'
+import { radioBaseProps } from '../../base/common-props/radio'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const radioGroupProps = buildProps({
-  ...radioPropsBase,
+  ...radioBaseProps,
   /**
    * @description radio单选组绑定的值
    */

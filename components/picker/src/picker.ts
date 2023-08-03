@@ -1,4 +1,4 @@
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT, ZIndex } from '../../../constants'
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import {
   buildProps,
   definePropType,
@@ -7,6 +7,7 @@ import {
   isNumber,
   isString,
 } from '../../../utils'
+import { pickerBaseProps } from '../../base/common-props/picker'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Arrayable } from '../../../utils'
@@ -17,58 +18,8 @@ export type PickerData = Arrayable<Array<PickerDataType> | object>
 
 export const PickerModes = ['signle', 'multiple', 'cascade'] as const
 
-export const basePickerProps = buildProps({
-  /**
-   * @description 显示取消按钮
-   */
-  showCancel: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * @description 取消按钮的文本
-   */
-  cancelText: {
-    type: String,
-    default: '取 消',
-  },
-  /**
-   * @description 取消按钮的字体颜色，支持图鸟内置的字体颜色
-   */
-  cancelColor: String,
-  /**
-   * @description 显示确定按钮
-   */
-  showConfirm: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * @description 确定按钮的文本
-   */
-  confirmText: {
-    type: String,
-    default: '确 定',
-  },
-  /**
-   * @description 确定按钮的字体颜色，支持图鸟内置的字体颜色
-   */
-  confirmColor: String,
-  /**
-   * @description 显示遮罩
-   */
-  mask: Boolean,
-  /**
-   * zIndex
-   */
-  zIndex: {
-    type: Number,
-    default: ZIndex.popup,
-  },
-} as const)
-
 export const pickerProps = buildProps({
-  ...basePickerProps,
+  ...pickerBaseProps,
   /**
    * @description picker绑定的值
    */
@@ -114,10 +65,10 @@ export const pickerEmits = {
   [UPDATE_MODEL_EVENT]: (value: PickerValueType) =>
     isString(value) || isNumber(value) || isArray(value),
   'update:open': (value: boolean) => isBoolean(value),
-  [CHANGE_EVENT]: (value: PickerValueType, index: number) =>
-    isString(value) || isNumber(value) || isArray(value) || isNumber(index),
-  confirm: (value: PickerValueType) =>
-    isString(value) || isNumber(value) || isArray(value),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  [CHANGE_EVENT]: (value: PickerValueType, index: number, item: any) => true,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  confirm: (value: PickerValueType, item: any) => true,
   cancel: () => true,
   close: () => true,
 }

@@ -1,4 +1,3 @@
-import { formComponentSizes } from '../../../constants'
 import {
   buildProps,
   definePropType,
@@ -6,24 +5,11 @@ import {
   isBoolean,
   isString,
 } from '../../../utils'
+import { formMetaProps } from '../../base/common-props/form-meta'
 
 import type { ExtractPropTypes } from 'vue'
 import type { FormItemProp } from './form-item'
 import type { FormRules } from './types'
-
-const formMetaProps = buildProps({
-  /**
-   * @description 设置表单下组件的尺寸
-   */
-  size: {
-    type: String,
-    values: formComponentSizes,
-  },
-  /**
-   * @description 是否禁用表单内的所有组件，优先级比组件自身的禁用属性高
-   */
-  disabled: Boolean,
-} as const)
 
 export const formProps = buildProps({
   ...formMetaProps,

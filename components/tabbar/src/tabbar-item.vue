@@ -5,7 +5,7 @@ import { useTabbarItem, useTabbarItemCustomStyle } from './composables'
 
 const props = defineProps(tabbarItemProps)
 const emits = defineEmits(tabbatItemEmits)
-const { itemId, isActive, itemRectInfo, itemClick } = useTabbarItem(
+const { itemId, isActive, itemRectInfo, iconSize, itemClick } = useTabbarItem(
   props,
   emits
 )
@@ -42,7 +42,7 @@ export default {
       <!-- 图标 -->
       <template v-if="bulge">
         <view :class="[bulgeClass]" :style="bulgeStyle(itemRectInfo)">
-          <TnIcon :name="isActive ? activeIcon : icon" />
+          <TnIcon :name="isActive ? activeIcon : icon" :size="iconSize" />
         </view>
       </template>
       <template v-else>
@@ -51,7 +51,7 @@ export default {
           :class="[ns.e('icon')]"
           :style="tabbarItemElementStyle('icon')"
         >
-          <TnIcon :name="isActive ? activeIcon : icon" />
+          <TnIcon :name="isActive ? activeIcon : icon" :size="iconSize" />
         </view>
       </template>
       <!-- 文字 -->

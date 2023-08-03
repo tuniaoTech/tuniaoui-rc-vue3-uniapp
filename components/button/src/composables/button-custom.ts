@@ -36,7 +36,10 @@ export const useButtonCustomStyle = (props: ButtonProps) => {
     if (props.text) cls.push(ns.m('text'))
 
     // 设置朴素按钮
-    if (props.plain) cls.push(ns.m('plain'))
+    if (props.plain) {
+      cls.push(ns.m('plain'))
+      if (props.borderBold) cls.push(ns.m('plain-bold'))
+    }
 
     // 设置按钮颜色类型
     if (props.type) {
@@ -103,13 +106,11 @@ export const useButtonCustomStyle = (props: ButtonProps) => {
     // 设置字体颜色
     if (textColorStyle.value) {
       style.color = textColorStyle.value
-    } else if (!textColorClass.value && !bgColorClass.value && !props.type) {
-      style.color = 'var(--tn-text-color-primary)'
     }
 
     // 设置边框颜色
-    if (props.plain && !borderColorClass.value && !props.type) {
-      style.borderColor = borderColorStyle.value || 'var(--tn-color-gray)'
+    if (props.plain && borderColorStyle.value) {
+      style.borderColor = borderColorStyle.value
     }
 
     // 设置阴影颜色

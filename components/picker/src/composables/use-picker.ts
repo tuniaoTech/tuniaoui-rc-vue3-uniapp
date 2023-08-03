@@ -19,6 +19,7 @@ type PickerData = Array<Array<PickerDataItem>>
 interface PickerDataItem {
   label: string | number
   value: string | number
+  originalData: any
   children?: Array<PickerDataItem>
 }
 
@@ -61,16 +62,21 @@ export const usePicker = (props: PickerProps) => {
   // 生成指定格式的数据
   const _generateData = (
     data: PickerDataType
-  ): Pick<PickerDataItem, 'label' | 'value'> => {
+  ): Pick<PickerDataItem, 'label' | 'value' | 'originalData'> => {
     if (isObject(data)) {
       return {
         label: data[props.labelKey],
         value: data[props.valueKey],
+        originalData: {
+          [props.labelKey]: data[props.labelKey],
+          [props.valueKey]: data[props.valueKey],
+        },
       }
     } else {
       return {
         label: data as string | number,
         value: data as string | number,
+        originalData: data,
       }
     }
   }
@@ -223,6 +229,23 @@ export const usePicker = (props: PickerProps) => {
     }
   }
 
+  // 根据用户选中的索引获取当前用户传入的数据
+  const _getCurrentPickerOriginData = (): any => {
+    if (pickerMode === 'signle' && !isArray((props.data as any[])[0])) {
+      return pickerData.value[0][currentPickerIndex.value[0]].originalData
+    } else {
+      // currentPickerIndex.value.splice(pickerData.value.length)
+      const pickerIndex = cloneDeep(currentPickerIndex.value)
+      pickerIndex.splice(pickerData.value.length)
+      return pickerIndex.map((item, index) =>
+        isEmptyVariableInDefault(
+          pickerData.value[index][item]?.originalData,
+          undefined
+        )
+      )
+    }
+  }
+
   // 标记是否内部更新
   let isInnerUpdate = false
   watch(
@@ -300,8 +323,9 @@ export const usePicker = (props: PickerProps) => {
 
     isInnerUpdate = true
     const value = _getCurrentPickerValue()
-    emit(CHANGE_EVENT, value, changePickerColumnIndex)
-    emit(UPDATE_MODEL_EVENT, value)
+    const originData = _getCurrentPickerOriginData()
+    emit(CHANGE_EVENT, value, changePickerColumnIndex, originData)
+    // emit(UPDATE_MODEL_EVENT, value)
   }
 
   // 重置指定位置的数据
@@ -314,10 +338,11 @@ export const usePicker = (props: PickerProps) => {
   // 点击确认按钮
   const confirmEvent = () => {
     const value = _getCurrentPickerValue()
+    const originData = _getCurrentPickerOriginData()
     isInnerUpdate = true
     emit(UPDATE_MODEL_EVENT, value)
     nextTick(() => {
-      emit('confirm', value)
+      emit('confirm', value, originData)
     })
 
     closePopupEvent()

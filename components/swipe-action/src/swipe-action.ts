@@ -1,10 +1,10 @@
 import { buildProps, isNumber } from '../../../utils'
-import { swipeActionItemBaseProps } from './swipe-action-item'
+import { swipeActionBaseProps } from '../../base/common-props/swipe-action'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const swipeActionProps = buildProps({
-  ...swipeActionItemBaseProps,
+  ...swipeActionBaseProps,
   /**
    * @description 只允许一个item处于打开状态
    */

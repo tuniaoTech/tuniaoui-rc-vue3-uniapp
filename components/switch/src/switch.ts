@@ -6,7 +6,10 @@ import {
   isString,
 } from '../../../utils'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
-import { useComponentCustomStyleProp, useFormSizeProps } from '../../base'
+import {
+  useComponentCustomStyleProp,
+  useFormSizeProps,
+} from '../../base/composables/use-component-common-props'
 
 import type { ExtractPropTypes } from 'vue'
 

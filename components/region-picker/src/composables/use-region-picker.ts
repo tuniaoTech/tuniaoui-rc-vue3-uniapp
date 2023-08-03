@@ -131,28 +131,29 @@ export const useRegionPicker = (
 
   // picker发生改变回调
   const handlePickerChangeEvent = (
-    value: string | number | (string | number)[]
+    value: string | number | (string | number)[],
+    index: number,
+    item: any
   ) => {
     if (userRegionValueMode === 'name') {
       value = getNameByCodes(value as string[])
     }
-
     isInnerUpdate = true
-    emits(UPDATE_MODEL_EVENT, value as string[])
-    nextTick(() => {
-      emits(CHANGE_EVENT, value as string[])
-    })
+    emits(CHANGE_EVENT, value as string[], item)
   }
 
   // picker确认事件
   const handlePickerConfirmEvent = (
-    value: string | number | (string | number)[]
+    value: string | number | (string | number)[],
+    item: any
   ) => {
     if (userRegionValueMode === 'name') {
       value = getNameByCodes(value as string[])
     }
-
-    emits('confirm', value as string[])
+    emits(UPDATE_MODEL_EVENT, value as string[])
+    nextTick(() => {
+      emits('confirm', value as string[], item)
+    })
   }
 
   // picker取消事件

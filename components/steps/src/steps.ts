@@ -1,13 +1,13 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, isNumber } from '../../../utils'
-import { baseStepProps } from './steps-item'
+import { stepsBaseProps } from '../../base/common-props/steps'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const stepModes = ['dot', 'number', 'dotIcon', 'icon'] as const
 
 export const stepsProps = buildProps({
-  ...baseStepProps,
+  ...stepsBaseProps,
   /**
    * @description 当前激活步骤绑定的index
    */

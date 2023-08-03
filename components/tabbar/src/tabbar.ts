@@ -1,6 +1,6 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT, ZIndex } from '../../../constants'
 import { buildProps, definePropType, isNumber } from '../../../utils'
-import { baseTabbarItemProps } from './tabbar-item'
+import { tabbarBaseProps } from '../../base/common-props/tabbar'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -9,7 +9,7 @@ export type TabbarSwitchBeforeSwitchFunc = (
 ) => Promise<boolean> | boolean
 
 export const tabbarProps = buildProps({
-  ...baseTabbarItemProps,
+  ...tabbarBaseProps,
   /**
    * @description tabbar选中绑定的值
    */

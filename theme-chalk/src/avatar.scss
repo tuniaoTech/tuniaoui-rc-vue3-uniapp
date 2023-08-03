@@ -31,6 +31,7 @@ $avatar-icon-sizes: map.merge(
   justify-content: center;
 
   position: relative;
+  transition: margin-left 0.25s linear;
   width: map-get($avatar-sizes, '');
   height: map-get($avatar-sizes, '');
 

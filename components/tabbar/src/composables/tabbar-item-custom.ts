@@ -50,10 +50,6 @@ export const useTabbarItemCustomStyle = (
     'text'
   )
 
-  // 图标尺寸
-  const iconSize = computed<string>(() =>
-    formatDomSizeValue(props.iconSize || tabbarContext?.iconSize || '')
-  )
   // 文字尺寸
   const fontSize = computed<string>(() =>
     formatDomSizeValue(props.fontSize || tabbarContext?.fontSize || '')
@@ -105,10 +101,6 @@ export const useTabbarItemCustomStyle = (
     return (type: 'icon' | 'text') => {
       const style: CSSProperties = {}
 
-      // 设置图标尺寸
-      if (type === 'icon') {
-        if (iconSize.value) style.fontSize = iconSize.value
-      }
       // 设置文字尺寸
       if (type === 'text') {
         if (fontSize.value) style.fontSize = fontSize.value
@@ -165,8 +157,6 @@ export const useTabbarItemCustomStyle = (
 
       // 设置文字颜色
       if (bulgeTextColorStyle.value) style.color = bulgeTextColorStyle.value
-
-      if (iconSize.value) style.fontSize = iconSize.value
 
       return style
     }

@@ -7,14 +7,21 @@ import { usePopup, usePopupCustomStyle } from './composables'
 const props = defineProps(popupProps)
 defineEmits(popupEmits)
 
-const { showOverlay, overlayZIndex, zIndex, onClickCloseBtn, onClickOverlay } =
-  usePopup(props)
+const {
+  showOverlay,
+  showPopup,
+  visiblePopup,
+  overlayZIndex,
+  zIndex,
+  onClickCloseBtn,
+  onClickOverlay,
+} = usePopup(props)
 const { ns, popupContentClass, popupContentStyle } = usePopupCustomStyle(props)
 </script>
 
 <template>
   <view
-    :class="[ns.b(), ns.is('show', modelValue)]"
+    :class="[ns.b(), ns.is('show', showPopup), ns.is('visible', visiblePopup)]"
     :style="{
       zIndex,
     }"

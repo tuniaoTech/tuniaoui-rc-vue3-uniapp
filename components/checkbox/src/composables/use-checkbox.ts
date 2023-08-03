@@ -4,7 +4,8 @@ import { useFormItem } from '../../../form'
 import { debugWarn } from '../../../../utils'
 import { useCheckboxCommonProps } from './use-checkbox-common-props'
 
-import type { CheckboxProps, CheckboxValueType } from '../checkbox'
+import type { CheckboxProps } from '../checkbox'
+import type { CheckboxValueType } from '../../../base/types/checkbox'
 
 // 判断复选框组中是否包含某个值
 const hasLabelInGroup = (

@@ -1,9 +1,9 @@
 import { ref, toRef, watch } from 'vue'
 import { useComponentColor } from '../../../../hooks'
 
-import type { ProgressProps } from '../progress'
+import type { ProgressBaseProps } from '../../common-props/progress'
 
-interface ProgressPropsType extends ProgressProps {
+interface ProgressPropsType extends ProgressBaseProps {
   [key: string]: any
 }
 

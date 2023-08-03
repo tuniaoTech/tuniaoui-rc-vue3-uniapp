@@ -1,4 +1,5 @@
 import { buildProps, definePropType } from '../../../utils'
+import { tabsBaseProps } from '../../base/common-props/tabs'
 
 import type { ExtractPropTypes } from 'vue'
 import type { BadgeProps } from '../../badge'
@@ -7,23 +8,8 @@ export type TabsItemBadgeConfig = Partial<Pick<BadgeProps, 'dot'>> & {
   value?: string | number
 }
 
-export const baseTabsItemProps = buildProps({
-  /**
-   * @description 默认颜色，以tn开头时使用图鸟内置的颜色
-   */
-  color: String,
-  /**
-   * @description 选中颜色，以tn开头时使用图鸟内置的颜色
-   */
-  activeColor: String,
-  /**
-   * @description 字体大小
-   */
-  fontSize: String,
-} as const)
-
 export const tabsItemProps = buildProps({
-  ...baseTabsItemProps,
+  ...tabsBaseProps,
   /**
    * @description 标题
    */

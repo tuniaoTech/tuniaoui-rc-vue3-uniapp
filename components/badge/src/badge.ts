@@ -1,9 +1,12 @@
-import { useComponentCustomStyleProp, useComponentIndexProp } from '../../base'
+import {
+  useComponentCustomStyleProp,
+  useComponentIndexProp,
+} from '../../base/composables/use-component-common-props'
 import { buildProps, definePropType } from '../../../utils'
 import { componentTypes } from '../../../constants'
 
 import type { ExtractPropTypes } from 'vue'
-import type { ComponentIndex } from '../../base'
+import type { ComponentIndex } from '../../base/composables/use-component-common-props'
 
 /**
  * @description 绝对定位的位置配置

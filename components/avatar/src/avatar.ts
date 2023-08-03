@@ -1,4 +1,4 @@
-import { useComponentBoolean } from '../../base'
+import { useComponentBoolean } from '../../base/composables/use-component-common-props'
 import { buildProps, definePropType } from '../../../utils'
 import { componentImgModes, componentTypes } from '../../../constants'
 

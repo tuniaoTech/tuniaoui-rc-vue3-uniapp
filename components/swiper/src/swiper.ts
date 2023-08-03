@@ -68,6 +68,20 @@ export const swiperProps = buildProps({
     default: false,
   },
   /**
+   * @description 前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值
+   */
+  previousMargin: {
+    type: String,
+    default: '0px',
+  },
+  /**
+   * @description 后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值
+   */
+  nextMargin: {
+    type: String,
+    default: '0px',
+  },
+  /**
    * @description 是否显示指示器
    */
   indicator: Boolean,

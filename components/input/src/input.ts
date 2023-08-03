@@ -1,5 +1,8 @@
 import { buildProps, definePropType, isObject, isString } from '../../../utils'
-import { useComponentCustomStyleProp, useFormSizeProps } from '../../base'
+import {
+  useComponentCustomStyleProp,
+  useFormSizeProps,
+} from '../../base/composables/use-component-common-props'
 import {
   CHANGE_EVENT,
   INPUT_EVENT,

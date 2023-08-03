@@ -1,7 +1,7 @@
 import { computed, inject } from 'vue'
 import { tabsContextKey } from '../../../../tokens'
 import { useComponentColor, useNamespace } from '../../../../hooks'
-import { formatDomSizeValue } from '../../../../utils'
+import { formatDomSizeValue, isEmptyVariableInDefault } from '../../../../utils'
 
 import type { CSSProperties, Ref } from 'vue'
 import type { TabsItemProps } from '../tabs-item'
@@ -19,6 +19,9 @@ export const useTabsItemCustomStyle = (
   )
   const activeColor = computed<string | undefined>(
     () => props.activeColor || tabsContext?.activeColor
+  )
+  const activeBold = computed<boolean>(() =>
+    isEmptyVariableInDefault(tabsContext?.activeBold, true)
   )
 
   // 解析颜色
@@ -39,6 +42,9 @@ export const useTabsItemCustomStyle = (
     if (isActive.value) {
       if (activeTextColorClass.value) {
         cls.push(activeTextColorClass.value)
+      }
+      if (activeBold.value) {
+        cls.push(ns.m('bold'))
       }
     } else {
       if (textColorClass.value) {

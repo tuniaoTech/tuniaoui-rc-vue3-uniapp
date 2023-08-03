@@ -85,8 +85,6 @@
 
   // 弹出弹框
   @include when(show) {
-    visibility: visible;
-
     @include e(content) {
       opacity: 1;
       @include m(center) {
@@ -105,5 +103,8 @@
         transform: scaleY(1);
       }
     }
+  }
+  @include when(visible) {
+    visibility: visible;
   }
 }

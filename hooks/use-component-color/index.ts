@@ -15,7 +15,7 @@ export const useComponentColor = (
   const innerColorReg = /^(tn-|gradient)/
   // 匹配样式style值正在表达式
   const styleColorReg =
-    /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$|^rgb\(\d{1,3}(,\s?\d{1,3}){2}\)$|^rgba\(\d{1,3}(,\s?\d{1,3}){2},\s?0?\.\d{1,}\)|transparent/i
+    /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$|^rgb\(\d{1,3}(,\s?\d{1,3}){2}\)$|^rgba\(\d{1,3}(,\s?\d{1,3}){2},\s?0?\.?\d{1,}\)|transparent/i
 
   // 处理传入的颜色值，判断是否为class或style
   const handleColorValue = (value?: string) => {

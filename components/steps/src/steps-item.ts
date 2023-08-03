@@ -1,24 +1,10 @@
 import { buildProps } from '../../../utils'
+import { stepsBaseProps } from '../../base/common-props/steps'
 
 import type { ExtractPropTypes } from 'vue'
 
-export const baseStepProps = buildProps({
-  /**
-   * @description 默认颜色，以tn开头使用图鸟内置颜色
-   */
-  color: String,
-  /**
-   * @description 激活时颜色，以tn开头使用图鸟内置颜色
-   */
-  activeColor: String,
-  /**
-   * @description 禁止点击
-   */
-  disabled: Boolean,
-} as const)
-
 export const stepProps = buildProps({
-  ...baseStepProps,
+  ...stepsBaseProps,
   /**
    * @description 标题
    */

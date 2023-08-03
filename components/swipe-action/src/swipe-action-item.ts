@@ -1,4 +1,5 @@
 import { buildProps, definePropType } from '../../../utils'
+import { swipeActionBaseProps } from '../../base/common-props/swipe-action'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -30,18 +31,8 @@ export type SwipeActionItemOptionItem = {
 }
 export type SwipeActionItemOption = SwipeActionItemOptionItem[]
 
-export const swipeActionItemBaseProps = buildProps({
-  /**
-   * @description 自动关闭菜单
-   */
-  autoClose: {
-    type: Boolean,
-    default: true,
-  },
-} as const)
-
 export const swipeActionItemProps = buildProps({
-  ...swipeActionItemBaseProps,
+  ...swipeActionBaseProps,
   /**
    * @description 菜单配置项
    */

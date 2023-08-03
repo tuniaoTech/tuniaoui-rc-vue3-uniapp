@@ -1,6 +1,6 @@
 import { buildProps, iconPropType } from '../../../utils'
 import { componentImgModes, componentTypes } from '../../../constants'
-import { useComponentCustomStyleProp } from '../../base'
+import { useComponentCustomStyleProp } from '../../base/composables/use-component-common-props'
 
 import type { ExtractPropTypes } from 'vue'
 

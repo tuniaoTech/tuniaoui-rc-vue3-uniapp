@@ -60,6 +60,10 @@ export const useAvatar = (
     try {
       const rectInfo = await getSelectorNodeInfo(`#${componentId}`)
 
+      if (!rectInfo.width) {
+        throw new Error('获取头像宽度信息失败')
+      }
+
       avatarWidth.value = rectInfo.width || 0
     } catch (err) {
       if (initCount > 10) {

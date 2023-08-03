@@ -32,6 +32,8 @@ export default {
         :interval="interval"
         :duration="duration"
         :circular="loop"
+        :previous-margin="previousMargin"
+        :next-margin="nextMargin"
         @change="swiperChangeHandle"
       >
         <swiper-item

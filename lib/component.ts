@@ -14,7 +14,6 @@ import { TnDateTimePicker } from '../components/date-time-picker'
 import { TnEmpty } from '../components/empty'
 import { TnFooter } from '../components/footer'
 import { TnForm, TnFormItem } from '../components/form'
-import { TnGraphicCard } from '../components/graphic-card'
 import { TnIcon } from '../components/icon'
 import { TnImageUpload } from '../components/image-upload'
 import { TnIndexList } from '../components/index-list'
@@ -78,7 +77,6 @@ export default [
   TnFooter,
   TnForm,
   TnFormItem,
-  TnGraphicCard,
   TnIcon,
   TnImageUpload,
   TnIndexList,

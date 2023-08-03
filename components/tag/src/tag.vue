@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { tagProps, tagEmits } from './tag'
+import { tagEmits, tagProps } from './tag'
 import { useTag, useTagCustomStyle } from './composables'
 
 const props = defineProps(tagProps)

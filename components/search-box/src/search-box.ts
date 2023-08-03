@@ -1,6 +1,6 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, isString } from '../../../utils'
-import { useComponentSizeProp } from '../../base'
+import { useComponentSizeProp } from '../../base/composables/use-component-common-props'
 
 import type { ExtractPropTypes } from 'vue'
 

@@ -24,7 +24,6 @@ declare module '@vue/runtime-core' {
     TnFooter: typeof import('./components')['TnFooter']
     TnForm: typeof import('./components')['TnForm']
     TnFormItem: typeof import('./components')['TnFormItem']
-    TnGraphicCard: typeof import('./components')['TnGraphicCard']
     TnIcon: typeof import('./components')['TnIcon']
     TnImageUpload: typeof import('./components')['TnImageUpload']
     TnIndexList: typeof import('./components')['TnIndexList']

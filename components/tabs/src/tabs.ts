@@ -1,13 +1,13 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, definePropType, isNumber } from '../../../utils'
-import { baseTabsItemProps } from './tabs-item'
+import { tabsBaseProps } from '../../base/common-props/tabs'
 
 import type { ExtractPropTypes } from 'vue'
 
 export type TabsSwitchBeforeFunc = (index: number) => Promise<boolean> | boolean
 
 export const tabsProps = buildProps({
-  ...baseTabsItemProps,
+  ...tabsBaseProps,
   /**
    * @description tabs绑定的值，与tabsItem name属性对应值，如果tabsItem没有设置name，则默认为索引值
    */
@@ -55,6 +55,13 @@ export const tabsProps = buildProps({
    * @description 是否显示滑块
    */
   bar: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+   * @description 选中后的字体是否加粗
+   */
+  activeBold: {
     type: Boolean,
     default: true,
   },

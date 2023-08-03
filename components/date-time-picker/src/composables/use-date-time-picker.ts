@@ -231,10 +231,8 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
     })
 
     const dateTimeValue = getDateTimeValue(timeValue)
-    emit(UPDATE_MODEL_EVENT, dateTimeValue)
-    nextTick(() => {
-      emit(CHANGE_EVENT, dateTimeValue)
-    })
+    // emit(UPDATE_MODEL_EVENT, dateTimeValue)
+    emit(CHANGE_EVENT, dateTimeValue)
   }
 
   // 确认日期时间回调
@@ -243,7 +241,10 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
   ) => {
     const timeValue = getFillDateTimeDayjs(value as (string | number)[])
     const dateTimeValue = getDateTimeValue(timeValue)
-    emit('confirm', dateTimeValue)
+    emit(UPDATE_MODEL_EVENT, dateTimeValue)
+    nextTick(() => {
+      emit('confirm', dateTimeValue)
+    })
   }
 
   // 取消日期时间回调

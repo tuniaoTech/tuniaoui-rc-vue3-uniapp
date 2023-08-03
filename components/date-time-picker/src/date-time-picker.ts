@@ -1,6 +1,6 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, isBoolean, isString } from '../../../utils'
-import { basePickerProps } from '../../picker'
+import { pickerBaseProps } from '../../base/common-props/picker'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -13,7 +13,7 @@ export const dateTimePickerModes = [
 ] as const
 
 export const dateTimePickerProps = buildProps({
-  ...basePickerProps,
+  ...pickerBaseProps,
   /**
    * @description 日期时间选择器绑定的值，支持的格式2019/12/27 12:00:00 2019-12-27 12:00:00
    */

@@ -87,8 +87,6 @@ export const useTabs = (props: TabsProps) => {
       // 更新scrollView的偏移位置
       const scrollLeftValue =
         item.left - tabsRect.left - (tabsRect.width - item.width) / 2
-      console.log('scrollLeftValue', scrollLeftValue)
-      console.log(item.left, tabsRect.left, tabsRect.width, item.width)
       scrollLeft.value = scrollLeftValue < 0 ? 0 : scrollLeftValue
     }
   }

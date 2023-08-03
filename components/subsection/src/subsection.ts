@@ -1,13 +1,13 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
 import { buildProps, isNumber } from '../../../utils'
-import { subsectionItemBaseProps } from './subsection-item'
+import { subsectionBaseProps } from '../../base/common-props/subsection'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const subsectionMode = ['default', 'button'] as const
 
 export const subsectionProps = buildProps({
-  ...subsectionItemBaseProps,
+  ...subsectionBaseProps,
   /**
    * @description 当前选中item索引的绑定值
    */

@@ -1,6 +1,6 @@
 import { UPDATE_MODEL_EVENT, ZIndex } from '../../../constants'
 import { buildProps, isBoolean } from '../../../utils'
-import { useComponentSafeAreaInsetBottomProp } from '../../base'
+import { useComponentSafeAreaInsetBottomProp } from '../../base/composables/use-component-common-props'
 import { overlayProps } from '../../overlay'
 
 import type { ExtractPropTypes } from 'vue'
