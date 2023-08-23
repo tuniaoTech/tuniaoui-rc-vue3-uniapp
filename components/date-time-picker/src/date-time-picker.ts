@@ -41,6 +41,17 @@ export const dateTimePickerProps = buildProps({
    * @description 最大可选时间，格式为 YYYY/MM/DD HH:mm:ss 例如 2023/10/01 23:30:00
    */
   maxTime: String,
+  /**
+   * @description 是否初始化空值为当前时间
+   */
+  initCurrentDateTime: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+   * @description 日期时间格式化
+   */
+  format: String,
 })
 
 export const dateTimePickerEmits = {

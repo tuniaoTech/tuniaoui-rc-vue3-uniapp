@@ -1,5 +1,5 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../constants'
-import { buildProps, definePropType, isNumber } from '../../../utils'
+import { buildProps, definePropType, isNumber, isString } from '../../../utils'
 import { tabsBaseProps } from '../../base/common-props/tabs'
 
 import type { ExtractPropTypes } from 'vue'
@@ -12,7 +12,7 @@ export const tabsProps = buildProps({
    * @description tabs绑定的值，与tabsItem name属性对应值，如果tabsItem没有设置name，则默认为索引值
    */
   modelValue: {
-    type: Number,
+    type: [String, Number],
     default: 0,
   },
   /**
@@ -81,8 +81,9 @@ export const tabsProps = buildProps({
 })
 
 export const tabsEmits = {
-  [UPDATE_MODEL_EVENT]: (index: number) => isNumber(index),
-  [CHANGE_EVENT]: (index: number) => isNumber(index),
+  [UPDATE_MODEL_EVENT]: (val: string | number) =>
+    isString(val) || isNumber(val),
+  [CHANGE_EVENT]: (val: string | number) => isString(val) || isNumber(val),
 }
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>

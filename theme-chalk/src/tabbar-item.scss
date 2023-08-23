@@ -12,6 +12,7 @@
 
   /* 图标 start */
   @include e(icon) {
+    position: relative;
     font-size: 40rpx;
     line-height: 1;
     margin: 4rpx 0rpx;

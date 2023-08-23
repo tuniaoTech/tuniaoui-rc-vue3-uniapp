@@ -75,6 +75,14 @@ export const useInput = (
   // 输入框禁止事件
   const disabled = useFormDisabled(props.disabled)
 
+  // 是否显示字数统计
+  const showWordLimit = computed<boolean>(
+    () =>
+      props.type === 'textarea' && !!props?.maxlength && !!props?.showWordLimit
+  )
+  // 当前的字数
+  const currentWordCount = ref(0)
+
   // 内容输入触发事件
   const inputInputEvent = (event: any) => {
     const { value } = event.detail
@@ -113,6 +121,7 @@ export const useInput = (
   // 更新输入框内容
   const _updateInputText = (value: string) => {
     value = props.trim ? trim(value) : value
+    if (showWordLimit.value) currentWordCount.value = value.length
     // inputText.value = value
     emits(UPDATE_MODEL_EVENT, value)
     nextTick(() => {
@@ -137,6 +146,8 @@ export const useInput = (
     passwordIcon,
     showIcon,
     disabled,
+    showWordLimit,
+    currentWordCount,
     togglePasswordVisible,
     inputInputEvent,
     inputFocusEvent,

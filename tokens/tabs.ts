@@ -4,6 +4,7 @@ import type { TabsItemRect, TabsProps } from '../components/tabs'
 export type TabsItemContext = {
   uid: number
   elementRect: TabsItemRect
+  name?: string | number
 }
 
 export type TabsContext = TabsProps & {

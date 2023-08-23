@@ -47,13 +47,17 @@ export const usePicker = (props: PickerProps) => {
       // #endif
     }
   )
-  // 关闭popup弹框
-  const closePopupEvent = () => {
+  const _closePopup = () => {
     // #ifdef MP-ALIPAY
     showPicker.value = false
     // #endif
-    emit('close')
     emit('update:open', false)
+  }
+  // 关闭popup弹框
+  const closePopupEvent = () => {
+    _closePopup()
+    _generatePickerViewData(props.modelValue)
+    emit('close')
   }
 
   // picker选择器类型
@@ -246,6 +250,21 @@ export const usePicker = (props: PickerProps) => {
     }
   }
 
+  // 生成picker-view的数据
+  const _generatePickerViewData = (val: any) => {
+    // 如果是级联选择器，对应的级联数据也要更新
+    if (pickerMode === 'cascade') {
+      _generateOrUpdateCascadeData(
+        props.data as PickerDataItem[],
+        1,
+        val as Array<string | number>
+      )
+    }
+    nextTick(() => {
+      initDefaultPickerIndex()
+    })
+  }
+
   // 标记是否内部更新
   let isInnerUpdate = false
   watch(
@@ -255,17 +274,7 @@ export const usePicker = (props: PickerProps) => {
         isInnerUpdate = false
         return
       }
-      // 如果是级联选择器，对应的级联数据也要更新
-      if (pickerMode === 'cascade') {
-        _generateOrUpdateCascadeData(
-          props.data as PickerDataItem[],
-          1,
-          val as Array<string | number>
-        )
-      }
-      nextTick(() => {
-        initDefaultPickerIndex()
-      })
+      _generatePickerViewData(val)
     },
     {
       deep: true,
@@ -345,14 +354,14 @@ export const usePicker = (props: PickerProps) => {
       emit('confirm', value, originData)
     })
 
-    closePopupEvent()
+    _closePopup()
   }
 
   // 点击取消按钮
   const cancelEvent = () => {
+    _generatePickerViewData(props.modelValue)
     emit('cancel')
-
-    closePopupEvent()
+    _closePopup()
   }
 
   return {

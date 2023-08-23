@@ -172,6 +172,17 @@ export const inputProps = buildProps({
     default: true,
   },
   /**
+   * @description 显示字数统计，只有在 textarea 模式下且设置maxlength时生效
+   */
+  showWordLimit: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @description 字数统计文字颜色，以tn开头使用图鸟内置的颜色
+   */
+  wordLimitColor: String,
+  /**
    * @description 输入时是否触发表单验证
    */
   validateEvent: {

@@ -1,5 +1,5 @@
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT, ZIndex } from '../../../constants'
-import { buildProps, definePropType, isNumber } from '../../../utils'
+import { buildProps, definePropType, isNumber, isString } from '../../../utils'
 import { tabbarBaseProps } from '../../base/common-props/tabbar'
 
 import type { ExtractPropTypes } from 'vue'
@@ -14,7 +14,7 @@ export const tabbarProps = buildProps({
    * @description tabbar选中绑定的值
    */
   modelValue: {
-    type: Number,
+    type: [String, Number],
     default: 0,
   },
   /**
@@ -77,8 +77,9 @@ export const tabbarProps = buildProps({
 })
 
 export const tabbarEmits = {
-  [UPDATE_MODEL_EVENT]: (index: number) => isNumber(index),
-  [CHANGE_EVENT]: (index: number) => isNumber(index),
+  [UPDATE_MODEL_EVENT]: (val: string | number) =>
+    isNumber(val) || isString(val),
+  [CHANGE_EVENT]: (val: string | number) => isNumber(val) || isString(val),
 }
 
 export type TabbarProps = ExtractPropTypes<typeof tabbarProps>

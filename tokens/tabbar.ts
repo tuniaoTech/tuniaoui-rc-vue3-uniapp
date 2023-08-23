@@ -3,6 +3,7 @@ import type { TabbarItemRect, TabbarProps } from '../components/tabbar'
 
 export type TabbarItemContext = {
   uid: number
+  name?: string | number
 }
 
 export type TabbarContext = TabbarProps & {

@@ -114,11 +114,14 @@ export const useTabbarItemCustomStyle = (
   const bulgeClass = computed<string>(() => {
     const cls: string[] = [ns.e('bulge')]
     // 设置背景颜色
-    if (isActive.value) {
+    if (props.bulgeBgColor) {
       if (bulgeBgClass.value) cls.push(bulgeBgClass.value)
-      else if (activebgClass.value) cls.push(activebgClass.value)
     } else {
-      if (inactiveBgClass.value) cls.push(inactiveBgClass.value)
+      if (isActive.value) {
+        if (activebgClass.value) cls.push(activebgClass.value)
+      } else {
+        if (inactiveBgClass.value) cls.push(inactiveBgClass.value)
+      }
     }
 
     // 设置文字颜色
@@ -141,17 +144,19 @@ export const useTabbarItemCustomStyle = (
       style.top = `-${width * 0.16}px`
 
       // 设置背景
-      if (isActive.value) {
-        if (!activebgClass.value && !bulgeBgClass.value) {
-          style.backgroundColor =
-            bulgeBgStyle.value ||
-            activebgStyle.value ||
-            'var(--tn-color-primary)'
-        }
+      if (props.bulgeBgColor) {
+        if (!bulgeBgClass.value) style.backgroundColor = bulgeBgStyle.value
       } else {
-        if (!inactiveBgClass.value) {
-          style.backgroundColor =
-            inactiveBgStyle.value || 'var(--tn-color-gray)'
+        if (isActive.value) {
+          if (!activebgClass.value) {
+            style.backgroundColor =
+              activebgStyle.value || 'var(--tn-color-primary)'
+          }
+        } else {
+          if (!inactiveBgClass.value) {
+            style.backgroundColor =
+              inactiveBgStyle.value || 'var(--tn-color-gray)'
+          }
         }
       }
 

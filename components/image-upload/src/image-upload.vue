@@ -17,6 +17,7 @@ const {
   chooseFile,
   retryUploadFile,
   retryAllUpload,
+  customUploadHandle,
   removeFileEvent,
   clearAllFile,
   previewImage,
@@ -24,15 +25,19 @@ const {
 
 defineExpose({
   /**
-   * 手动选择文件
+   * @description 手动选择文件
    */
   chooseFile,
   /**
-   * 重新上传失败的文件
+   * @description 手动上传图片
+   */
+  upload: customUploadHandle,
+  /**
+   * @description 重新上传失败的文件
    */
   retry: retryAllUpload,
   /**
-   * 清空所有文件
+   * @description 清空所有文件
    */
   clear: clearAllFile,
 })

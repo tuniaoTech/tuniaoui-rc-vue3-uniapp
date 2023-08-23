@@ -55,10 +55,35 @@ export const useImageUpload = (props: ImageUploadProps) => {
     }
   })
 
+  // 微信小程序的隐私信息授权操作处理
+  // const wxPrivacyAuthorizeHandle = (): Promise<void> => {
+  //   return new Promise<void>((resolve, reject) => {
+  //     wx.requirePrivacyAuthorize({
+  //       success: () => {
+  //         resolve()
+  //       },
+  //       fail: () => {
+  //         reject()
+  //       },
+  //     })
+  //   })
+  // }
+
   // 选择文件
-  const chooseFile = () => {
+  const chooseFile = async () => {
     const { disabled, action, customUploadHandler } = props
     if (disabled) return
+
+    // 兼容微信小程序的隐私信息授权
+    // #ifdef MP-WEIXIN
+    // try {
+    //   await wxPrivacyAuthorizeHandle()
+    //   // eslint-disable-next-line unicorn/prefer-optional-catch-binding
+    // } catch (err: any) {
+    //   showErrorTips('请授权后再选择图片')
+    //   return
+    // }
+    // #endif
 
     // 如果没有设置action或者没有自定义图片上传处理函数，则直接返回
     if (!action && !customUploadHandler) {
@@ -253,6 +278,12 @@ export const useImageUpload = (props: ImageUploadProps) => {
     uploadFile(firstFailedFileIndex)
   }
 
+  // 手动上传文件
+  const customUploadHandle = () => {
+    if (!fileList.value.length) return
+    uploadFile(0)
+  }
+
   // 移除文件
   const removeFile = (index: number) => {
     const fileItem = fileList.value[index]
@@ -363,6 +394,7 @@ export const useImageUpload = (props: ImageUploadProps) => {
     chooseFile,
     retryUploadFile,
     retryAllUpload,
+    customUploadHandle,
     removeFileEvent,
     clearAllFile,
     previewImage,

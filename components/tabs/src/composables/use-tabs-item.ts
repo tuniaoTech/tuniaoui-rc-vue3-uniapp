@@ -55,6 +55,7 @@ export const useTabsItem = (props: TabsItemProps) => {
       tabsContext?.addItem({
         uid,
         elementRect: tabsItemRect,
+        name: props.name,
       })
       // #endif
       // #ifdef APP-PLUS || MP-ALIPAY
@@ -62,6 +63,7 @@ export const useTabsItem = (props: TabsItemProps) => {
         tabsContext?.addItem({
           uid,
           elementRect: tabsItemRect,
+          name: props.name,
         })
       }, 250)
       // #endif

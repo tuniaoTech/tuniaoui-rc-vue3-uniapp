@@ -1263,3 +1263,66 @@ _2023-08-03_
 #### Fixed
 
 - 修复在部份情况下组件会编译到全局目录下的问题
+
+### 1.0.10-beta.1
+### 1.0.10-beta.2
+
+_2023-08-05_
+
+#### Fixed
+
+- 修复`TnFormItem`在没有`label`是会报错的问题
+
+### 优化
+
+- `TnPicker`、`TnDateTimePicker`、`TnRegionPicker`组件取消之后不会自动恢复到上一次的位置
+
+### 1.0.10-beta.3
+
+_2023-08-10_
+
+#### 新增
+
+- `TnTabbarItem`新增`name`属性可以设置唯一标识
+- `TnTabbarItem`新增`badge`和`badge-config`属性设置和配置角标
+- `TnTabsItem`新增`name`属性可以设置唯一标识
+
+### 1.0.10-beta.4
+### 1.0.10-beta.5
+
+_2023-08-18_
+
+#### 新增
+
+- `TnImageUpload`新增`upload`方法用于手动上传图片
+- `TnButton`新增`only-button`参数设置按钮为纯按钮，不外加任何样式
+
+#### Fixed
+
+- 修复`TnTabbarItem`的`bulge-bg-color`属性无效的问题
+
+#### 优化
+
+- 优化`TnNoticeBar`样式
+
+### 1.0.10-beta.6
+### 1.0.10-beta.7
+
+_2023-08-21_
+
+#### 新增
+
+- `TnDateTimePicker`新增`format`参数格式化回显的日期时间
+- `TnDateTimePicker`新增`init-current-date-time`参数是否在初始化时为空时设置为当前时间
+
+#### Fixed
+
+- 修复`TnDateTimePicker`动态修改最小最大时间后picker数据没有发生改变的问题
+
+### 1.0.10-beta.8
+
+_2023-08-22_
+
+#### 新增
+
+- `TnInput`新增`show-word-limit`和`word-limit-color`属性显示字数统计以及设置字数统计颜色

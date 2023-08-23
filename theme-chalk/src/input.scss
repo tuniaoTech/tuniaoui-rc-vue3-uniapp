@@ -122,4 +122,19 @@ $input-sizes: map-merge(
     }
   }
   /* 插槽 end */
+
+  /* 字数统计 start */
+  @include when(show-word-limit) {
+    padding-bottom: 40rpx;
+  }
+  @include e(word-limit) {
+    position: absolute;
+    right: 20rpx;
+    bottom: 10rpx;
+    font-size: 24rpx;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+  /* 字数统计 end */
 }

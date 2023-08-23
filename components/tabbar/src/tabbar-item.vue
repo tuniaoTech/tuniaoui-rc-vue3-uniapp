@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import TnIcon from '../../icon/src/icon.vue'
+import TnBadge from '../../badge/src/badge.vue'
 import { tabbarItemProps, tabbatItemEmits } from './tabbar-item'
 import { useTabbarItem, useTabbarItemCustomStyle } from './composables'
 
 const props = defineProps(tabbarItemProps)
 const emits = defineEmits(tabbatItemEmits)
-const { itemId, isActive, itemRectInfo, iconSize, itemClick } = useTabbarItem(
-  props,
-  emits
-)
+const { itemId, isActive, itemRectInfo, iconSize, hasBadge, itemClick } =
+  useTabbarItem(props, emits)
 
 const {
   ns,
@@ -52,6 +51,14 @@ export default {
           :style="tabbarItemElementStyle('icon')"
         >
           <TnIcon :name="isActive ? activeIcon : icon" :size="iconSize" />
+          <!-- 角标 -->
+          <TnBadge
+            v-if="hasBadge"
+            :value="badge"
+            :dot="badgeConfig.dot"
+            :size="badgeConfig.dot ? '16' : ''"
+            type="danger"
+          />
         </view>
       </template>
       <!-- 文字 -->

@@ -44,7 +44,10 @@ export const useTabs = (props: TabsProps) => {
   // 添加tabsItem到items容器中
   const addItem = (item: TabsItemContext) => {
     if (props.modelValue !== undefined && activeUid.value === -1) {
-      if (props.modelValue === items.value.length) {
+      if (
+        props.modelValue === item.name ||
+        props.modelValue === items.value.length
+      ) {
         nextTick(() => {
           updateActiveUid(item.uid)
         })
@@ -95,12 +98,13 @@ export const useTabs = (props: TabsProps) => {
   const updateActiveUid = (uid: number, changeEmit = false) => {
     activeUid.value = uid
     const itemIndex = items.value.findIndex((item) => item.uid === uid)
+    const value = items.value[itemIndex].name ?? itemIndex
 
     updateOffsetPosition(itemIndex)
 
-    emit(UPDATE_MODEL_EVENT, itemIndex)
+    emit(UPDATE_MODEL_EVENT, value)
     if (changeEmit) {
-      emit(CHANGE_EVENT, itemIndex)
+      emit(CHANGE_EVENT, value)
     }
   }
 
@@ -141,18 +145,33 @@ export const useTabs = (props: TabsProps) => {
   }
 
   // 通过索引更新当前激活的ActiveItem
-  const updateActiveItemByIndex = (index?: number) => {
-    if (index === undefined || !items.value?.[index]) {
+  const updateActiveItemByValue = (value?: string | number) => {
+    if (value === undefined) {
+      // 如果没有传递任何值则设置第一个Item为激活状态
+      updateActiveUid(items.value[0].uid)
+      return
+    }
+    let item: TabsItemContext | undefined
+    // 如果类型是number，则先通过索引进行查找
+    if (typeof value === 'number') {
+      item = items.value?.[value]
+    }
+    // 如果没有找到，则通过name查找
+    if (!item) {
+      item = items.value.find((item) => item.name === value)
+    }
+    if (!item) {
+      // 设置第一个Item为激活状态
       updateActiveUid(items.value[0].uid)
     } else {
-      updateActiveUid(items.value[index].uid)
+      updateActiveUid(item.uid)
     }
   }
 
   watch(
     () => props.modelValue,
     (val) => {
-      updateActiveItemByIndex(val)
+      updateActiveItemByValue(val)
     }
   )
 

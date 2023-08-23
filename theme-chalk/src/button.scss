@@ -97,4 +97,18 @@
     margin-right: 8rpx;
   }
   /* 加载动画 end */
+
+  /* 只是按钮时没有任何样式 start */
+  @include m(only-button) {
+    display: block;
+    padding: 0rpx;
+    line-height: normal;
+    white-space: normal;
+    height: auto;
+    border-radius: 0rpx;
+    align-items: normal;
+    justify-content: normal;
+    text-align: unset;
+  }
+  /* 只是按钮时没有任何样式 end */
 }

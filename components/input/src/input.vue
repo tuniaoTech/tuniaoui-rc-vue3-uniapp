@@ -14,6 +14,8 @@ const {
   passwordIcon,
   showIcon,
   disabled,
+  showWordLimit,
+  currentWordCount,
   togglePasswordVisible,
   inputInputEvent,
   inputFocusEvent,
@@ -22,11 +24,14 @@ const {
   confirmEvent,
   inputClickEvent,
 } = useInput(props, emits)
-const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
-  props,
-  validateState,
-  disabled
-)
+const {
+  ns,
+  inputClass,
+  inputStyle,
+  placeholderStyle,
+  wordLimitClass,
+  wordLimitStyle,
+} = useInputCustomStyle(props, validateState, disabled)
 </script>
 
 <template>
@@ -34,6 +39,7 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
     :class="[
       inputClass,
       `${type === 'textarea' ? ns.m('textarea') : ns.m('input')}`,
+      ns.is('show-word-limit', showWordLimit),
     ]"
     :style="inputStyle"
     @tap="inputClickEvent"
@@ -121,6 +127,15 @@ const { ns, inputClass, inputStyle, placeholderStyle } = useInputCustomStyle(
     </view>
     <view v-if="$slots.suffix" :class="[ns.em('slot', 'right')]">
       <slot name="suffix" />
+    </view>
+
+    <!-- 字数统计 -->
+    <view
+      v-if="showWordLimit"
+      :class="[wordLimitClass]"
+      :style="wordLimitStyle"
+    >
+      {{ currentWordCount }} / {{ maxlength }}
     </view>
   </view>
 </template>

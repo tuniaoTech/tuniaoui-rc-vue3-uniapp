@@ -18,7 +18,7 @@ const {
   handlePickerCancelEvent,
 } = useDateTimePicker(props)
 
-initDateTimePicker()
+initDateTimePicker(props.initCurrentDateTime)
 </script>
 
 <template>

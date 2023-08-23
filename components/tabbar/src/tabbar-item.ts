@@ -1,7 +1,10 @@
-import { buildProps } from '../../../utils'
+import { buildProps, definePropType } from '../../../utils'
 import { tabbarBaseProps } from '../../base/common-props/tabbar'
 
 import type { ExtractPropTypes } from 'vue'
+import type { BadgeProps } from '../../badge'
+
+export type TabbarItemBadgeConfig = Partial<Pick<BadgeProps, 'dot'>>
 
 export const tabbarItemProps = buildProps({
   ...tabbarBaseProps,
@@ -35,6 +38,19 @@ export const tabbarItemProps = buildProps({
    * @description 凸起按钮字体颜色
    */
   bulgeTextColor: String,
+  /**
+   * @description 角标的值
+   */
+  badge: {
+    type: [String, Number],
+  },
+  /**
+   * @description 角标配置
+   */
+  badgeConfig: {
+    type: definePropType<TabbarItemBadgeConfig>(Object),
+    default: () => ({}),
+  },
   /**
    * @description 是否禁用
    */

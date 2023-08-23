@@ -46,6 +46,7 @@ export const useFormItemCustomStyle = (
 
   // 获取label标签的宽度
   const initLabelContainerWidth = () => {
+    if (!hasLabel.value) return
     getSelectorNodeInfo(`#${labelId}`).then((res) => {
       labelContainerWidth.value = res?.width || 0
     })

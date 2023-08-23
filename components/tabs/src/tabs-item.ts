@@ -11,6 +11,12 @@ export type TabsItemBadgeConfig = Partial<Pick<BadgeProps, 'dot'>> & {
 export const tabsItemProps = buildProps({
   ...tabsBaseProps,
   /**
+   * @description 唯一标识
+   */
+  name: {
+    type: [String, Number],
+  },
+  /**
    * @description 标题
    */
   title: {

@@ -42,6 +42,9 @@ export const useTabbarItem = (
     () => props.iconSize || tabbarContext?.iconSize || ''
   )
 
+  // 是否有角标
+  const hasBadge = computed<boolean>(() => !!props.badge)
+
   // item点击事件
   const itemClick = () => {
     if (isActive.value || props.disabled) return
@@ -90,6 +93,7 @@ export const useTabbarItem = (
 
   tabbarContext?.addItem({
     uid,
+    name: props.name,
   })
   onMounted(() => {
     nextTick(() => {
@@ -106,6 +110,7 @@ export const useTabbarItem = (
     isActive,
     itemRectInfo,
     iconSize,
+    hasBadge,
     itemClick,
   }
 }

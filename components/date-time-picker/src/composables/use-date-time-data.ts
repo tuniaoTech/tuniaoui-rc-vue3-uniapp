@@ -62,38 +62,40 @@ export const useDateTimeData = (props: DateTimePickerProps) => {
   const secondColumnData = ref<Array<PickerColumn>>([])
 
   // 填充日期时间
-  const fillDateTime = (value: string): string => {
-    const datePattern = /\d{4}[-/]\d{1,2}[-/]\d{1,2}/
-    const timePattern = /\d{1,2}:\d{1,2}:\d{1,2}/
+  const fillDateTime = (value: string, format?: string): Dayjs => {
+    if (!format) format = innerDefaultDateTimeFormat
+    let dateTime = ''
+    if (props.mode === 'time') {
+      const timeReg = /^(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2}))?$/
+      dateTime = value.replace(timeReg, (_, hour, minute, second) => {
+        return `1970/01/01 ${hour}:${minute || '00'}:${second || '00'}`
+      })
+    } else {
+      value = dayjs(value, format).format(innerDefaultDateTimeFormat)
+      const dateTimeReg =
+        /^(\d{4})(?:[-/](\d{1,2}))?(?:[-/](\d{1,2}))?(?:\s?(\d{1,2}))?(?::(\d{1,2}))?(?::(\d{1,2}))?$/
+      dateTime = value.replace(
+        dateTimeReg,
+        (_, year, month, day, hour, minute, second) => {
+          return `${year}/${month || '01'}/${day || '01'} ${hour || '00'}:${
+            minute || '00'
+          }:${second || '00'}`
+        }
+      )
+    }
 
-    const hasDate = datePattern.test(value)
-    const hasTime = timePattern.test(value)
-    if (!hasDate && !hasTime) {
-      if (props.mode === 'year') {
-        return `${value}/01/01 00:00:00`
-      }
-      if (props.mode === 'yearmonth') {
-        return `${value}/01 00:00:00`
-      }
-      if (props.mode === 'date') {
-        return `${value} 00:00:00`
-      }
-    }
-    if (props.mode === 'time' && hasTime && !hasDate) {
-      return `1970/01/01 ${value}`
-    }
-    return value
+    return dayjs(dateTime, format)
   }
 
   const minTimeDayjs = computed<Dayjs>(() => {
     let time = `${nowDayjs.year() - 10}/01/01 00:00:00`
     if (props.minTime) time = props.minTime
-    return dayjs(fillDateTime(time), innerDefaultDateTimeFormat)
+    return fillDateTime(time)
   })
   const maxTimeDayjs = computed<Dayjs>(() => {
     let time = `${nowDayjs.year() + 10}/12/31 23:59:59`
     if (props.maxTime) time = props.maxTime
-    return dayjs(fillDateTime(time), innerDefaultDateTimeFormat)
+    return fillDateTime(time)
   })
 
   // 获取日期时间的最大/小值

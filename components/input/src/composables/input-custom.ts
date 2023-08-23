@@ -23,6 +23,12 @@ export const useInputCustomStyle = (
     'border'
   )
 
+  // 解析字数统计颜色
+  const [wordLimitColorClass, wordLimitColorStyle] = useComponentColor(
+    toRef(props, 'wordLimitColor'),
+    'text'
+  )
+
   // 输入框placeholder样式
   const placeholderStyle = computed<string>(() => {
     const style: CSSProperties = {
@@ -85,10 +91,31 @@ export const useInputCustomStyle = (
     return style
   })
 
+  // 字数统计类
+  const wordLimitClass = computed<string>(() => {
+    const cls: string[] = [ns.e('word-limit')]
+
+    if (wordLimitColorClass.value) cls.push(wordLimitColorClass.value)
+
+    return cls.join(' ')
+  })
+  // 字数统计样式
+  const wordLimitStyle = computed<CSSProperties>(() => {
+    const style: CSSProperties = {}
+
+    if (!wordLimitColorClass.value) {
+      style.color = wordLimitColorStyle.value || 'var(--tn-color-gray)'
+    }
+
+    return style
+  })
+
   return {
     ns,
     inputClass,
     inputStyle,
     placeholderStyle,
+    wordLimitClass,
+    wordLimitStyle,
   }
 }

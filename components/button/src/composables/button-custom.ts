@@ -29,8 +29,11 @@ export const useButtonCustomStyle = (props: ButtonProps) => {
   )
   // 按钮动态类
   const buttonClass = computed<string>(() => {
-    const cls: string[] = []
-    cls.push(ns.b())
+    const cls: string[] = [ns.b()]
+    if (props.onlyButton) {
+      cls.push(ns.m('only-button'))
+      return cls.join(' ')
+    }
 
     // 设置文字按钮
     if (props.text) cls.push(ns.m('text'))
@@ -87,6 +90,7 @@ export const useButtonCustomStyle = (props: ButtonProps) => {
   // 按钮样式
   const buttonStyle = computed<CSSProperties>(() => {
     const style: CSSProperties = {}
+    if (props.onlyButton) return style
     // 设置按钮宽高
     if (props.width) {
       style.width = formatDomSizeValue(props.width)

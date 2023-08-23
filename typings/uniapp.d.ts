@@ -35,4 +35,16 @@ declare global {
   }
 }
 
+interface wx {
+  requirePrivacyAuthorize: ({
+    success,
+    fail,
+    complete,
+  }: {
+    success: () => void
+    fail: () => void
+    complete: () => void
+  }) => void
+}
+
 export {}

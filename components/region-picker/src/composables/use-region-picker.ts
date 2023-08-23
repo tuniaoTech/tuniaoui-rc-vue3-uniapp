@@ -28,9 +28,12 @@ export const useRegionPicker = (
       showPicker.value = val
     }
   )
+  const _closePicker = () => {
+    emits('update:open', false)
+  }
   // picker关闭事件
   const handlePickerCloseEvent = () => {
-    emits('update:open', false)
+    _closePicker()
     emits('close')
   }
 
@@ -147,6 +150,7 @@ export const useRegionPicker = (
     value: string | number | (string | number)[],
     item: any
   ) => {
+    currentSelectValue.value = cloneDeep(value as string[])
     if (userRegionValueMode === 'name') {
       value = getNameByCodes(value as string[])
     }
@@ -154,10 +158,12 @@ export const useRegionPicker = (
     nextTick(() => {
       emits('confirm', value as string[], item)
     })
+    _closePicker()
   }
 
   // picker取消事件
   const handlePickerCancelEvent = () => {
+    _closePicker()
     emits('cancel')
   }
 

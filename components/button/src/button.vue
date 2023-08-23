@@ -28,7 +28,9 @@ export default {
     class="tn-u-btn-clear"
     :class="[buttonClass]"
     :style="buttonStyle"
-    :hover-class="props.disabled || props.loading ? '' : hoverClass"
+    :hover-class="
+      props.disabled || props.loading || props.onlyButton ? '' : hoverClass
+    "
     :disabled="disabled"
     :form-type="formType"
     :open-type="openType"

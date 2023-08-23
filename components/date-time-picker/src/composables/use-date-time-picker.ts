@@ -9,6 +9,12 @@ import type { Dayjs } from '../../../../libs/dayjs'
 import type { DateTimePickerProps } from '../date-time-picker'
 import type { TnPickerInstance } from '../../../picker'
 
+export const MIN_MAX_VALUE = (
+  minValue: number,
+  maxValue: number,
+  currentValue: number
+) => Math.min(Math.max(minValue, currentValue), maxValue)
+
 export const useDateTimePicker = (props: DateTimePickerProps) => {
   const { emit } = getCurrentInstance()!
 
@@ -35,11 +41,22 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       showPicker.value = val
     }
   )
+  const _closePicker = () => {
+    emit('update:open', false)
+  }
   // picker弹框关闭事件
   const handlePickerCloseEvent = () => {
-    emit('update:open', false)
+    _closePicker()
+    initDateTimePicker(false)
     emit('close')
   }
+  // 如果最小值/最大值发生改变，则重新初始化日期时间选择器
+  watch(
+    () => [props.minTime, props.maxTime, props.modelValue],
+    () => {
+      initDateTimePicker(false)
+    }
+  )
 
   // picker选中的数据
   const pickerSelectData = ref<Array<string | number>>([])
@@ -53,10 +70,16 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
     const minute = String(dateTime.minute()).padStart(2, '0')
     const second = String(dateTime.second()).padStart(2, '0')
     if (props.mode === 'year') return `${year}`
-    if (props.mode === 'yearmonth') return `${year}/${month}`
-    if (props.mode === 'date') return `${year}/${month}/${date}`
+    if (props.mode === 'yearmonth')
+      return dayjs(`${year}/${month}`).format(props.format || 'YYYY/MM')
+    if (props.mode === 'date')
+      return dayjs(`${year}/${month}/${date}`).format(
+        props.format || 'YYYY/MM/DD'
+      )
     if (props.mode === 'time') return `${hour}:${minute}:${second}`
-    return `${year}/${month}/${date} ${hour}:${minute}:${second}`
+    return dayjs(`${year}/${month}/${date} ${hour}:${minute}:${second}`).format(
+      props.format || innerDefaultDateTimeFormat
+    )
   }
 
   // 设置默认picker选中的值
@@ -75,47 +98,56 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       pickerSelectData.value = [year, month, date, hour, minute, second]
   }
   // 初始化日期时间选择器
-  const initDateTimePicker = () => {
+  const initDateTimePicker = (updateModelValue = true) => {
     let defaultTime = dayjs()
     // 如果有传递默认值，则使用默认值，没有则使用当前时间
     if (props.modelValue) {
-      defaultTime = dayjs(
-        fillDateTime(props.modelValue.replaceAll('-', '/')),
-        innerDefaultDateTimeFormat
-      )
+      defaultTime = fillDateTime(props.modelValue, props.format)
     }
     // 设置defaultTime最小和最大时间
     if (props.mode !== 'time') {
       defaultTime = defaultTime.year(
-        Math.min(
-          Math.max(minTimeDayjs.value.year(), defaultTime.year()),
-          maxTimeDayjs.value.year()
+        MIN_MAX_VALUE(
+          minTimeDayjs.value.year(),
+          maxTimeDayjs.value.year(),
+          defaultTime.year()
         )
       )
       if (defaultTime.year() === minTimeDayjs.value.year()) {
-        defaultTime = defaultTime
-          .month(minTimeDayjs.value.month())
-          .date(minTimeDayjs.value.date())
-          .hour(minTimeDayjs.value.hour())
-          .minute(minTimeDayjs.value.minute())
-          .second(minTimeDayjs.value.second())
-      }
-      if (
-        defaultTime.year() === maxTimeDayjs.value.year() &&
-        defaultTime.month() >= maxTimeDayjs.value.month()
-      ) {
-        defaultTime = defaultTime
-          .month(maxTimeDayjs.value.month())
-          .date(1)
-          .hour(0)
-          .minute(0)
-          .second(0)
+        if (defaultTime.month() < minTimeDayjs.value.month()) {
+          defaultTime = defaultTime
+            .month(minTimeDayjs.value.month())
+            .date(minTimeDayjs.value.date())
+            .hour(minTimeDayjs.value.hour())
+            .minute(minTimeDayjs.value.minute())
+            .second(minTimeDayjs.value.second())
+        } else if (defaultTime.month() > maxTimeDayjs.value.month()) {
+          defaultTime = defaultTime
+            .month(maxTimeDayjs.value.month())
+            .date(1)
+            .hour(0)
+            .minute(0)
+            .second(0)
+        } else {
+          if (defaultTime.date() < minTimeDayjs.value.date()) {
+            defaultTime = defaultTime
+              .date(minTimeDayjs.value.date())
+              .hour(minTimeDayjs.value.hour())
+              .minute(minTimeDayjs.value.minute())
+          } else if (defaultTime.date() > maxTimeDayjs.value.date()) {
+            defaultTime = defaultTime
+              .date(maxTimeDayjs.value.date())
+              .hour(maxTimeDayjs.value.hour())
+              .minute(maxTimeDayjs.value.minute())
+          }
+        }
       }
     } else {
       defaultTime = defaultTime.hour(
-        Math.min(
-          Math.max(defaultTime.hour(), minTimeDayjs.value.hour()),
-          maxTimeDayjs.value.hour()
+        MIN_MAX_VALUE(
+          minTimeDayjs.value.hour(),
+          maxTimeDayjs.value.hour(),
+          defaultTime.hour()
         )
       )
       if (defaultTime.hour() === minTimeDayjs.value.hour()) {
@@ -143,7 +175,9 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
     setDefaultPickerSelectValue(defaultTime)
 
     // 更新用户modelValue
-    emit(UPDATE_MODEL_EVENT, getDateTimeValue(defaultTime))
+    if (updateModelValue) {
+      emit(UPDATE_MODEL_EVENT, getDateTimeValue(defaultTime))
+    }
   }
 
   // 获取修改填充后的日期时间Dayjs对象
@@ -182,7 +216,7 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       )
       dateTimeValue = `${value[0]}/${month}/${date} ${value[3]}:${value[4]}:${value[5]}`
     }
-    return dayjs(fillDateTime(dateTimeValue), innerDefaultDateTimeFormat)
+    return fillDateTime(dateTimeValue)
   }
 
   // picker选择发生改变回调
@@ -245,11 +279,14 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
     nextTick(() => {
       emit('confirm', dateTimeValue)
     })
+    _closePicker()
   }
 
   // 取消日期时间回调
   const handlePickerCancelEvent = () => {
+    initDateTimePicker(false)
     emit('cancel')
+    _closePicker()
   }
 
   return {

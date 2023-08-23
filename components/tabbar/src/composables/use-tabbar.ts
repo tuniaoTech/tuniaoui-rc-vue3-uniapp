@@ -33,8 +33,12 @@ export const useTabbar = (props: TabbarProps) => {
   // 添加Item
   const addItem = (item: TabbarItemContext) => {
     if (props.modelValue !== undefined && activeUid.value === -1) {
-      if (props.modelValue === items.value.length) {
+      if (
+        props.modelValue === item.name ||
+        props.modelValue === items.value.length
+      ) {
         activeUid.value = item.uid
+        updateActiveId(item.uid)
       }
     }
     addChild(item)
@@ -45,10 +49,12 @@ export const useTabbar = (props: TabbarProps) => {
     activeUid.value = uid
     const itemIndex = items.value.findIndex((item) => item.uid === uid)
 
-    emit(UPDATE_MODEL_EVENT, itemIndex)
+    const value = items.value[itemIndex]?.name || itemIndex
+
+    emit(UPDATE_MODEL_EVENT, value)
     if (changeEmit) {
       nextTick(() => {
-        emit(CHANGE_EVENT, itemIndex)
+        emit(CHANGE_EVENT, value)
       })
     }
   }
@@ -86,12 +92,26 @@ export const useTabbar = (props: TabbarProps) => {
   }
 
   // 根据modelValue设置当前激活的Item
-  const setActiveItemByValue = (value?: number) => {
-    if (value === undefined || !items.value?.[value]) {
+  const setActiveItemByValue = (value?: string | number) => {
+    if (value === undefined) {
+      // 如果没有传递任何值则设置第一个Item为激活状态
+      updateActiveId(items.value[0].uid)
+      return
+    }
+    let item: TabbarItemContext | undefined
+    // 如果类型是number，则先通过索引进行查找
+    if (typeof value === 'number') {
+      item = items.value?.[value]
+    }
+    // 如果没有找到，则通过name查找
+    if (!item) {
+      item = items.value.find((item) => item.name === value)
+    }
+    if (!item) {
       // 设置第一个Item为激活状态
       updateActiveId(items.value[0].uid)
     } else {
-      updateActiveId(items.value[value].uid)
+      updateActiveId(item.uid)
     }
   }
 

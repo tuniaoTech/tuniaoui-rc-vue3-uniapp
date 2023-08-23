@@ -134,6 +134,10 @@ export const buttonProps = buildProps({
    */
   disabled: Boolean,
   /**
+   * @description 是否只为一个按钮，不作用任何样式
+   */
+  onlyButton: Boolean,
+  /**
    * @description 是否显示加载中
    */
   loading: Boolean,
