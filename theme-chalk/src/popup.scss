@@ -14,9 +14,9 @@
     position: absolute;
     // overflow: hidden;
     opacity: 0;
-    transition-property: transform, opacity;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
+    // transition-property: transform, opacity;
+    // transition-duration: 0.3s;
+    // transition-timing-function: ease;
     /* 弹出层位置 start */
     @include m(center) {
       left: 50%;
@@ -106,5 +106,10 @@
   }
   @include when(visible) {
     visibility: visible;
+    @include e(content) {
+      transition-property: transform, opacity;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+    }
   }
 }

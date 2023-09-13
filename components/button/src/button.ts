@@ -21,6 +21,9 @@ export const buttonOpenTypes = [
   'getPhoneNumber',
   'launchApp',
   'openSetting',
+  'getUserInfo',
+  'chooseAvatar',
+  'agreePrivacyAuthorization',
 ] as const
 
 /**
@@ -230,6 +233,21 @@ export const buttonEmits = {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   launchapp: (e: any) => true,
+  /**
+   * @description 获取用户信息回调
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getuserinfo: (e: any) => true,
+  /**
+   * @description 获取用户头像回调
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  chooseavatar: (e: any) => true,
+  /**
+   * @description 同意隐私授权回调
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  agreeprivacyauthorization: (e: any) => true,
 }
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>

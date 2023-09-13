@@ -114,4 +114,11 @@ $radio-sizes: map.merge(
     opacity: 0.4;
   }
   /* 禁止效果 end */
+
+  /* 没有边框 start */
+  @include m(no-border) {
+    // 如果没有border则不设置内边距
+    padding: 0;
+  }
+  /* 没有边框 end */
 }

@@ -7,7 +7,8 @@ import { useNavbar, useNavbarCustomStyle } from './composables'
 const props = defineProps(navBarProps)
 const emits = defineEmits(navbarEmits)
 
-const { navbackButtonType, clickBackEvent, clickHomeEvent } = useNavbar(props)
+const { navbackButtonType, hasRightOperation, clickBackEvent, clickHomeEvent } =
+  useNavbar(props)
 const {
   ns,
   backNs,
@@ -20,7 +21,8 @@ const {
   navbarWrapperStyle,
   backStyle,
   contentStyle,
-} = useNavbarCustomStyle(props, navbackButtonType)
+  rightOperationStyle,
+} = useNavbarCustomStyle(props, navbackButtonType, hasRightOperation)
 
 // 动态调用是返回首页还是返回上一页
 const backEvent = (type: 'back' | 'home') => {
@@ -103,6 +105,15 @@ onMounted(() => {
         :style="contentStyle"
       >
         <slot />
+      </view>
+
+      <!-- 右边操作区域 -->
+      <view
+        v-if="$slots.right"
+        :class="[ns.e('right-operation')]"
+        :style="rightOperationStyle"
+      >
+        <slot name="right" />
       </view>
     </view>
   </view>

@@ -10,6 +10,7 @@ export type TabsItemContext = {
 export type TabsContext = TabsProps & {
   items: TabsItemContext[]
   activeUid: number
+  showBar: boolean
   addItem: (item: TabsItemContext) => void
   removeItem: (uid: number) => void
   setActiveItem: (uid: number) => void

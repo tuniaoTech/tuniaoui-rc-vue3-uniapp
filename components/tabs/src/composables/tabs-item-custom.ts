@@ -23,6 +23,9 @@ export const useTabsItemCustomStyle = (
   const activeBold = computed<boolean>(() =>
     isEmptyVariableInDefault(tabsContext?.activeBold, true)
   )
+  const activeFontSize = computed<string | undefined>(
+    () => props.activeFontSize || tabsContext?.activeFontSize
+  )
 
   // 解析颜色
   const [textColorClass, textColorStyle] = useComponentColor(
@@ -55,6 +58,9 @@ export const useTabsItemCustomStyle = (
     // 设置可以滚动
     if (tabsContext?.scroll) cls.push(ns.m('scroll'))
 
+    // 是否有设置滑块
+    if (!tabsContext?.showBar) cls.push(ns.is('no-bar'))
+
     return cls.join(' ')
   })
   // tabsItem样式
@@ -65,6 +71,9 @@ export const useTabsItemCustomStyle = (
     if (isActive.value) {
       if (!activeTextColorClass.value) {
         style.color = activeTextColorStyle.value || 'var(--tn-color-primary)'
+      }
+      if (activeFontSize.value) {
+        style.fontSize = formatDomSizeValue(activeFontSize.value)
       }
     } else {
       if (!textColorClass.value) {

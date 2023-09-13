@@ -24,6 +24,9 @@ export const useNavbar = (props: NavbarProps) => {
     return 'none'
   })
 
+  // 是否有右边操作区域
+  const hasRightOperation = computed<boolean>(() => !!slots?.right)
+
   // 点击返回按钮
   const clickBackEvent = () => {
     const { beforeBack } = props
@@ -94,6 +97,7 @@ export const useNavbar = (props: NavbarProps) => {
 
   return {
     navbackButtonType,
+    hasRightOperation,
     clickBackEvent,
     clickHomeEvent,
   }

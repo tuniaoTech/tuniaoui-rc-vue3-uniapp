@@ -32,6 +32,10 @@ export const swiperProps = buildProps({
     default: [],
   },
   /**
+   * @description 空白swiper的数量，如果设置了data则以data的数据为准
+   */
+  blankCount: Number,
+  /**
    * @description 轮播图的宽度，默认单位rpx
    */
   width: String,

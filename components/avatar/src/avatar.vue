@@ -33,7 +33,7 @@ const { badgeConfig } = useAvatarBadgeProps(props)
     :id="componentId"
     :class="[avatarClass]"
     :style="avatarStyle"
-    @tap.stop="avatarClick"
+    @tap="avatarClick"
   >
     <!-- 图片头像 -->
     <view v-if="url" :class="[ns.e('image')]">

@@ -31,6 +31,14 @@
   }
   /* 导航栏内容 end */
 
+  /* 右边操作区域 start */
+  @include e(right-operation) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  /* 右边操作区域 end */
+
   /* 固定在顶部 start */
   @include m(fixed) {
     position: fixed;

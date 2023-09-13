@@ -7,8 +7,16 @@ import { useButton, useButtonCustomStyle } from './composables'
 const props = defineProps(buttonProps)
 const emits = defineEmits(buttonEmits)
 
-const { buttonClick, getPhoneNumber, openSetting, launchApp, openTypeError } =
-  useButton(props, emits)
+const {
+  buttonClick,
+  getPhoneNumber,
+  openSetting,
+  launchApp,
+  getUserInfo,
+  chooseAvatar,
+  agreePrivacyAuthorization,
+  openTypeError,
+} = useButton(props, emits)
 const { ns, buttonClass, buttonStyle } = useButtonCustomStyle(props)
 </script>
 
@@ -40,10 +48,13 @@ export default {
     :send-message-path="sendMessagePath"
     :send-message-img="sendMessageImg"
     :show-message-card="showMessageCard"
-    @tap.stop="buttonClick"
+    @tap="buttonClick"
     @getphonenumber="getPhoneNumber"
     @opensetting="openSetting"
     @launchapp="launchApp"
+    @getuserinfo="getUserInfo"
+    @chooseavatar="chooseAvatar"
+    @agreeprivacyauthorization="agreePrivacyAuthorization"
     @error="openTypeError"
   >
     <!-- TODO: loading状态 -->

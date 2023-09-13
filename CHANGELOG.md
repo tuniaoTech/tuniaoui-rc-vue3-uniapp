@@ -1326,3 +1326,107 @@ _2023-08-22_
 #### 新增
 
 - `TnInput`新增`show-word-limit`和`word-limit-color`属性显示字数统计以及设置字数统计颜色
+
+### 1.0.12-beta.1
+
+_2023-08-24_
+
+#### Fixed
+
+- 修复`TnPopup`在结合部份组件一起使用的时候会闪烁的问题
+
+### 1.0.12-beta.2
+### 1.0.12-beta.3
+### 1.0.12-beta.4
+
+_2023-08-25_
+
+#### 新增
+
+- `TnWaterFall`插槽返回值中新增`index`属性返回当前元素的索引
+
+### 1.0.12-beta.5
+
+_2023-08-28_
+
+#### 新增
+
+- `TnNavbar`新增`right-operation-width`参数设置右边操作区域的宽度，配合`right`插槽实现自定义右边显示的内容
+
+### 1.0.12-beta.6
+
+_2023-08-28_
+
+#### 优化
+
+- `TnNavbar`优化标题居中效果
+
+
+### 1.0.12-beta.7
+
+_2023-08-30_
+
+#### 优化
+
+- 优化`TnImageUpload`、`TnCheckBox`、`TnRadio`样式
+
+### 1.0.12-beta.8
+### 1.0.12-beta.9
+
+_2023-08-30_
+
+#### 优化
+
+- 优化`TnButton`样式
+
+### 1.0.12-beta.10
+
+_2023-08-30_
+
+#### 优化
+
+- `TnNavbar`优化标题居中效果
+
+### 1.0.12-beta.11
+### 1.0.12-beta.12
+### 1.0.12-beta.13
+### 1.0.12-beta.14
+
+_2023-09-01_
+
+#### 新增
+
+- `TnTabs`、`TnTabsItem`新增`active-font-size``参数设置激活时的字体大小
+
+### 1.0.12-beta.15
+
+_2023-09-05_
+
+#### 优化
+
+- 优化`TnAvatar`、`TnButton`组件的点击事件
+
+### 1.0.12-beta.16
+
+_2023-09-05_
+
+#### 新增
+
+- `TnButton`新增`getUserInfo`、`chooseAvatar`、`agreePrivacyAuthorization`的open-type类型支持
+- `TnNoticeBar`新增`left-icon-size`和`right-icon-size`参数设置左右图标的大小
+- `TnSwiper`新增`blank-count`参数创建空白swiper参数
+
+
+#### Fixed
+
+- 修复`TnPopup`在初始化时为`true`时无法弹出弹框的问题
+
+### 1.0.12-beta.17
+### 1.0.12-beta.18
+### 1.0.12-beta.19
+
+_2023-09-10_
+
+#### 优化
+
+- 优化`TnIndexList`数据类型

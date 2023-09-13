@@ -6,7 +6,7 @@
   font-weight: normal;
   height: 100%;
 
-  transition-property: color;
+  transition-property: color, font-size;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 
@@ -41,4 +41,10 @@
     }
   }
   /* 内容 end */
+
+  @include when(no-bar) {
+    @include e(content) {
+      align-items: flex-end;
+    }
+  }
 }

@@ -25,6 +25,9 @@ export const usePopup = (props: PopupProps) => {
           visiblePopup.value = false
         }, 250)
       }
+    },
+    {
+      immediate: true,
     }
   )
 

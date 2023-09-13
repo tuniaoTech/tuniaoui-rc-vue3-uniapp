@@ -27,6 +27,18 @@ export const useButton = (
   const launchApp = (e: any) => {
     emits('launchapp', e)
   }
+  // 获取用户信息回调
+  const getUserInfo = (e: any) => {
+    emits('getuserinfo', e)
+  }
+  // 获取用户头像回调
+  const chooseAvatar = (e: any) => {
+    emits('chooseavatar', e)
+  }
+  // 同意隐私授权回调
+  const agreePrivacyAuthorization = (e: any) => {
+    emits('agreeprivacyauthorization', e)
+  }
   // 当使用开放能力时，发生错误的回调
   const openTypeError = (e: any) => {
     emits('error', e)
@@ -37,6 +49,9 @@ export const useButton = (
     getPhoneNumber,
     openSetting,
     launchApp,
+    getUserInfo,
+    chooseAvatar,
+    agreePrivacyAuthorization,
     openTypeError,
   }
 }

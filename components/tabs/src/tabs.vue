@@ -6,8 +6,14 @@ import { useTabs, useTabsCustomStyle } from './composables'
 const props = defineProps(tabsProps)
 defineEmits(tabsEmits)
 
-const { tabItems, componentId, barComponentId, barOffsetLeft, scrollLeft } =
-  useTabs(props)
+const {
+  tabItems,
+  componentId,
+  barComponentId,
+  barOffsetLeft,
+  scrollLeft,
+  showBar,
+} = useTabs(props)
 const { ns, tabsClass, tabsStyle, barClass, barStyle } =
   useTabsCustomStyle(props)
 </script>
@@ -30,7 +36,13 @@ const { ns, tabsClass, tabsStyle, barClass, barStyle } =
       scroll-with-animation
       :scroll-left="scrollLeft"
     >
-      <view :class="[ns.e('container'), ns.is('scroll', scroll)]">
+      <view
+        :class="[
+          ns.e('container'),
+          ns.is('scroll', scroll),
+          ns.is('no-bar', !showBar),
+        ]"
+      >
         <slot />
         <!-- 滑块 -->
         <view

@@ -5,8 +5,13 @@ import { useSwiper, useSwiperCustomStyle } from './composables'
 const props = defineProps(swiperProps)
 const emits = defineEmits(swiperEmits)
 
-const { currentSwiperIndex, swiperCount, swiperChangeHandle, itemClickHandle } =
-  useSwiper(props, emits)
+const {
+  swiperData,
+  currentSwiperIndex,
+  swiperCount,
+  swiperChangeHandle,
+  itemClickHandle,
+} = useSwiper(props, emits)
 const { ns, swiperStyle, indicatorColorClass, indicatorColorStyle } =
   useSwiperCustomStyle(props)
 </script>
@@ -37,7 +42,7 @@ export default {
         @change="swiperChangeHandle"
       >
         <swiper-item
-          v-for="(item, index) in data"
+          v-for="(item, index) in swiperData"
           :key="index"
           :class="[ns.e('swiper-item')]"
         >
@@ -62,7 +67,7 @@ export default {
             :class="[indicatorColorClass(true)]"
             :style="{
               ...indicatorColorStyle(true),
-              width: `${(100 / data.length).toFixed(2)}%`,
+              width: `${(100 / swiperData.length).toFixed(2)}%`,
               transform: `translateX(${100 * currentSwiperIndex}%)`,
             }"
           />

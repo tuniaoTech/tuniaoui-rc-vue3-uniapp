@@ -48,6 +48,8 @@ export const useCheckboxCustomStyle = (props: CheckboxProps) => {
         cls.push('tn-border')
         if (selected && borderColorClass.value) cls.push(borderColorClass.value)
         else cls.push('tn-gray-disabled_border')
+      } else {
+        cls.push(ns.m('no-border'))
       }
 
       if (props.customClass) cls.push(props.customClass)

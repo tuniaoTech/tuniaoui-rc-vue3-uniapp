@@ -13,4 +13,8 @@ export const tabsBaseProps = buildProps({
    * @description 字体大小
    */
   fontSize: String,
+  /**
+   * @description 选中字体大小
+   */
+  activeFontSize: String,
 } as const)

@@ -19,8 +19,16 @@ export const useSwiper = (
     (value) => (currentSwiperIndex.value = isEmptyVariableInDefault(value, 0))
   )
 
+  // 轮播数据
+  const swiperData = computed<any[]>(() => {
+    if (props.data?.length) return props.data
+    if (props.blankCount)
+      return Array.from({ length: props.blankCount }).map((_, i) => i)
+    return []
+  })
+
   // swiper数量
-  const swiperCount = computed<number>(() => props.data?.length || 0)
+  const swiperCount = computed<number>(() => swiperData.value?.length || 0)
 
   // 处理swiper滑动事件
   const swiperChangeHandle = (event: any) => {
@@ -39,6 +47,7 @@ export const useSwiper = (
   }
 
   return {
+    swiperData,
     currentSwiperIndex,
     swiperCount,
     swiperChangeHandle,

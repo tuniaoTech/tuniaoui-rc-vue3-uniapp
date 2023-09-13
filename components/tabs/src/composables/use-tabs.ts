@@ -1,4 +1,5 @@
 import {
+  computed,
   getCurrentInstance,
   nextTick,
   onMounted,
@@ -37,6 +38,9 @@ export const useTabs = (props: TabsProps) => {
 
   const componentId = `tt-${generateId()}`
   const barComponentId = `${componentId}-b`
+
+  // 是否需要显示bar滑块
+  const showBar = computed<boolean>(() => props.bar || !!slots.bar)
 
   // 当前被激活的ItemUid
   const activeUid = ref<number>(-1)
@@ -242,6 +246,7 @@ export const useTabs = (props: TabsProps) => {
 
       items,
       activeUid,
+      showBar,
       addItem,
       removeItem,
       setActiveItem,
@@ -254,5 +259,6 @@ export const useTabs = (props: TabsProps) => {
     barComponentId,
     barOffsetLeft,
     scrollLeft,
+    showBar,
   }
 }

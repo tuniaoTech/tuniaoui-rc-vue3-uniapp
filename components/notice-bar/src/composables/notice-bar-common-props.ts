@@ -75,6 +75,8 @@ export const useNoticeBarCommonProps = (props: NoticeBarProps) => {
             leftIconColorStyle.value || 'var(--tn-text-color-primary)'
         }
         if (props.fontSize) style.fontSize = formatDomSizeValue(props.fontSize)
+        if (props.leftIconSize)
+          style.fontSize = formatDomSizeValue(props.leftIconSize)
       } else if (type === 'rightIcon') {
         if (!rightIconColorClass.value) {
           style.color =
@@ -82,6 +84,8 @@ export const useNoticeBarCommonProps = (props: NoticeBarProps) => {
         }
         if (props.fontSize)
           style.fontSize = `calc(${formatDomSizeValue(props.fontSize)} * 1.2)`
+        if (props.rightIconSize)
+          style.fontSize = formatDomSizeValue(props.rightIconSize)
       }
 
       return style

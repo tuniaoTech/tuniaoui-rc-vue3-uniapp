@@ -12,7 +12,8 @@ import type { NavbackButtonType } from '../types'
 
 export const useNavbarCustomStyle = (
   props: NavbarProps,
-  backButtonType: Ref<NavbackButtonType>
+  backButtonType: Ref<NavbackButtonType>,
+  hasRightOperation: Ref<boolean>
 ) => {
   const ns = useNamespace('navbar')
   const backNs = useNamespace('navbar-back')
@@ -165,12 +166,35 @@ export const useNavbarCustomStyle = (
       }px`
     }
 
-    // 判断是否预留右边胶囊安全距离
-    if (props.safeAreaInsetRight) {
+    // 如果设置了右边操作区域的宽度则以当前区域为准设置右边安全区域
+    if (hasRightOperation.value && props.rightOperationWidth) {
+      style.paddingRight = formatDomSizeValue(props.rightOperationWidth)
+    } else if (props.safeAreaInsetRight || hasRightOperation.value) {
+      // 判断是否预留右边胶囊安全距离
       style.paddingRight = `${
         navBarBoundingInfo.width + navBarBoundingInfo.marginRight
       }px`
     }
+
+    return style
+  })
+
+  // 右边操作区域对应的样式
+  const rightOperationStyle = computed<CSSProperties>(() => {
+    const style: CSSProperties = {}
+
+    // 设置最大宽度，防止出现右边操作区域的内容过多导致右边操作区域的宽度过大
+    style.maxWidth = `${navBarBoundingInfo.width}px`
+
+    if (props.zIndex) style.zIndex = props.zIndex
+
+    // 设置高度
+    style.height = `${navBarInfo.height - navBarInfo.statusHeight}px`
+    if (props.height) style.height = formatDomSizeValue(props.height)
+
+    // 设置宽度
+    if (props.rightOperationWidth)
+      style.width = formatDomSizeValue(props.rightOperationWidth)
 
     return style
   })
@@ -187,5 +211,6 @@ export const useNavbarCustomStyle = (
     navbarWrapperStyle,
     backStyle,
     contentStyle,
+    rightOperationStyle,
   }
 }

@@ -2,14 +2,13 @@ import { buildProps, definePropType, isString } from '../../../utils'
 
 import type { ExtractPropTypes } from 'vue'
 
-export interface IndexListDataItemData {
+export type IndexListDataItemData<T = any> = T & {
   star?: boolean
-  [key: string]: any
 }
 
-export interface IndexListDataItem {
+export interface IndexListDataItem<T = any> {
   title: string
-  data: IndexListDataItemData[]
+  data: IndexListDataItemData<T>[]
 }
 
 const indexListKeys = [
@@ -43,7 +42,9 @@ const indexListKeys = [
 ] as const
 export type IndexListKeys = (typeof indexListKeys)[number]
 
-export type IndexListData = Partial<Record<IndexListKeys, IndexListDataItem>>
+export type IndexListData<T = any> = Partial<
+  Record<IndexListKeys, IndexListDataItem<T>>
+>
 
 export const indexListProps = buildProps({
   /**

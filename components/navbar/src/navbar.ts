@@ -74,6 +74,10 @@ export const navBarProps = buildProps({
     default: true,
   },
   /**
+   * @description 右边操作区域的宽度
+   */
+  rightOperationWidth: String,
+  /**
    * @description 返回前回调
    */
   beforeBack: {

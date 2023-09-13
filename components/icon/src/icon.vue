@@ -20,8 +20,19 @@ const handleClick = () => {
 }
 </script>
 
+// #ifdef MP-WEIXIN
+<script lang="ts">
+export default {
+  options: {
+    // 在微信小程序中将组件节点渲染为虚拟节点，更加接近Vue组件的表现(不会出现shadow节点下再去创建元素)
+    virtualHost: true,
+  },
+}
+</script>
+// #endif
+
 <template>
-  <view :class="[iconClass]" :style="iconStyle" @click="handleClick">
+  <view :class="[iconClass]" :style="iconStyle" @tap="handleClick">
     <!-- 图片图标 -->
     <image v-if="isImg" class="image" :src="name" :mode="imgMode" />
     <!-- 正常图标 -->

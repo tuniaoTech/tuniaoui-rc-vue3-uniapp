@@ -37,7 +37,7 @@ export default {
         :key="index"
         :class="[ns.e('item')]"
       >
-        <slot name="left" :item="item" />
+        <slot name="left" :item="item" :index="index" />
       </view>
     </view>
     <!-- 右边数据 -->
@@ -51,7 +51,7 @@ export default {
         :key="index"
         :class="[ns.e('item')]"
       >
-        <slot name="right" :item="item" />
+        <slot name="right" :item="item" :index="index" />
       </view>
     </view>
   </view>

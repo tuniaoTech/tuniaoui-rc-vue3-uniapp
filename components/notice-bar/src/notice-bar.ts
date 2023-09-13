@@ -40,6 +40,10 @@ export const noticeBarProps = buildProps({
    */
   leftIconColor: String,
   /**
+   * @description 左图标大小，默认单位rpx
+   */
+  leftIconSize: String,
+  /**
    * @description 通知栏右边显示的图标
    */
   rightIcon: String,
@@ -47,6 +51,10 @@ export const noticeBarProps = buildProps({
    * @description 右图标颜色，以tn开头则使用图鸟内置的颜色
    */
   rightIconColor: String,
+  /**
+   * @description 右图标大小，默认单位rpx
+   */
+  rightIconSize: String,
   /**
    * @description 通知暂停播放
    */
