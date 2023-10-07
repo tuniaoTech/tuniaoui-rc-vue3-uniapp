@@ -37,8 +37,12 @@ export const useTabbar = (props: TabbarProps) => {
         props.modelValue === item.name ||
         props.modelValue === items.value.length
       ) {
-        activeUid.value = item.uid
         updateActiveId(item.uid)
+        nextTick(() => {
+          setTimeout(() => {
+            activeUid.value = item.uid
+          }, 50)
+        })
       }
     }
     addChild(item)

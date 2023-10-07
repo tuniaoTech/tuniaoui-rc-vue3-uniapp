@@ -13,7 +13,7 @@ export const formatDomSizeValue = (
   empty = true
 ): string => {
   if (!value) return empty ? '' : `0${unit}`
-  if (isString(value) && /(^calc)|(%|px|rpx|auto)$/.test(value as string))
+  if (isString(value) && /(^calc)|(%|vw|vh|px|rpx|auto)$/.test(value as string))
     return value as string
   return `${value}${unit}`
 }

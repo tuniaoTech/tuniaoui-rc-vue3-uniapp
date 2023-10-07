@@ -1,4 +1,4 @@
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import dayjs from '../../../../libs/dayjs'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '../../../../constants'
 import { isEmptyVariableInDefault } from '../../../../utils'
@@ -195,6 +195,17 @@ export const useWeekCalendar = (
     currentSwiperIndex.value = event.detail.current
     emits('week-change', currentSwiperIndex.value)
   }
+
+  // 如果自定义数据发生变化，重新生成周日历数据
+  watch(
+    () => props.customData,
+    () => {
+      generateWeekCalendarData()
+    },
+    {
+      deep: true,
+    }
+  )
 
   return {
     componentDateItemId,

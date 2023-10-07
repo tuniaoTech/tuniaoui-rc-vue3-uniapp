@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import TnIcon from '../../icon/src/icon.vue'
-import TnLineProgress from '../../line-progress/src/line-progress.vue'
 import { useNamespace } from '../../../hooks'
 import { imageUploadEmits, imageUploadProps } from './image-upload'
 import { useImageUpload } from './composables'
@@ -55,7 +54,10 @@ defineExpose({
         <!-- 已上传图片 -->
         <view
           class="tn-gray-light_bg"
-          :class="[nsItem.e('image')]"
+          :class="[
+            nsItem.e('image'),
+            nsItem.is('finish', item.status === 'done'),
+          ]"
           @tap.stop="previewImage(index)"
         >
           <image class="image" :src="item.url" mode="aspectFill" />
@@ -78,12 +80,23 @@ defineExpose({
         >
           <TnIcon name="refresh-simple" />
         </view>
-        <!-- 进度条 -->
+        <!-- 进度波浪 -->
+        <!-- 进度0 ~ 100 => -300 ~ -400 -->
         <view
           v-if="showUploadProgress && item.progress > 0 && !disabled"
-          :class="[nsItem.e('progress')]"
+          :class="[
+            nsItem.e('progress'),
+            nsItem.is('finish', item.progress === 100),
+          ]"
         >
-          <TnLineProgress :percent="item.progress" height="6" />
+          <view
+            :class="[nsItem.em('progress', 'wave')]"
+            :style="{ top: `${-300 - item.progress}%` }"
+          />
+          <view
+            :class="[nsItem.em('progress', 'wave')]"
+            :style="{ top: `${-300 - item.progress}%` }"
+          />
         </view>
       </slot>
     </view>

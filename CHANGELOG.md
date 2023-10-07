@@ -1430,3 +1430,22 @@ _2023-09-10_
 #### 优化
 
 - 优化`TnIndexList`数据类型
+
+
+### 1.0.14-beta.1
+
+#### Fixed
+
+- 修复`TnNavbar`无法初始化的问题
+- 修复`TnWeekCalendar`动态修改`custom-data`后没有同步渲染的问题
+
+#### 优化
+
+- 优化`TnImageUpload`组件上传图片的进度样式
+
+### 1.0.14-beta.2
+### 1.0.14-beta.3
+
+#### Fixed
+
+- 修复无法识别`vw`和`vh`单位
