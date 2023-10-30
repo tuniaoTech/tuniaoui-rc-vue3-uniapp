@@ -35,8 +35,10 @@ export default function useUploadHandleFunction(props: ImageUploadProps) {
   watch(
     () => uploading.value,
     (val) => {
-      if (val) uni.showLoading({ title: '上传中' })
-      else uni.hideLoading()
+      if (props.showErrorTips) {
+        if (val) uni.showLoading({ title: '上传中' })
+        else uni.hideLoading()
+      }
     }
   )
   const uploadProcess = (item: ImageUploadListItem): Promise<boolean> => {

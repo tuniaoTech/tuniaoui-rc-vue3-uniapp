@@ -1,4 +1,10 @@
-import { buildProps, definePropType, isObject, isString } from '../../../utils'
+import {
+  buildProps,
+  definePropType,
+  isNumber,
+  isObject,
+  isString,
+} from '../../../utils'
 import {
   useComponentCustomStyleProp,
   useFormSizeProps,
@@ -21,7 +27,14 @@ const inputTypes = [
   'select',
 ] as const
 
-const inputConfirmTypes = ['send', 'search', 'next', 'go', 'done'] as const
+const inputConfirmTypes = [
+  'send',
+  'search',
+  'next',
+  'go',
+  'done',
+  'return',
+] as const
 
 export const inputProps = buildProps({
   /**
@@ -191,15 +204,17 @@ export const inputProps = buildProps({
   },
 })
 export const inputEmits = {
-  [UPDATE_MODEL_EVENT]: (value: string) => isString(value),
+  [UPDATE_MODEL_EVENT]: (value: string | number) =>
+    isString(value) || isNumber(value),
   /**
    * @description 输入框输入内容时触发
    */
-  [INPUT_EVENT]: (value: string) => isString(value),
+  [INPUT_EVENT]: (value: string | number) => isString(value) || isNumber(value),
   /**
    * @description 输入框内容变化时触发
    */
-  [CHANGE_EVENT]: (value: string) => isString(value),
+  [CHANGE_EVENT]: (value: string | number) =>
+    isString(value) || isNumber(value),
   /**
    * @description 输入框点击时触发
    */
@@ -219,7 +234,7 @@ export const inputEmits = {
   /**
    * @description 点击键盘右下角按钮时触发
    */
-  confirm: (value: string) => isString(value),
+  confirm: (value: string | number) => isString(value) || isNumber(value),
 }
 
 export type InputProps = ExtractPropTypes<typeof inputProps>

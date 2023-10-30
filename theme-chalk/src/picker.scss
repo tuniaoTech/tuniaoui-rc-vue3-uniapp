@@ -35,13 +35,15 @@
     padding-top: 0rpx;
   }
   @include e(content-item) {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* #ifdef MP-ALIPAY */
-    height: auto;
-    /* #endif */
+
+    @include m(data) {
+      width: 100%;
+      height: fit-content;
+      text-align: center;
+    }
   }
   /* 内容区域 end */
 

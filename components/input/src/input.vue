@@ -8,6 +8,7 @@ const emits = defineEmits(inputEmits)
 
 const {
   inputText,
+  needStatusIcon,
   validateState,
   validateIcon,
   passwordVisible,
@@ -119,7 +120,7 @@ const {
       </view>
       <!-- 错误提示图标 -->
       <view
-        v-if="validateState && validateIcon"
+        v-if="validateState && validateIcon && needStatusIcon"
         :class="[ns.em('icon', `validate-${validateState}`)]"
       >
         <TnIcon :name="validateIcon" />

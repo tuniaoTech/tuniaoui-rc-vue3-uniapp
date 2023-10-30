@@ -83,7 +83,12 @@ defineExpose({
         <!-- 进度波浪 -->
         <!-- 进度0 ~ 100 => -300 ~ -400 -->
         <view
-          v-if="showUploadProgress && item.progress > 0 && !disabled"
+          v-if="
+            showUploadProgress &&
+            item.progress > 0 &&
+            item.progress < 100 &&
+            !disabled
+          "
           :class="[
             nsItem.e('progress'),
             nsItem.is('finish', item.progress === 100),

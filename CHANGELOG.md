@@ -1449,3 +1449,28 @@ _2023-09-10_
 #### Fixed
 
 - 修复无法识别`vw`和`vh`单位
+  
+### 1.0.15-beta.1
+
+#### Fixed
+
+- 修复`TnInput`配合`TnFormItem`时无法隐藏校验状态的问题
+- 修复`TnInput`无法处理number类型的数值的问题
+- 修复`TnTabbar`无法初始化`v-model`的问题
+
+#### 新增
+
+- `TnInput`中`confirm-type`新增参数
+
+### 1.0.15-beta.2
+
+#### Fixed
+
+- 修复`TnPopup`无法触发`open`事件的问题
+- 修复`TnNoticeBar`在垂直滚动时设置`font-size`高度无效的问题
+- 修复`TnImageUpload`无法预览图片的问题
+
+#### 优化
+
+- 优化`TnImageUpload`内置信息显示控制参数
+- 优化`TnPicker`超过长度的文本显示省略号

@@ -88,10 +88,14 @@ defineExpose({
             <view
               v-for="(dItem, dIndex) in item"
               :key="dIndex"
-              class="tn-text-ellipsis-1"
               :class="ns.e('content-item')"
             >
-              {{ dItem['label'] }}
+              <view
+                class="tn-text-ellipsis-1"
+                :class="ns.em('content-item', 'data')"
+              >
+                {{ dItem['label'] }}
+              </view>
             </view>
           </picker-view-column>
         </picker-view>

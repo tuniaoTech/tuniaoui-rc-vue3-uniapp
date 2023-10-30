@@ -24,11 +24,11 @@ export const useInput = (
   const { form, formItem } = useFormItem()
 
   // 输入框内容
-  const inputText = ref<string>(String(props.modelValue || ''))
+  const inputText = ref<string>(String(props.modelValue ?? ''))
   watch(
     () => props.modelValue,
     (val) => {
-      inputText.value = String(val || '')
+      inputText.value = String(val ?? '')
       if (props.validateEvent) {
         formItem?.validate?.('change').catch((err) => {
           debugWarn(err)
@@ -108,7 +108,7 @@ export const useInput = (
   // 点击完成时触发事件
   const confirmEvent = (event: any) => {
     const { value } = event.detail
-    emits('confirm', value)
+    emits('confirm', _formatInputText(value))
   }
 
   // 点击清除按钮
@@ -123,10 +123,10 @@ export const useInput = (
     value = props.trim ? trim(value) : value
     if (showWordLimit.value) currentWordCount.value = value.length
     // inputText.value = value
-    emits(UPDATE_MODEL_EVENT, value)
+    emits(UPDATE_MODEL_EVENT, _formatInputText(value))
     nextTick(() => {
-      emits(INPUT_EVENT, value)
-      emits(CHANGE_EVENT, value)
+      emits(INPUT_EVENT, _formatInputText(value))
+      emits(CHANGE_EVENT, _formatInputText(value))
     })
   }
 
@@ -135,6 +135,12 @@ export const useInput = (
     if (props.type === 'select') {
       emits('click')
     }
+  }
+
+  const _formatInputText = (value: string) => {
+    if (props.type === 'number' || props.type === 'digit')
+      return Number.parseFloat(value)
+    return value
   }
 
   return {

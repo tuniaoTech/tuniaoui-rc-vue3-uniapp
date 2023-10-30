@@ -18,12 +18,14 @@ export const usePopup = (props: PopupProps) => {
         visiblePopup.value = true
         showPopup.value = true
         if (props.overlay) showOverlay.value = true
+        emit('open')
       } else {
         showPopup.value = false
         showOverlay.value = false
         setTimeout(() => {
           visiblePopup.value = false
         }, 250)
+        emit('close')
       }
     },
     {

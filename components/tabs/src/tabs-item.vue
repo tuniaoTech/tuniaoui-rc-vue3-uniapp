@@ -41,6 +41,7 @@ export default {
             :dot="badgeConfig.dot"
             :size="badgeConfig.dot ? '16' : ''"
             type="danger"
+            @click="itemClickEvent"
           />
           {{ title }}
         </view>
