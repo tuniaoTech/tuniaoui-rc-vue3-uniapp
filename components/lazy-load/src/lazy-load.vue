@@ -30,7 +30,10 @@ export default {
 <template>
   <view
     :id="componentId"
-    :class="[ns.b(), ns.is('show-image', showImage && imageStatus !== 'error')]"
+    :class="[
+      ns.b(),
+      ns.is('show-image', showImage && imageStatus === 'loaded'),
+    ]"
     :style="lazyLoadStyle"
   >
     <!-- 加载中 -->

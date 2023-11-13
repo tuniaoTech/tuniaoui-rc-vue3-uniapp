@@ -7,8 +7,16 @@ defineEmits(tabbarEmits)
 
 const { rectId, bulgeRectInfo, hasBulgeButton, setActiveItemByValue } =
   useTabbar(props)
-const { ns, tabbarClass, tabbarStyle, bgClass, bgStyle, placeholderStyle } =
-  useTabbarCustomStyle(props)
+const {
+  ns,
+  tabbarClass,
+  tabbarStyle,
+  bgClass,
+  bgStyle,
+  placeholderStyle,
+  bulgeClass,
+  bulgeStyle,
+} = useTabbarCustomStyle(props)
 
 defineExpose({
   /**
@@ -23,18 +31,13 @@ defineExpose({
     <!-- 凸起按钮 -->
     <view
       v-if="hasBulgeButton"
-      :class="[
-        ns.e('bulge'),
-        {
-          'top-shadow': topShadow,
-        },
-      ]"
+      :class="[bulgeClass]"
       :style="{
         width: `${bulgeRectInfo.width}px`,
         height: `${bulgeRectInfo.height}px`,
         left: `${bulgeRectInfo.left}px`,
         top: `-${bulgeRectInfo.height * 0.35}px`,
-        zIndex: zIndex ? zIndex - 1 : 'inherit',
+        ...bulgeStyle,
       }"
     />
     <!-- 背景颜色 -->

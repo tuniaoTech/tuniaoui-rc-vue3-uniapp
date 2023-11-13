@@ -42,9 +42,7 @@ export const useNotifyCustomStyle = (
   const notifyStyle = computed<CSSProperties>(() => {
     const style: CSSProperties = {}
 
-    if (!bgColorClass.value && !options.value.type) {
-      style.backgroundColor = bgColorStyle.value || 'var(--tn-color-primary)'
-    }
+    if (bgColorStyle.value) style.backgroundColor = bgColorStyle.value
 
     if (textColorStyle.value) {
       style.color = textColorStyle.value

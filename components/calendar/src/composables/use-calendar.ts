@@ -45,6 +45,8 @@ export const useCalendar = (
   props: CalendarProps,
   emits: SetupContext<CalendarEmits>['emit']
 ) => {
+  // 重新加载月份swiper
+  const reloadMonthSwiper = ref<boolean>(false)
   // 日历的数据
   const calendarData = ref<CalendarData>([])
 
@@ -613,11 +615,17 @@ export const useCalendar = (
 
     emits('change-year', currentSelectedDate.year)
 
+    reloadMonthSwiper.value = true
+    setTimeout(() => {
+      reloadMonthSwiper.value = false
+    }, 0)
+
     // 重新生产日历数据
     generateCalendarData()
   }
 
   return {
+    reloadMonthSwiper,
     calendarId,
     weekText,
     calendarData,

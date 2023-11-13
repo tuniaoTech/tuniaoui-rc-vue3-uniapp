@@ -68,13 +68,16 @@ export const usePicker = (props: PickerProps) => {
     data: PickerDataType
   ): Pick<PickerDataItem, 'label' | 'value' | 'originalData'> => {
     if (isObject(data)) {
+      const originalData = cloneDeep(data)
+      if (
+        Object.prototype.hasOwnProperty.call(originalData, props.childrenKey)
+      ) {
+        delete originalData[props.childrenKey]
+      }
       return {
         label: data[props.labelKey],
         value: data[props.valueKey],
-        originalData: {
-          [props.labelKey]: data[props.labelKey],
-          [props.valueKey]: data[props.valueKey],
-        },
+        originalData,
       }
     } else {
       return {
@@ -136,7 +139,7 @@ export const usePicker = (props: PickerProps) => {
     let indexValue: number[] = []
     // 如果没有设置默认值，则默认选中第一项
     if (
-      !props.modelValue ||
+      props.modelValue === undefined ||
       (isArray(props.modelValue) && !props.modelValue.length)
     ) {
       indexValue = Array.from({ length: pickerData.value.length }, () => 0)

@@ -7,6 +7,7 @@ const props = defineProps(calendarProps)
 const emit = defineEmits(calendarEmits)
 
 const {
+  reloadMonthSwiper,
   calendarId,
   dateContainerHeight,
   calendarData,
@@ -104,6 +105,7 @@ const { ns, itemClass, itemStyle } = useCalendarCustomStyle(props)
         <TnIcon name="right" />
       </view>
       <swiper
+        v-if="!reloadMonthSwiper"
         :class="[ns.e('data__swiper')]"
         :current="currentMonthIndex"
         :indicator-dots="false"

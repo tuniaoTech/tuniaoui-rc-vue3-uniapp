@@ -90,7 +90,9 @@ export const useTabsItem = (props: TabsItemProps) => {
   onMounted(() => {
     nextTick(() => {
       // 初始化节点
-      initTabsItemRectInfo()
+      setTimeout(() => {
+        initTabsItemRectInfo()
+      }, 200)
     })
   })
 

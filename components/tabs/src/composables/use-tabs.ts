@@ -102,7 +102,9 @@ export const useTabs = (props: TabsProps) => {
   const updateActiveUid = (uid: number, changeEmit = false) => {
     activeUid.value = uid
     const itemIndex = items.value.findIndex((item) => item.uid === uid)
-    const value = items.value[itemIndex].name ?? itemIndex
+    const value = items.value[itemIndex].name
+      ? items.value[itemIndex].name
+      : itemIndex
 
     updateOffsetPosition(itemIndex)
 

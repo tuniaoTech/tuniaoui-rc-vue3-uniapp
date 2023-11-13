@@ -87,6 +87,42 @@ export const useTabbarCustomStyle = (props: TabbarProps) => {
     return style
   })
 
+  // 突起按钮对应类和样式
+  const bulgeClass = computed<string>(() => {
+    const cls: string[] = [ns.e('bulge')]
+
+    if (props.topShadow) {
+      cls.push(ns.em('bulge', 'top-shadow'))
+    }
+
+    // 设置背景颜色
+    if (bgColorClass.value && !props.frosted) cls.push(bgColorClass.value)
+
+    // 设置毛玻璃效果
+    // #ifndef MP-ALIPAY
+    if (props.frosted) cls.push(ns.em('bulge', 'frosted'))
+    // #endif
+
+    return cls.join(' ')
+  })
+  const bulgeStyle = computed<CSSProperties>(() => {
+    const style: CSSProperties = {}
+
+    // 设置zIndex
+    if (props.zIndex) style.zIndex = props.zIndex - 1
+    else style.zIndex = 'inherit'
+
+    // 设置背景颜色
+    if (!bgColorClass.value)
+      style.backgroundColor = bgColorStyle.value || 'var(--tn-color-white)'
+    // #ifndef MP-ALIPAY
+    if (props.frosted)
+      style.backgroundColor = bgColorStyle.value || 'rgba(255, 255, 255, 0.5)'
+    // #endif
+
+    return style
+  })
+
   return {
     ns,
     tabbarClass,
@@ -94,5 +130,7 @@ export const useTabbarCustomStyle = (props: TabbarProps) => {
     bgClass,
     bgStyle,
     placeholderStyle,
+    bulgeClass,
+    bulgeStyle,
   }
 }

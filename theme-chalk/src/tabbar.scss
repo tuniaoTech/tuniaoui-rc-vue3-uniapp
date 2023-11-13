@@ -46,13 +46,20 @@
   /* 凸起按钮 start */
   @include e(bulge) {
     position: absolute;
-    background-color: #fff;
     transform: translateX(-50%);
     border-radius: 50%;
 
-    &.top-shadow {
+    @include m(top-shadow) {
       box-shadow: 0rpx 0rpx 30rpx 0rpx rgba(0, 0, 0, 0.07);
     }
+
+    /* #ifndef MP-ALIPAY */
+    /* 毛玻璃 */
+    @include m(frosted) {
+      backdrop-filter: blur(20rpx);
+      -webkit-backdrop-filter: blur(20rpx);
+    }
+    /* #endif */
   }
   /* 凸起按钮 end */
 
