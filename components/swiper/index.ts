@@ -6,4 +6,4 @@ export default TnSwiper
 
 export * from './src/swiper'
 
-export type { TnSwiperInstance, TnSwiperItemInstance } from './src/instance'
+export type { TnSwiperInstance } from './src/instance'

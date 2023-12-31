@@ -159,11 +159,10 @@ export const usePicker = (props: PickerProps) => {
           return ~pickerIndex ? pickerIndex : 0
         })
       } else {
-        indexValue = [
-          pickerData.value[0].findIndex(
-            (item) => item.value === props.modelValue
-          ),
-        ]
+        const index = pickerData.value[0].findIndex(
+          (item) => item.value === props.modelValue
+        )
+        indexValue = [index === -1 ? 0 : index]
       }
     }
     currentPickerIndex.value = indexValue

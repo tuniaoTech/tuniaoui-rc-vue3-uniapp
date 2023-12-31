@@ -19,6 +19,10 @@ export const useButton = (
   const getPhoneNumber = (e: any) => {
     emits('getphonenumber', e)
   }
+  // 获取手机号实时验证回调
+  const getRealTimePhoneNumber = (e: any) => {
+    emits('getrealtimephonenumber', e)
+  }
   // 打开设置面板
   const openSetting = (e: any) => {
     emits('opensetting', e)
@@ -39,6 +43,10 @@ export const useButton = (
   const agreePrivacyAuthorization = (e: any) => {
     emits('agreeprivacyauthorization', e)
   }
+  // 客服消息回调
+  const contact = (e: any) => {
+    emits('contact', e)
+  }
   // 当使用开放能力时，发生错误的回调
   const openTypeError = (e: any) => {
     emits('error', e)
@@ -47,11 +55,13 @@ export const useButton = (
   return {
     buttonClick,
     getPhoneNumber,
+    getRealTimePhoneNumber,
     openSetting,
     launchApp,
     getUserInfo,
     chooseAvatar,
     agreePrivacyAuthorization,
+    contact,
     openTypeError,
   }
 }

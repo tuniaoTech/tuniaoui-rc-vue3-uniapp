@@ -67,6 +67,13 @@ export const useTabsItemCustomStyle = (
   const tabsItemStyle = computed<CSSProperties>(() => {
     const style: CSSProperties = {}
 
+    // 设置字体大小
+    if (props.fontSize || tabsContext?.fontSize) {
+      style.fontSize = formatDomSizeValue(
+        props.fontSize || tabsContext?.fontSize || ''
+      )
+    }
+
     // 设置颜色
     if (isActive.value) {
       if (!activeTextColorClass.value) {
@@ -79,13 +86,6 @@ export const useTabsItemCustomStyle = (
       if (!textColorClass.value) {
         style.color = textColorStyle.value || 'var(--tn-text-color-primary)'
       }
-    }
-
-    // 设置字体大小
-    if (props.fontSize || tabsContext?.fontSize) {
-      style.fontSize = formatDomSizeValue(
-        props.fontSize || tabsContext?.fontSize || ''
-      )
     }
 
     return style

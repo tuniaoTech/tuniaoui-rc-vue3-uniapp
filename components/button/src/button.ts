@@ -19,22 +19,13 @@ export const buttonOpenTypes = [
   'share',
   'contact',
   'getPhoneNumber',
+  'getRealtimePhoneNumber',
   'launchApp',
   'openSetting',
   'getUserInfo',
   'chooseAvatar',
   'agreePrivacyAuthorization',
 ] as const
-
-/**
- * 获取手机号码函数回调参数
- */
-export interface GetPhoneNumber {
-  detail: {
-    /** 动态令牌, 可通过动态令牌换取用户手机号 */
-    code: string
-  }
-}
 
 export const buttonProps = buildProps({
   /**
@@ -207,6 +198,13 @@ export const buttonProps = buildProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * @description 当手机号快速验证或手机号实时验证额度用尽时，是否对用户展示“申请获取你的手机号，但该功能使用次数已达当前小程序上限，暂时无法使用”的提示
+   */
+  phoneNumberNoQuotaToast: {
+    type: Boolean,
+    default: true,
+  },
 })
 export const buttonEmits = {
   /**
@@ -217,12 +215,12 @@ export const buttonEmits = {
    * @description 获取用户手机号码回调
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getphonenumber: (e: GetPhoneNumber) => true,
+  getphonenumber: (e: any) => true,
   /**
-   * @description 开放能力调用发生错误时回调
+   * @description 获取用户手机号实时验证回调
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  error: (e: any) => true,
+  getrealtimephonenumber: (e: any) => true,
   /**
    * @description 打开权限设置面板并关闭时回调
    */
@@ -248,6 +246,16 @@ export const buttonEmits = {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   agreeprivacyauthorization: (e: any) => true,
+  /**
+   * @description 客服消息回调
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  contact: (e: any) => true,
+  /**
+   * @description 开放能力调用发生错误时回调
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  error: (e: any) => true,
 }
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>

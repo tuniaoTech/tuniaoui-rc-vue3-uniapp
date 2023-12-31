@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { formatNumber } from '../../../../utils'
 
 import type { SetupContext } from 'vue'
@@ -14,7 +14,7 @@ export const useCountDown = (
   emits: SetupContext<CountDownEmits>['emit']
 ) => {
   // 当前倒计时时间
-  let time = props.time || 0
+  let time = 0
 
   // 时间定义
   const day = ref<string>('')
@@ -43,7 +43,6 @@ export const useCountDown = (
     minute.value = showMinute ? formatNumber(_minute) : ''
     second.value = showSecond ? formatNumber(_second) : ''
   }
-  splitCountDownData()
 
   // 倒计时定时器
   let countDownTimer: ReturnType<typeof setInterval> | null = null
@@ -84,10 +83,19 @@ export const useCountDown = (
     splitCountDownData()
   }
 
-  // 自动开始倒计时
-  if (props.autoStart && props.time > 0) {
-    startCountDown()
-  }
+  watch(
+    () => props.time,
+    (_time) => {
+      resetCountDown()
+      // 自动开始倒计时
+      if (props.autoStart && _time > 0) {
+        startCountDown()
+      }
+    },
+    {
+      immediate: true,
+    }
+  )
 
   return {
     day,

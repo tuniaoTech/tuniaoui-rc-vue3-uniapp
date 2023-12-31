@@ -10,11 +10,13 @@ const emits = defineEmits(buttonEmits)
 const {
   buttonClick,
   getPhoneNumber,
+  getRealTimePhoneNumber,
   openSetting,
   launchApp,
   getUserInfo,
   chooseAvatar,
   agreePrivacyAuthorization,
+  contact,
   openTypeError,
 } = useButton(props, emits)
 const { ns, buttonClass, buttonStyle } = useButtonCustomStyle(props)
@@ -48,13 +50,16 @@ export default {
     :send-message-path="sendMessagePath"
     :send-message-img="sendMessageImg"
     :show-message-card="showMessageCard"
+    :phone-number-no-quota-toast="phoneNumberNoQuotaToast"
     @tap="buttonClick"
     @getphonenumber="getPhoneNumber"
+    @getrealtimephonenumber="getRealTimePhoneNumber"
     @opensetting="openSetting"
     @launchapp="launchApp"
     @getuserinfo="getUserInfo"
     @chooseavatar="chooseAvatar"
     @agreeprivacyauthorization="agreePrivacyAuthorization"
+    @contact="contact"
     @error="openTypeError"
   >
     <!-- TODO: loading状态 -->
