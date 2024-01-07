@@ -39,6 +39,7 @@ const {
   <view
     :class="[
       inputClass,
+      `${type === 'select' ? ns.m('select') : ns.m('input')}`,
       `${type === 'textarea' ? ns.m('textarea') : ns.m('input')}`,
       ns.is('show-word-limit', showWordLimit),
     ]"

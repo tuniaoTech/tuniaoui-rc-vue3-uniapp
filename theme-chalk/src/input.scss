@@ -66,6 +66,16 @@ $input-sizes: map-merge(
     font-size: inherit;
   }
 
+  /* 输入框类型select start */
+  @include m(select) {
+    /* #ifdef H5 */
+    :deep(.uni-input-input){
+      z-index: -1;
+    }
+    /* #endif */
+  }
+  /* 输入框类型select end */
+
   @include e(textarea) {
     @include when(custom-height) {
       height: 100%;
