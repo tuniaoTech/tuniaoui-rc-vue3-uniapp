@@ -68,6 +68,7 @@ $input-sizes: map-merge(
 
   /* 输入框类型select start */
   @include m(select) {
+    z-index: 1;
     /* #ifdef H5 */
     :deep(.uni-input-input){
       z-index: -1;
