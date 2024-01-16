@@ -35,6 +35,46 @@ export default {
 
 <template>
   <button
+    v-if="props.clickModifiers === 'stop'"
+    class="tn-u-btn-clear"
+    :class="[buttonClass]"
+    :style="buttonStyle"
+    :hover-class="
+      props.disabled || props.loading || props.onlyButton ? '' : hoverClass
+    "
+    :disabled="disabled"
+    :form-type="formType"
+    :open-type="openType"
+    :app-parameter="appParameter"
+    :session-from="sessionFrom"
+    :send-message-title="sendMessageTitle"
+    :send-message-path="sendMessagePath"
+    :send-message-img="sendMessageImg"
+    :show-message-card="showMessageCard"
+    :phone-number-no-quota-toast="phoneNumberNoQuotaToast"
+    @tap.stop="buttonClick"
+    @getphonenumber="getPhoneNumber"
+    @getrealtimephonenumber="getRealTimePhoneNumber"
+    @opensetting="openSetting"
+    @launchapp="launchApp"
+    @getuserinfo="getUserInfo"
+    @chooseavatar="chooseAvatar"
+    @agreeprivacyauthorization="agreePrivacyAuthorization"
+    @contact="contact"
+    @error="openTypeError"
+  >
+    <!-- TODO: loading状态 -->
+    <view v-if="loading" :class="[ns.m('loading')]">
+      <TnLoading show animation mode="flower" color="tn-gray" />
+    </view>
+    <!-- icon显示 -->
+    <view v-if="icon" :class="[ns.e('icon')]">
+      <TnIcon :name="icon" />
+    </view>
+    <slot v-else />
+  </button>
+  <button
+    v-else
     class="tn-u-btn-clear"
     :class="[buttonClass]"
     :style="buttonStyle"

@@ -17,9 +17,14 @@ export const useHandleMinMaxTime = (
       case 'date':
         return handlePickerChangeMinMaxTimeForDate(timeValue)
       case 'datetime':
-        return handlePickerChangeMinMaxTimeForDateTime(timeValue)
+      case 'datetimeNoSecond':
+        return handlePickerChangeMinMaxTimeForDateTime(
+          timeValue,
+          mode === 'datetime'
+        )
       case 'time':
-        return handlePickerChangeMinMaxTimeForTime(timeValue)
+      case 'timeNoSecond':
+        return handlePickerChangeMinMaxTimeForTime(timeValue, mode === 'time')
       default:
         return timeValue
     }
@@ -72,7 +77,10 @@ export const useHandleMinMaxTime = (
     return timeValue
   }
   // 处理mode为datetime时，最小最大值的处理
-  const handlePickerChangeMinMaxTimeForDateTime = (timeValue: Dayjs): Dayjs => {
+  const handlePickerChangeMinMaxTimeForDateTime = (
+    timeValue: Dayjs,
+    hasSecond = true
+  ): Dayjs => {
     if (timeValue.year() === minTime.value.year()) {
       timeValue = timeValue.set(
         'month',
@@ -93,11 +101,15 @@ export const useHandleMinMaxTime = (
               'minute',
               Math.max(minTime.value.minute(), timeValue.minute())
             )
-            if (timeValue.minute() === minTime.value.minute()) {
-              timeValue = timeValue.set(
-                'second',
-                Math.max(minTime.value.second(), timeValue.second())
-              )
+            if (hasSecond) {
+              if (timeValue.minute() === minTime.value.minute()) {
+                timeValue = timeValue.set(
+                  'second',
+                  Math.max(minTime.value.second(), timeValue.second())
+                )
+              }
+            } else {
+              timeValue = timeValue.set('second', 0)
             }
           }
         }
@@ -123,11 +135,15 @@ export const useHandleMinMaxTime = (
               'minute',
               Math.min(maxTime.value.minute(), timeValue.minute())
             )
-            if (timeValue.minute() === maxTime.value.minute()) {
-              timeValue = timeValue.set(
-                'second',
-                Math.min(maxTime.value.second(), timeValue.second())
-              )
+            if (hasSecond) {
+              if (timeValue.minute() === maxTime.value.minute()) {
+                timeValue = timeValue.set(
+                  'second',
+                  Math.min(maxTime.value.second(), timeValue.second())
+                )
+              }
+            } else {
+              timeValue = timeValue.set('second', 0)
             }
           }
         }
@@ -137,7 +153,10 @@ export const useHandleMinMaxTime = (
     return timeValue
   }
   // 处理mode为time时，最小最大值的处理
-  const handlePickerChangeMinMaxTimeForTime = (timeValue: Dayjs): Dayjs => {
+  const handlePickerChangeMinMaxTimeForTime = (
+    timeValue: Dayjs,
+    hasSecond = true
+  ): Dayjs => {
     if (timeValue.hour() === minTime.value.hour()) {
       timeValue = timeValue.set(
         'minute',
@@ -155,11 +174,15 @@ export const useHandleMinMaxTime = (
         'minute',
         Math.min(maxTime.value.minute(), timeValue.minute())
       )
-      if (timeValue.minute() === maxTime.value.minute()) {
-        timeValue = timeValue.set(
-          'second',
-          Math.min(maxTime.value.second(), timeValue.second())
-        )
+      if (hasSecond) {
+        if (timeValue.minute() === maxTime.value.minute()) {
+          timeValue = timeValue.set(
+            'second',
+            Math.min(maxTime.value.second(), timeValue.second())
+          )
+        }
+      } else {
+        timeValue = timeValue.set('second', 0)
       }
     }
     return timeValue

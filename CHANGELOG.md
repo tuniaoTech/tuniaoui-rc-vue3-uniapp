@@ -1545,3 +1545,40 @@ _2023-09-10_
 #### Fixed
 
 - 修复`TnCountDown`无法动态修改倒计时的问题
+
+### 1.0.18-beta.1
+
+#### 新增
+
+- `TnDateTimePicker` `mode`新增`datetimeNoSecond`和`timeNoSecond`模式
+
+### 1.0.18-beta.2
+
+#### 新增
+
+- `TnButton`新增`click-modifiers`参数设置点击事件的修饰符
+
+#### 优化
+
+- 优化`TnPopup`在ios端的显示效果
+
+### 1.0.18-beta.3
+
+#### Fixed
+
+- 修复`TnInput`在`select`模式下`H5`端无法点击的问题
+- 修复`TnInput`在`textarea`模式下无法换行的问题
+
+#### 新增
+
+- `TnInput`新增`underline`参数
+
+### 1.0.18-beta.4
+
+#### Fixed
+
+- 修复`TnInput`在`number`模式下手动删除数据会出现`NaN`的问题
+- 修复`TnTabbar`无法初始化选择`TabbarItem`的问题
+- 修复`TnInput`在`textarea`模式下初始化值的时候无法统计字数的问题
+- 修复`TnPopup`初始化时会触发`close`和`open`方法的问题
+

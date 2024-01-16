@@ -76,7 +76,12 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       return dayjs(`${year}/${month}/${date}`).format(
         props.format || 'YYYY/MM/DD'
       )
+    if (props.mode === 'datetimeNoSecond')
+      return dayjs(`${year}/${month}/${date} ${hour}:${minute}`).format(
+        props.format || 'YYYY/MM/DD HH:mm'
+      )
     if (props.mode === 'time') return `${hour}:${minute}:${second}`
+    if (props.mode === 'timeNoSecond') return `${hour}:${minute}`
     return dayjs(`${year}/${month}/${date} ${hour}:${minute}:${second}`).format(
       props.format || innerDefaultDateTimeFormat
     )
@@ -96,6 +101,9 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
     if (props.mode === 'time') pickerSelectData.value = [hour, minute, second]
     if (props.mode === 'datetime')
       pickerSelectData.value = [year, month, date, hour, minute, second]
+    if (props.mode === 'timeNoSecond') pickerSelectData.value = [hour, minute]
+    if (props.mode === 'datetimeNoSecond')
+      pickerSelectData.value = [year, month, date, hour, minute]
   }
   // 初始化日期时间选择器
   const initDateTimePicker = (updateModelValue = true) => {
@@ -105,7 +113,7 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       defaultTime = fillDateTime(props.modelValue, props.format)
     }
     // 设置defaultTime最小和最大时间
-    if (props.mode !== 'time') {
+    if (props.mode !== 'time' && props.mode !== 'timeNoSecond') {
       defaultTime = defaultTime.year(
         MIN_MAX_VALUE(
           minTimeDayjs.value.year(),
@@ -121,26 +129,65 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
             .hour(minTimeDayjs.value.hour())
             .minute(minTimeDayjs.value.minute())
             .second(minTimeDayjs.value.second())
-        } else if (defaultTime.month() > maxTimeDayjs.value.month()) {
+        } else if (defaultTime.month() === minTimeDayjs.value.month()) {
+          if (defaultTime.date() < minTimeDayjs.value.date()) {
+            defaultTime = defaultTime
+              .date(minTimeDayjs.value.date())
+              .hour(minTimeDayjs.value.hour())
+              .minute(minTimeDayjs.value.minute())
+              .second(minTimeDayjs.value.second())
+          } else if (defaultTime.date() === minTimeDayjs.value.date()) {
+            defaultTime = defaultTime
+              .hour(minTimeDayjs.value.hour())
+              .minute(minTimeDayjs.value.minute())
+              .second(minTimeDayjs.value.second())
+            if (defaultTime.hour() === minTimeDayjs.value.hour()) {
+              defaultTime = defaultTime.minute(
+                Math.max(minTimeDayjs.value.minute(), defaultTime.minute())
+              )
+              if (defaultTime.minute() === minTimeDayjs.value.minute()) {
+                defaultTime = defaultTime.second(
+                  Math.max(minTimeDayjs.value.second(), defaultTime.second())
+                )
+              }
+            }
+          }
+        }
+      }
+      if (defaultTime.year() === maxTimeDayjs.value.year()) {
+        if (defaultTime.month() > maxTimeDayjs.value.month()) {
           defaultTime = defaultTime
             .month(maxTimeDayjs.value.month())
             .date(1)
             .hour(0)
             .minute(0)
             .second(0)
-        } else {
-          if (defaultTime.date() < minTimeDayjs.value.date()) {
-            defaultTime = defaultTime
-              .date(minTimeDayjs.value.date())
-              .hour(minTimeDayjs.value.hour())
-              .minute(minTimeDayjs.value.minute())
-          } else if (defaultTime.date() > maxTimeDayjs.value.date()) {
+        } else if (defaultTime.month() === maxTimeDayjs.value.month()) {
+          if (defaultTime.date() > maxTimeDayjs.value.date()) {
             defaultTime = defaultTime
               .date(maxTimeDayjs.value.date())
               .hour(maxTimeDayjs.value.hour())
               .minute(maxTimeDayjs.value.minute())
+              .second(maxTimeDayjs.value.second())
+          } else if (defaultTime.date() === maxTimeDayjs.value.date()) {
+            defaultTime = defaultTime
+              .hour(maxTimeDayjs.value.hour())
+              .minute(maxTimeDayjs.value.minute())
+              .second(maxTimeDayjs.value.second())
+            if (defaultTime.hour() === maxTimeDayjs.value.hour()) {
+              defaultTime = defaultTime.minute(
+                Math.min(maxTimeDayjs.value.minute(), defaultTime.minute())
+              )
+              if (defaultTime.minute() === maxTimeDayjs.value.minute()) {
+                defaultTime = defaultTime.second(0)
+              }
+            }
           }
         }
+      }
+
+      if (props.mode === 'datetimeNoSecond') {
+        defaultTime = defaultTime.second(0)
       }
     } else {
       defaultTime = defaultTime.hour(
@@ -167,6 +214,10 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
         if (defaultTime.minute() === maxTimeDayjs.value.minute()) {
           defaultTime = defaultTime.second(0)
         }
+      }
+
+      if (props.mode === 'timeNoSecond') {
+        defaultTime = defaultTime.second(0)
       }
     }
     generatePickerData(defaultTime)
@@ -201,10 +252,12 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
       )
       dateTimeValue = `${value[0]}/${month}/${date}`
     }
-    if (props.mode === 'time') {
-      dateTimeValue = `${value[0]}:${value[1]}:${value[2]}`
+    if (props.mode === 'time' || props.mode === 'timeNoSecond') {
+      dateTimeValue = `${value[0]}:${value[1]}:${
+        props.mode === 'time' ? value[2] : '00'
+      }`
     }
-    if (props.mode === 'datetime') {
+    if (props.mode === 'datetime' || props.mode === 'datetimeNoSecond') {
       const year = Number(value[0])
       const month = Number(value[1])
       const date = Math.min(
@@ -214,7 +267,9 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
           .daysInMonth(),
         Number(value[2])
       )
-      dateTimeValue = `${value[0]}/${month}/${date} ${value[3]}:${value[4]}:${value[5]}`
+      dateTimeValue = `${value[0]}/${month}/${date} ${value[3]}:${value[4]}:${
+        props.mode === 'datetime' ? value[5] : '00'
+      }`
     }
     return fillDateTime(dateTimeValue)
   }
@@ -256,6 +311,18 @@ export const useDateTimePicker = (props: DateTimePickerProps) => {
         timeValue.hour(),
         timeValue.minute(),
         timeValue.second(),
+      ]
+    }
+    if (props.mode === 'timeNoSecond') {
+      pickerSelectData.value = [timeValue.hour(), timeValue.minute()]
+    }
+    if (props.mode === 'datetimeNoSecond') {
+      pickerSelectData.value = [
+        timeValue.year(),
+        timeValue.month() + 1,
+        timeValue.date(),
+        timeValue.hour(),
+        timeValue.minute(),
       ]
     }
 

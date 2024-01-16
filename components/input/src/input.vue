@@ -77,8 +77,8 @@ const {
     <!-- 文本框 -->
     <input
       v-else
-      :class="[ns.e('base'), ns.e('input')]"
-      :type="type === 'password' ? 'text' : type"
+      :class="[ns.e('base'), ns.e('input'), ns.em('input', type)]"
+      :type="type === 'password' || type === 'select' ? 'text' : type"
       :value="inputText"
       :placeholder="placeholder"
       :password="type === 'password' && !passwordVisible"

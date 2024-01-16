@@ -28,6 +28,7 @@ const inputTypes = [
 ] as const
 
 const inputConfirmTypes = [
+  '',
   'send',
   'search',
   'next',
@@ -100,6 +101,10 @@ export const inputProps = buildProps({
     type: String,
     default: 'tn-gray-disabled',
   },
+  /**
+   * @description 下划线边框
+   */
+  underline: Boolean,
   /**
    * @description 自定义样式
    */

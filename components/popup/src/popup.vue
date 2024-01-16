@@ -8,19 +8,20 @@ const props = defineProps(popupProps)
 defineEmits(popupEmits)
 
 const {
+  iosDevice,
   showOverlay,
   showPopup,
   visiblePopup,
-  overlayZIndex,
-  zIndex,
   onClickCloseBtn,
   onClickOverlay,
 } = usePopup(props)
-const { ns, popupContentClass, popupContentStyle } = usePopupCustomStyle(props)
+const { ns, overlayZIndex, zIndex, popupContentClass, popupContentStyle } =
+  usePopupCustomStyle(props)
 </script>
 
 <template>
   <view
+    v-if="!iosDevice || (iosDevice && visiblePopup)"
     :class="[ns.b(), ns.is('show', showPopup), ns.is('visible', visiblePopup)]"
     :style="{
       zIndex,

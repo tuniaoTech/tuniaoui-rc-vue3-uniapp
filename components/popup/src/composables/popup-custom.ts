@@ -1,7 +1,6 @@
 import { computed, toRef } from 'vue'
 import { useComponentColor, useNamespace } from '../../../../hooks'
 import { formatDomSizeValue } from '../../../../utils'
-import { usePopup } from './use-popup'
 
 import type { CSSProperties } from 'vue'
 import type { PopupProps } from '../popup'
@@ -9,7 +8,11 @@ import type { PopupProps } from '../popup'
 export const usePopupCustomStyle = (props: PopupProps) => {
   const ns = useNamespace('popup')
 
-  const { zIndex } = usePopup(props)
+  // 当前模态框的zIndex
+  const zIndex = computed(() => Number(props.zIndex))
+
+  // 遮罩层的zIndex
+  const overlayZIndex = computed(() => zIndex.value - 1)
 
   // 内容背景颜色
   const [contentBgColorClass, contentBgColorStyle] = useComponentColor(
@@ -110,6 +113,8 @@ export const usePopupCustomStyle = (props: PopupProps) => {
 
   return {
     ns,
+    zIndex,
+    overlayZIndex,
     popupContentClass,
     popupContentStyle,
   }

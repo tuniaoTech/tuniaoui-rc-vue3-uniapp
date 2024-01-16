@@ -205,6 +205,9 @@ export const buttonProps = buildProps({
     type: Boolean,
     default: true,
   },
+  clickModifiers: {
+    type: String,
+  },
 })
 export const buttonEmits = {
   /**

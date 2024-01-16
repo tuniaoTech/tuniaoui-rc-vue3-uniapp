@@ -65,7 +65,7 @@ export const useDateTimeData = (props: DateTimePickerProps) => {
   const fillDateTime = (value: string, format?: string): Dayjs => {
     if (!format) format = innerDefaultDateTimeFormat
     let dateTime = ''
-    if (props.mode === 'time') {
+    if (props.mode === 'time' || props.mode === 'timeNoSecond') {
       const timeReg = /^(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2}))?$/
       dateTime = value.replace(timeReg, (_, hour, minute, second) => {
         return `1970/01/01 ${hour}:${minute || '00'}:${second || '00'}`
@@ -195,20 +195,28 @@ export const useDateTimeData = (props: DateTimePickerProps) => {
         : value.daysInMonth()
     // 判断是否有设置开始、结束时间，如果没有则使用00:00:00和23:59:59
     const minHour =
-      (sameMinYear && sameMinMonth && sameMinDate) || props.mode === 'time'
+      (sameMinYear && sameMinMonth && sameMinDate) ||
+      props.mode === 'time' ||
+      props.mode === 'timeNoSecond'
         ? minTimeDayjs.value.hour()
         : 0
     const maxHour =
-      (sameMaxYear && sameMaxMonth && sameMaxDate) || props.mode === 'time'
+      (sameMaxYear && sameMaxMonth && sameMaxDate) ||
+      props.mode === 'time' ||
+      props.mode === 'timeNoSecond'
         ? maxTimeDayjs.value.hour()
         : 23
     const minMinute =
-      ((sameMinYear && sameMinMonth && sameMinDate) || props.mode === 'time') &&
+      ((sameMinYear && sameMinMonth && sameMinDate) ||
+        props.mode === 'time' ||
+        props.mode === 'timeNoSecond') &&
       sameMinHour
         ? minTimeDayjs.value.minute()
         : 0
     const maxMinute =
-      ((sameMaxYear && sameMaxMonth && sameMaxDate) || props.mode === 'time') &&
+      ((sameMaxYear && sameMaxMonth && sameMaxDate) ||
+        props.mode === 'time' ||
+        props.mode === 'timeNoSecond') &&
       sameMaxHour
         ? maxTimeDayjs.value.minute()
         : 59
@@ -319,6 +327,16 @@ export const useDateTimeData = (props: DateTimePickerProps) => {
         minuteColumnData.value,
         secondColumnData.value
       )
+    if (props.mode === 'datetimeNoSecond')
+      result.push(
+        yearColumnData.value,
+        monthColumnData.value,
+        dayColumnData.value,
+        hourColumnData.value,
+        minuteColumnData.value
+      )
+    if (props.mode === 'timeNoSecond')
+      result.push(hourColumnData.value, minuteColumnData.value)
 
     return result
   })

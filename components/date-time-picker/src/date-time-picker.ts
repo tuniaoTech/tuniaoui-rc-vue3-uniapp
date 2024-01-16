@@ -10,6 +10,8 @@ export const dateTimePickerModes = [
   'date',
   'datetime',
   'time',
+  'datetimeNoSecond',
+  'timeNoSecond',
 ] as const
 
 export const dateTimePickerProps = buildProps({

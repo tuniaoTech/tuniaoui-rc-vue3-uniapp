@@ -60,10 +60,14 @@ export const useInputCustomStyle = (
     if (validateState.value === 'error') cls.push(ns.m('error'))
 
     // 设置边框
-    if (props.border || validateState.value === 'error') {
-      cls.push('tn-border')
+    if (props.border || props.underline || validateState.value === 'error') {
+      cls.push(props.underline ? 'tn-border-bottom' : 'tn-border')
       if (validateState.value === 'error') cls.push('tn-red_border')
       else if (borderColorClass.value) cls.push(borderColorClass.value)
+    }
+
+    if (props.underline) {
+      cls.push(ns.m('underline'))
     }
 
     if (props.customClass) cls.push(props.customClass)

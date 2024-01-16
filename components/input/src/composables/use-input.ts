@@ -81,7 +81,12 @@ export const useInput = (
       props.type === 'textarea' && !!props?.maxlength && !!props?.showWordLimit
   )
   // 当前的字数
-  const currentWordCount = ref(0)
+  const currentWordCount = computed<number>(() => {
+    if (props.showWordLimit && props.type === 'textarea') {
+      return inputText.value?.length || 0
+    }
+    return 0
+  })
 
   // 内容输入触发事件
   const inputInputEvent = (event: any) => {
@@ -121,7 +126,6 @@ export const useInput = (
   // 更新输入框内容
   const _updateInputText = (value: string) => {
     value = props.trim ? trim(value) : value
-    if (showWordLimit.value) currentWordCount.value = value.length
     // inputText.value = value
     emits(UPDATE_MODEL_EVENT, _formatInputText(value))
     nextTick(() => {
@@ -138,6 +142,7 @@ export const useInput = (
   }
 
   const _formatInputText = (value: string) => {
+    if (value === '') return ''
     if (props.type === 'number' || props.type === 'digit')
       return Number.parseFloat(value)
     return value
