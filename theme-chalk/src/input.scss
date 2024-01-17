@@ -79,6 +79,7 @@ $input-sizes: map-merge(
 
   @include e(input) {
     @include m(select) {
+      z-index: 1;
       :deep(.uni-input-input) {
         z-index: -1;
       }
