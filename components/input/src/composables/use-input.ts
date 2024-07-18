@@ -24,11 +24,13 @@ export const useInput = (
   const { form, formItem } = useFormItem()
 
   // 输入框内容
-  const inputText = ref<string>(String(props.modelValue ?? ''))
+  const inputText = ref<string>(
+    String(isEmptyVariableInDefault(props.modelValue, ''))
+  )
   watch(
     () => props.modelValue,
     (val) => {
-      inputText.value = String(val ?? '')
+      inputText.value = String(isEmptyVariableInDefault(val, ''))
       if (props.validateEvent) {
         formItem?.validate?.('change').catch((err) => {
           debugWarn(err)

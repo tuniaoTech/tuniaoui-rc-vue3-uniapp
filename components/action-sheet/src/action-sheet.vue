@@ -15,6 +15,7 @@ const {
   showCancel,
   cancelText,
   overlay,
+  overlayClosable,
   openPopup,
   showActionSheet,
   popupCloseEvent,
@@ -37,7 +38,8 @@ defineExpose({
     :z-index="zIndex"
     bg-color="transparent"
     :safe-area-inset-bottom="false"
-    @close="popupCloseEvent"
+    :overlay-closeable="overlayClosable"
+    @overlay-click="popupCloseEvent"
   >
     <view class="tn-u-safe-area" :class="[ns.b(), ns.is('shadow', !overlay)]">
       <!-- 标题 -->

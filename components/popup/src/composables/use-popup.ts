@@ -50,20 +50,21 @@ export const usePopup = (props: PopupProps) => {
   // 更新模态框的状态
   const updateModelValue = (value: boolean) => {
     emit(UPDATE_MODEL_EVENT, value)
-
-    // nextTick(() => {
-    //   emit(value ? 'open' : 'close')
-    // })
   }
 
   // 点击关闭按钮
   const onClickCloseBtn = () => {
     updateModelValue(false)
+    emit('close')
   }
 
   // 点击遮罩层关闭模态框
   const onClickOverlay = () => {
-    if (props.overlayCloseable) updateModelValue(false)
+    if (props.overlayCloseable) {
+      updateModelValue(false)
+      emit('close')
+      emit('overlay-click')
+    }
   }
 
   return {

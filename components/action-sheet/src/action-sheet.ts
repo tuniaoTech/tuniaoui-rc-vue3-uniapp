@@ -39,6 +39,10 @@ export interface ActionSheetOptions {
    */
   mask?: boolean
   /**
+   * @description 点击蒙层是否允许关闭
+   */
+  maskClosable?: boolean
+  /**
    * @description 点击取消按钮触发的回调函数，返回 false 或者返回 Promise 且被 reject 则取消关闭
    */
   cancel?: () => (Promise<boolean> | void) | boolean

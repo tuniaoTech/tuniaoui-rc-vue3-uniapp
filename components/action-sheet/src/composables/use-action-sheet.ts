@@ -22,6 +22,7 @@ export const useActionSheet = () => {
     title: '',
     cancelText: '取 消',
     mask: true,
+    maskClosable: false,
     cancel: undefined,
     select: undefined,
   }
@@ -45,13 +46,17 @@ export const useActionSheet = () => {
   const cancelText = computed(() => options.cancelText)
   // 是否显示遮罩
   const overlay = computed(() => isEmptyVariableInDefault(options.mask, true))
+  // 点击遮罩是否允许关闭
+  const overlayClosable = computed(() =>
+    isEmptyVariableInDefault(options.maskClosable, false)
+  )
 
   // 弹出popup弹框
   const openPopup = ref<boolean>(false)
 
   // popup弹框关闭事件
   const popupCloseEvent = () => {
-    if (!options.cancel) {
+    if (!options.cancel || overlayClosable.value) {
       openPopup.value = false
       return
     }
@@ -127,6 +132,7 @@ export const useActionSheet = () => {
     showCancel,
     cancelText,
     overlay,
+    overlayClosable,
     openPopup,
     showActionSheet,
     popupCloseEvent,

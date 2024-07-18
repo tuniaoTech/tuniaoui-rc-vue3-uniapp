@@ -1449,7 +1449,7 @@ _2023-09-10_
 #### Fixed
 
 - 修复无法识别`vw`和`vh`单位
-  
+
 ### 1.0.15-beta.1
 
 #### Fixed
@@ -1582,3 +1582,15 @@ _2023-09-10_
 - 修复`TnInput`在`textarea`模式下初始化值的时候无法统计字数的问题
 - 修复`TnPopup`初始化时会触发`close`和`open`方法的问题
 
+### 1.0.21-beta.1
+
+#### Fixed
+
+- 修复`TnInput`在部分环境下无法使用的问题
+- 修复`TnPicker`在没有选中任何值得情况下多列无法选中得问题
+- 修复`TnPicker`在多列选择时初始化值为字符串下选中不正确的问题
+
+#### 新增
+
+- `TnActionSheer`新增`maskClosable`参数设置点击遮罩是否关闭
+- `TnPopup`新增`overlay-click`遮罩点击事件

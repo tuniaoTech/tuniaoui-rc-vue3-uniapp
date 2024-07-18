@@ -112,6 +112,7 @@ export const popupEmits = {
   [UPDATE_MODEL_EVENT]: (value: boolean) => isBoolean(value),
   open: () => true,
   close: () => true,
+  ['overlay-click']: () => true,
 }
 
 export type PopupProps = ExtractPropTypes<typeof popupProps>

@@ -140,6 +140,7 @@ export const usePicker = (props: PickerProps) => {
     // 如果没有设置默认值，则默认选中第一项
     if (
       props.modelValue === undefined ||
+      (!props.modelValue && ['multiple', 'cascade'].includes(pickerMode)) ||
       (isArray(props.modelValue) && !props.modelValue.length)
     ) {
       indexValue = Array.from({ length: pickerData.value.length }, () => 0)
@@ -159,10 +160,12 @@ export const usePicker = (props: PickerProps) => {
           return ~pickerIndex ? pickerIndex : 0
         })
       } else {
-        const index = pickerData.value[0].findIndex(
-          (item) => item.value === props.modelValue
-        )
-        indexValue = [index === -1 ? 0 : index]
+        indexValue = pickerData.value.map((_, k: number) => {
+          const index = pickerData.value[k].findIndex(
+            (item) => item.value === props.modelValue
+          )
+          return index === -1 ? 0 : index
+        })
       }
     }
     currentPickerIndex.value = indexValue
