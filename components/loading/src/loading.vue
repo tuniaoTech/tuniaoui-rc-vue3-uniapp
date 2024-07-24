@@ -23,6 +23,15 @@ export default {
 }
 </script>
 // #endif
+// #ifdef MP-TOUTIAO
+<script lang="ts">
+export default {
+  options: {
+    applyFragment: true,
+  },
+}
+</script>
+// #endif
 
 <template>
   <view v-if="show" :class="[loadingClass]" :style="loadingStyle">
