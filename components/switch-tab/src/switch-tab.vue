@@ -27,7 +27,7 @@ const { ns, tabClass, tabStyle, switchTabClass, switchTabStyle } =
     </view>
     <!-- 内容区域 -->
     <view :class="[ns.e('content')]">
-      <slot />
+      <slot></slot>
     </view>
   </view>
 </template>
