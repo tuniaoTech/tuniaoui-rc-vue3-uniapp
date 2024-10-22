@@ -16,7 +16,14 @@ const { overlayClass, overlayStyle, overlayClick } = useOverlay(props, emits)
     @tap.stop="overlayClick"
     @touchmove.stop.prevent="() => {}"
   >
-    <slot />
+  <template v-if="props.destroyContent">
+    <template v-if="props.show">
+      <slot></slot>
+    </template>
+  </template>
+  <template v-else>
+    <slot></slot>
+  </template>
   </view>
 </template>
 

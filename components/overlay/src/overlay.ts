@@ -32,6 +32,14 @@ export const overlayProps = buildProps({
     type: Number,
     default: ZIndex.mask,
   },
+  /**
+   * @description 是否销毁组件中的内容
+   * @default false
+   * **/
+  destroyContent: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 export const overlayEmits = {
